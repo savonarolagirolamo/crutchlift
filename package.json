@@ -12,8 +12,8 @@
   },
   "main": "build/index.js",
   "bin": "build/cli/index.js",
-  "repository": "https://github.com/kokkekpek/vendee",
-  "author": "@kokkekpek",
+  "repository": "https://github.com/savonarolagirolamo/vendee",
+  "author": "@savonarolagirolamo",
   "license": "GPL-3.0",
   "engines": {
     "node": ">=14.0.0"

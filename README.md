@@ -37,21 +37,24 @@ npx vendee@latest
 ![initialization](docs/initialization.gif)
 
 ## Documentation
-[vendee.top](https://vendee.top) | [source](https://github.com/kokkekpek/vendee-docs)
+[vendee.top](https://vendee.top) | [source](https://github.com/savonarolagirolamo/vendee-docs)
 
 ## Examples
-* [vendee-example](https://github.com/kokkekpek/vendee-example) - simple example of using Vendee for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vendee-example)
-* [vendee-example-web](https://github.com/kokkekpek/vendee-example-web) - simple example of using [vendee-example](https://github.com/kokkekpek/vendee-example) in web published at [example.vendee.top](https://example.vendee.top)
+
+* [vendee-example](https://github.com/savonarolagirolamo/vendee-example) - simple example of using Vendee for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vendee-example)
+* [vendee-example-web](https://github.com/savonarolagirolamo/vendee-example-web) - simple example of using [vendee-example](https://github.com/savonarolagirolamo/vendee-example) in web published at [example.vendee.top](https://example.vendee.top)
 
 ## Tools
-* [vendee-keys](https://github.com/kokkekpek/vendee-keys) - methods of working with key pair
+
+* [vendee-keys](https://github.com/savonarolagirolamo/vendee-keys) - methods of working with key pair
 
 ## Contributing
 
 * [Read CONTRIBUTING.md](./CONTRIBUTING.md) to view development commands
-* [Open an issue](https://github.com/kokkekpek/vendee/issues/new) if you want report a bug or make a suggestion
+* [Open an issue](https://github.com/savonarolagirolamo/vendee/issues/new) if you want report a bug or make a suggestion
 * **Make a pull request** if you want to add something
 
 ## Feedback and support
+
 [![telegram](https://img.shields.io/endpoint?label=Chat&style=flat&url=https%3A%2F%2Fmogyo.ro%2Fquart-apis%2Ftgmembercount%3Fchat_id%3Dvendeeframework)](https://t.me/vendeeframework)
 [![discord](https://img.shields.io/discord/1115115082213494875?label=Chat&logo=discord)](https://discord.gg/Ef57GCr5)
