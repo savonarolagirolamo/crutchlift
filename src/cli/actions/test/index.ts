@@ -15,6 +15,9 @@ export async function test (
   network: string = SE_NETWORK,
   compilation: boolean = true
 ): Promise<void> {
+  if (patterns.length === 0)
+    patterns = ['']
+
   ///////////
   // Up SE //
   ///////////
