@@ -6,9 +6,6 @@ keys
 # Last build information
 cache
 
-# Builded contracts
-build
-
 # Compiled TypeScript files from build directory
 dist
 
