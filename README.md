@@ -34,6 +34,8 @@ TVM-Solidity contract development framework
 npx vendee@latest
 ```
 
+![initialization](docs/initialization.gif)
+
 ## Documentation
 [vendee.top](https://vendee.top) | [source](https://github.com/kokkekpek/vendee-docs)
 
