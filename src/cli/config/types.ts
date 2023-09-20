@@ -13,9 +13,9 @@ export interface SEConfig {
 }
 
 export interface PathsConfig {
-  contracts: string
-  cache: string
   build: string
+  cache: string
+  contracts: string
   tests: string
 }
 

@@ -31,9 +31,9 @@ export function validateAndSetDefaults (config: any): Validation {
       instance: Joi.string().default(defaults.se.instance)
     }).default(defaults.se),
     paths: Joi.object({
-      contracts: Joi.string().default(defaults.paths.contracts),
-      cache: Joi.string().default(defaults.paths.cache),
       build: Joi.string().default(defaults.paths.build),
+      cache: Joi.string().default(defaults.paths.cache),
+      contracts: Joi.string().default(defaults.paths.contracts),
       tests: Joi.string().default(defaults.paths.tests)
     }).default(defaults.paths)
   })

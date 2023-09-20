@@ -49,10 +49,10 @@ const config: Config = {
    */
   paths: {
     /**
-     * Path to contracts directory
-     * @default 'contracts'
+     * Path to compiled contracts directory
+     * @default 'build'
      */
-    contracts: 'contracts',
+    build: 'build',
 
     /**
      * Path to compilation cache directory
@@ -61,10 +61,10 @@ const config: Config = {
     cache: 'cache',
 
     /**
-     * Path to compiled contracts directory
-     * @default 'build'
+     * Path to contracts directory
+     * @default 'contracts'
      */
-    build: 'build',
+    contracts: 'contracts',
 
     /**
      * Path to tests directory
