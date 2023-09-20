@@ -28,7 +28,8 @@
   ],
   "scripts": {
     "build": "tsc --build .",
-    "env": "cpy .env.example . --rename .env"
+    "env": "cpy .env.example . --rename .env",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "mocha": "^10.2.0",
