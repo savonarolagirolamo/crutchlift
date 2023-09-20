@@ -1,7 +1,12 @@
 import { SafeMultisigWalletContent } from './SafeMultisigWalletContent'
 import { type CompiledContractConfig, Contract, type ContractOptions, type ResultOfCall } from '../../index'
-import { type KeyPair } from '@eversdk/core'
+import { type KeyPair, type ResultOfProcessMessage } from '@eversdk/core'
 import { ZERO } from '../../constants'
+
+type DeployIn = {
+  owners: string[] | number[] | bigint[]
+  reqConfirms: string | number | bigint
+}
 
 type SendTransactionIn = {
   dest: string
@@ -112,6 +117,15 @@ export class SafeMultisigWallet extends Contract {
       }, options)
     this._call = new SafeMultisigWalletCalls(this)
     this._run = new SafeMultisigWalletRuns(this)
+  }
+
+  async deploy (
+    value: string | number | bigint,
+    input: DeployIn,
+    useGiver: boolean = true,
+    timeout: number = 60000
+  ): Promise<ResultOfProcessMessage> {
+    return await this._deploy(value, input, useGiver, timeout)
   }
 
   get call (): SafeMultisigWalletCalls {

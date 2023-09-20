@@ -1,7 +1,7 @@
 import { type Giver, type SendParameters } from '../index'
 import { GiverV3 as GiverV3Contract } from '../../contract/samples/GiverV3'
 import { type Contract, type ContractOptions, type ResultOfCall } from '../../contract'
-import { type KeyPair } from '@eversdk/core'
+import { type KeyPair, type ResultOfProcessMessage } from '@eversdk/core'
 
 export class GiverV3 implements Giver {
   private readonly _contract: GiverV3Contract
@@ -20,5 +20,9 @@ export class GiverV3 implements Giver {
       value: options.value,
       bounce: false
     })
+  }
+
+  async deploy (value: string | number | bigint): Promise<ResultOfProcessMessage> {
+    return await this._contract._deploy(value, {}, false)
   }
 }

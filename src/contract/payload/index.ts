@@ -2,7 +2,7 @@ import transferAbi from './transfer.abi.json'
 import { type AbiContract, type TonClient } from '@eversdk/core'
 import { Global } from '../../global'
 import { stringToHex } from '../../utils/hex'
-import { noClientError } from '../constants'
+import { error } from '../constants'
 
 /**
  * Generate payload for transfer coins with comment
@@ -12,7 +12,7 @@ import { noClientError } from '../constants'
 export async function createTransferPayload (comment: string = '', client?: TonClient): Promise<string> {
   const cl = client ?? Global.client
   if (cl === undefined)
-    throw noClientError
+    throw error.noClient
 
   return await createPayload(transferAbi, 'transfer', { comment: stringToHex(comment) }, cl)
 }
@@ -30,7 +30,7 @@ export async function createPayload (
 ): Promise<string> {
   const cl = client ?? Global.client
   if (cl === undefined)
-    throw noClientError
+    throw error.noClient
 
   return (await cl.abi.encode_message_body({
     abi: {

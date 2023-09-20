@@ -30,7 +30,7 @@ export async function createGlobalGiver (config: VendeeConfig, network: string, 
     return new GiverV2(keys, { client })
   if (giver === GIVER.v3)
     return new GiverV3(keys, { client })
-  if (giver === GIVER.se.safeMultiSigWallet)
+  if (giver === GIVER.safeMultiSigWallet)
     return new SafeMultisigWalletGiver(keys, { client })
 
   /////////////
