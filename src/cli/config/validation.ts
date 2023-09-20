@@ -19,6 +19,7 @@ const defaults: VendeeConfig = {
     build: 'build',
     cache: 'cache',
     contracts: 'contracts',
+    keys: 'keys',
     tests: 'tests'
   }
 }
@@ -51,6 +52,7 @@ export function validateAndSetDefaults (config: any): Validation {
       build: Joi.string().default(defaults.paths.build),
       cache: Joi.string().default(defaults.paths.cache),
       contracts: Joi.string().default(defaults.paths.contracts),
+      keys: Joi.string().default(defaults.paths.keys),
       tests: Joi.string().default(defaults.paths.tests)
     }).default(defaults.paths)
   })

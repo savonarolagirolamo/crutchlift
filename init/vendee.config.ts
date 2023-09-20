@@ -32,7 +32,7 @@ const config: Config = {
       giver: 'se'
     },
     fld: {
-      endpoints: ['https://n01.fld.dapp.tonlabs.io'],
+      endpoints: [process.env.FLD_ENDPOINT ?? ''],
       giver: 'GiverV3'
     },
     main: {
@@ -104,6 +104,12 @@ const config: Config = {
      * @default 'build'
      */
     build: 'build',
+
+    /**
+     * Path to contract keys directory
+     * @default 'keys'
+     */
+    keys: 'keys',
 
     /**
      * Path to tests directory

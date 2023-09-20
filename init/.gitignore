@@ -1,5 +1,13 @@
 node_modules
+
+# Contract keys
 keys
+
+# Last build information
 cache
+
+# URL to endpoins and other private settings
 .env
+
+# Logs
 *.log

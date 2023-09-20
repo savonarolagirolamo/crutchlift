@@ -24,6 +24,7 @@ export interface PathsConfig {
   build: string
   cache: string
   contracts: string
+  keys: string
   tests: string
 }
 
