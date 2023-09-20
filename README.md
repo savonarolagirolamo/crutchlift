@@ -4,8 +4,8 @@
 
 TVM-Solidity contract development framework
 
-![npm](https://img.shields.io/npm/v/vendee?label=npm)
-![downloads](https://img.shields.io/npm/dt/vendee?label=downloads)
+[![npm](https://img.shields.io/npm/v/vendee?label=npm)](https://www.npmjs.com/package/vendee)
+[![downloads](https://img.shields.io/npm/dt/vendee?label=downloads)](https://www.npmjs.com/package/vendee)
 
 ## Overview 
 
@@ -51,4 +51,5 @@ npx vendee@latest
 * **Make a pull request** if you want to add something
 
 ## Feedback and support
-[Telegram](https://t.me/vendeeframework) | [Discord](https://discord.gg/Ef57GCr5)
+[![telegram](https://img.shields.io/endpoint?label=Chat&style=flat&url=https%3A%2F%2Fmogyo.ro%2Fquart-apis%2Ftgmembercount%3Fchat_id%3Dvendeeframework)](https://t.me/vendeeframework)
+[![discord](https://img.shields.io/discord/1115115082213494875?label=Chat&logo=discord)](https://discord.gg/Ef57GCr5)
