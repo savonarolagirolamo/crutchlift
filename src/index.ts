@@ -6,7 +6,7 @@ import { type Config } from './cli/config/types'
 //////////////
 // Contract //
 //////////////
-import { AccountType, type CompiledContractConfig, type ResultOfCall, Contract } from './contract'
+import { AccountType, type CompiledContractConfig, type ContractOptions, type ResultOfCall, Contract } from './contract'
 import { ZERO256, ZERO } from './contract/constants'
 import { createPayload, createTransferPayload } from './contract/payload'
 import { GiverV2 } from './contract/samples/GiverV2'
@@ -52,6 +52,7 @@ export type { Config }
 export {
   AccountType,
   type CompiledContractConfig,
+  type ContractOptions,
   type ResultOfCall,
   Contract,
   ZERO256,
