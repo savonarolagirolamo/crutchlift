@@ -18,6 +18,28 @@
   "engines": {
     "node": ">=14.0.0"
   },
+  "files": [
+    "build/",
+    "docs/",
+    "init/",
+    "src/",
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "tsconfig.json",
+    "yarn.lock"
+  ],
+  "keywords": [
+    "Venom",
+    "Everscale",
+    "TON",
+    "Blockchain",
+    "Smart-contracts",
+    "Contracts",
+    "TypeScript",
+    "Solidity",
+    "Framework"
+  ],
   "dependencies": {
     "colors": "^1.4.0",
     "commander": "^10.0.1",

@@ -18,6 +18,5 @@
     "noUnusedLocals": true,
     "outDir": "build"
   },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["./**/package.json"]
+  "include": ["./src/**/*.ts"]
 }
