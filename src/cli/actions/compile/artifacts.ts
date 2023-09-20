@@ -5,7 +5,8 @@ import { globSync } from 'glob'
 
 export const ABI_JSON: string = '.abi.json'
 export const CONTENT_TS: string = 'Content.ts'
-const extensions = ['.tvc', ABI_JSON, CONTENT_TS]
+export const TS: string = '.ts'
+const extensions = ['.tvc', ABI_JSON, CONTENT_TS, TS]
 
 /**
  * Return a set of contract assembly artifacts

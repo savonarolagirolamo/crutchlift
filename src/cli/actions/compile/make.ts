@@ -3,6 +3,7 @@ import { type VendeeConfig } from '../../config/types'
 import { consoleTerminal, runCommand, type Terminal } from 'everdev'
 import { green, grey } from 'colors'
 import { ABI_JSON, CONTENT_TS } from './artifacts'
+import { generateTypeScript } from './generator/generateTypeScript'
 
 const onlyErrorConsoleTerminal: Terminal = new class implements Terminal {
   log (..._0: unknown[]): void {}
@@ -28,6 +29,7 @@ export async function make (config: VendeeConfig, contracts: string[]): Promise<
 
     await compile(config, directory, contract)
     await wrap(config, directory, contract)
+    generateTypeScript(config, directory, contract)
   }
 }
 
