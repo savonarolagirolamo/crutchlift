@@ -1,6 +1,7 @@
 import { Argument, Option, program } from 'commander'
 import { compile } from '../actions/compile'
 import { test } from '../actions/test'
+import { run } from '../actions/run'
 import { giverDeploy, giverInfo, giverSend } from '../actions/giver'
 import { clean } from '../actions/clean'
 import { seInfo, seReset, seStart, seStop, seVersion } from '../actions/se'
@@ -10,6 +11,7 @@ import { GIVER_SEND_FLAGS, validateGiverSendOptions } from './giver'
 
 export const COMPILE = 'compile'
 export const TEST = 'test'
+export const RUN = 'run'
 export const GIVER = 'giver'
 export const SE = 'se'
 export const CLEAN = 'clean'
@@ -50,11 +52,21 @@ export function createCommands (config: VendeeConfig): void {
     })
 
   program
+    .command(RUN)
+    .addArgument(new Argument('<script>', 'script path e.g. "./deploy/wallet.ts"'))
+    .addOption(new Option('-n, --network [network]', 'network').choices(Object.keys(config.networks)))
+    .option('-c, --no-compile', 'don\'t compile')
+    .description('run script')
+    .action(async (script: string, options?: { network: string, compile: boolean }): Promise<void> => {
+      await run(config, script, options?.network, options?.compile)
+    })
+
+  program
     .command(GIVER)
     .addArgument(new Argument('<network>', 'network').choices(Object.keys(config.networks)))
     .addArgument(new Argument('<action>', 'action').choices(Object.values(GIVER_ACTIONS)))
     .option(GIVER_SEND_FLAGS.to, 'address to send coins')
-    .option(GIVER_SEND_FLAGS.value, 'coins value e.g. 0.1')
+    .option(GIVER_SEND_FLAGS.value, 'coins value e.g. "0.1"')
     .description('manage giver')
     .action(async (network: string, action: string, options: { to?: string, value?: string }): Promise<void> => {
       const validationResult = validateGiverSendOptions(options)

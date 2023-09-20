@@ -1,0 +1,52 @@
+pragma ever-solidity >= 0.68.0;
+
+import "./interface/ICounter.tsol";
+
+contract Counter is ICounter {
+    ///////////////
+    // Modifiers //
+    ///////////////
+    modifier lessThan64 (uint8 number) {
+        require(number < 64);
+        _;
+    }
+
+    modifier accept {
+        tvm.accept();
+        _;
+    }
+
+    ///////////////
+    // Variables //
+    ///////////////
+    uint256 private _count;
+
+    /////////////////
+    // Constructor //
+    /////////////////
+    constructor(uint8 number) accept lessThan64(number) {
+        _count = number;
+    }
+
+    //////////////
+    // External //
+    //////////////
+    function selfAdd(uint8 number) public lessThan64(number) accept {
+        _count += number;
+    }
+
+    //////////////
+    // Internal //
+    //////////////
+    function add(uint8 number) public lessThan64(number) {
+        _count += number;
+    }
+
+    ////////////
+    // Getter //
+    ////////////
+    function getCount() public view returns (uint256 count) {
+        return _count;
+    }
+}
+

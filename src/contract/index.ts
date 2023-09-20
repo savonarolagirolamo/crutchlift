@@ -134,7 +134,8 @@ export class Contract {
     if (this.tvc === undefined)
       throw new Error('Contract tvc is undefined')
 
-    return this._keys = await generateRandomKeyPair(this.client)
+    this._keys = await generateRandomKeyPair(this.client)
+    return this._keys
   }
 
   /**

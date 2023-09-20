@@ -35,7 +35,7 @@ const config: Config = {
      * @see https://github.com/isaacs/node-glob
      * @default ['']
      */
-    exclude: []
+    exclude: ['interface/*']
   },
 
   /**
@@ -144,18 +144,6 @@ const config: Config = {
      * @default 'latest'
      */
     version: 'latest',
-
-    /**
-     * Custom SE docker image name
-     * @default ''
-     */
-    image: undefined,
-
-    /**
-     * Custom SE docker container name
-     * @default ''
-     */
-    container: undefined,
 
     /**
      * Port on localhost used to expose GraphQL API

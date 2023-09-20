@@ -1,18 +1,14 @@
 import Mocha from 'mocha'
-import { type VendeeConfig } from '../../config/types'
-import { seIsActive, waitForSE } from './se'
-import { seStart } from '../se'
-import { compile } from '../compile'
-import { startPreloader, stopPreloader } from './preloader'
+import { type VendeeConfig } from '../config/types'
+import { SE, upSeIfNotActive } from './common/se'
+import { compile } from './compile'
 import { globSync } from 'glob'
-import { createGlobal } from '../../global/createGlobal'
-
-const SE_NETWORK = 'se'
+import { createGlobal } from '../global/createGlobal'
 
 export async function test (
   config: VendeeConfig,
   patterns: string[] = [''],
-  network: string = SE_NETWORK,
+  network: string = SE,
   compilation: boolean = true
 ): Promise<void> {
   if (patterns.length === 0)
@@ -21,12 +17,7 @@ export async function test (
   ///////////
   // Up SE //
   ///////////
-  if (network === SE_NETWORK && !(await seIsActive(config.se))) {
-    await seStart(config.se)
-    startPreloader('Waiting for query server. This may take a few minutes in first time')
-    await waitForSE(config.se)
-    stopPreloader()
-  }
+  await upSeIfNotActive(network, config.se)
 
   /////////////
   // Compile //
@@ -39,18 +30,21 @@ export async function test (
   ///////////////////
   await createGlobal(config, network)
 
-  ///////////
-  // Tests //
-  ///////////
-  const testsSet = new Set<string>()
+  ////////////////////
+  // Read tests set //
+  ////////////////////
+  const tests = new Set<string>()
   patterns.forEach((value: string): void => {
     const pattern = `${process.cwd()}/${config.paths.tests}/**/*${value}*`
     const files = globSync(pattern, { nodir: true })
-    files.forEach((value: string): void => { testsSet.add(value) })
+    files.forEach((value: string): void => { tests.add(value) })
   })
 
+  //////////////
+  // Run test //
+  //////////////
   const mocha = new Mocha({ timeout: config.timeout })
-  for (const test of testsSet.keys())
+  for (const test of tests.keys())
     mocha.addFile(test)
   mocha.run((fail: number): void => process.exit(fail))
 }

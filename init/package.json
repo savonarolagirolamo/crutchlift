@@ -1,5 +1,5 @@
 {
-  "name": "vendee-project",
+  "name": "your-vendee-project",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -8,14 +8,15 @@
     "env": "cpy .env.example . --rename .env"
   },
   "dependencies": {
+    "mocha": "^10.2.0",
     "vendee": "^1.0.14"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
     "@types/node": "^20.1.1",
-    "cpy-cli": "^4.2.0",
     "chai": "^4.3.7",
+    "cpy-cli": "^4.2.0",
     "dotenv": "^16.0.3",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",

@@ -25,7 +25,7 @@ function getBuildArtifacts (config: VendeeConfig, contract: string): string[] {
 }
 
 /**
- * Return true if build artifacts (e.g. `*.abi.json`) files exists in build directory
+ * Return true if artifact files (e.g. `*.abi.json`) exists in build directory
  * @param config
  * @param contract
  */
@@ -36,7 +36,7 @@ export function buildsArtifactsExists (config: VendeeConfig, contract: string): 
 }
 
 /**
- * Return true if build artifacts (e.g. `*.abi.json`) files exists in build directory
+ * Return true if artifact files (e.g. `*.abi.json`) exists in build directory
  * @param config
  * @param sources
  *   Set {'/home/user/A.tsol', '/home/user/B.tsol'}

@@ -1,19 +1,20 @@
 import { type VendeeConfig } from '../config/types'
-import { BACK, HELP, Select } from './enquirer'
+import { BACK, ELLIPSIS, HELP, Select } from './enquirer'
 import { help } from '../actions/help'
 import { showMainMenu } from './showMainMenu'
-import { test } from '../actions/test'
+import { showRunScriptMenu } from './showRunScriptMenu'
 
-export async function showTestMenu (config: VendeeConfig): Promise<void> {
+export async function showRunMenu (config: VendeeConfig): Promise<void> {
   const choice = await (new Select({
     message: 'Select network',
     choices: [
-      ...Object.keys(config.networks),
+      ...Object.keys(config.networks).map(value => value + ELLIPSIS),
       HELP,
       BACK
     ]
   })).run()
 
+  const network = choice.substring(0, choice.length - ELLIPSIS.length)
   switch (choice) {
     case HELP:
       help()
@@ -23,6 +24,6 @@ export async function showTestMenu (config: VendeeConfig): Promise<void> {
       await showMainMenu(config)
       break
     default:
-      await test(config, [''], choice, true)
+      await showRunScriptMenu(config, network)
   }
 }

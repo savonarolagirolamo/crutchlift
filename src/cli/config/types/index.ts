@@ -45,6 +45,7 @@ export type PathsConfig = {
   contracts: string
   keys: string
   tests: string
+  scripts: string
 }
 
 export type Config = {

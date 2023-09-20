@@ -1,7 +1,8 @@
 import { ELLIPSIS, HELP, QUIT, Select } from './enquirer'
-import { COMPILE, GIVER, SE, TEST, CLEAN } from '../commands'
+import { COMPILE, CLEAN, GIVER, RUN, SE, TEST } from '../commands'
 import { compile } from '../actions/compile'
 import { showTestMenu } from './showTestMenu'
+import { showRunMenu } from './showRunMenu'
 import { showGiverMenu } from './showGiverMenu'
 import { showSEMenu } from './showSEMenu'
 import { clean } from '../actions/clean'
@@ -14,6 +15,7 @@ export async function showMainMenu (config: VendeeConfig): Promise<void> {
     choices: [
       COMPILE,
       TEST + ELLIPSIS,
+      RUN + ELLIPSIS,
       GIVER + ELLIPSIS,
       SE + ELLIPSIS,
       CLEAN,
@@ -29,6 +31,10 @@ export async function showMainMenu (config: VendeeConfig): Promise<void> {
     case TEST + ELLIPSIS:
       process.argv.push(TEST)
       await showTestMenu(config)
+      break
+    case RUN + ELLIPSIS:
+      process.argv.push(RUN)
+      await showRunMenu(config)
       break
     case GIVER + ELLIPSIS:
       process.argv.push(GIVER)

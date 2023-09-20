@@ -26,7 +26,8 @@ const defaults: VendeeConfig = {
     cache: 'cache',
     contracts: 'contracts',
     keys: 'keys',
-    tests: 'tests'
+    tests: 'tests',
+    scripts: 'scripts'
   },
   timeout: 60000
 }
@@ -74,7 +75,8 @@ export function validateAndSetDefaults (config: any):
       cache: Joi.string().default(defaults.paths.cache),
       contracts: Joi.string().default(defaults.paths.contracts),
       keys: Joi.string().default(defaults.paths.keys),
-      tests: Joi.string().default(defaults.paths.tests)
+      tests: Joi.string().default(defaults.paths.tests),
+      scripts: Joi.string().default(defaults.paths.scripts)
     }).default(defaults.paths),
     timeout: Joi.number().default(defaults.timeout)
   })

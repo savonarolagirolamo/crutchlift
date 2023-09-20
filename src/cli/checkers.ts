@@ -1,4 +1,4 @@
-import { GIVER, GIVER_ACTIONS, SE, TEST } from './commands'
+import { GIVER, GIVER_ACTIONS, SE, TEST, RUN } from './commands'
 import { type NetworkConfig } from './config/types'
 
 const LENGTH = process.argv.length
@@ -12,6 +12,10 @@ export function isNoCommands (): boolean {
 
 export function isTestCommand (): boolean {
   return LENGTH === 3 && COMMAND === TEST
+}
+
+export function isRunCommand (): boolean {
+  return LENGTH === 3 && COMMAND === RUN
 }
 
 export function isGiverCommand (): boolean {

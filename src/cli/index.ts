@@ -7,7 +7,9 @@ import {
   isGiverNetworkCommand,
   isGiverNetworkSendCommand,
   isSECommand,
-  FIRST_ARGUMENT, isTestCommand
+  isTestCommand,
+  isRunCommand,
+  FIRST_ARGUMENT
 } from './checkers'
 import { init } from './init'
 import { showMainMenu } from './menus/showMainMenu'
@@ -19,6 +21,7 @@ import { createCommands } from './commands'
 import { program } from 'commander'
 import { showTestMenu } from './menus/showTestMenu'
 import './importTsMocha'
+import { showRunMenu } from './menus/showRunMenu'
 
 async function main (): Promise<void> {
   if (!isConfigExist()) {
@@ -36,6 +39,11 @@ async function main (): Promise<void> {
 
   if (isTestCommand()) {
     await showTestMenu(config)
+    return
+  }
+
+  if (isRunCommand()) {
+    await showRunMenu(config)
     return
   }
 
