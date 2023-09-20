@@ -30,8 +30,8 @@ function getBuildArtifacts (config: VendeeConfig, contract: string): string[] {
  */
 export function buildsArtifactsExists (config: VendeeConfig, contract: string): boolean {
   return getBuildArtifacts(config, contract).reduce((result, value) =>
-      result && fs.existsSync(value)
-    , true)
+    result && fs.existsSync(value)
+  , true)
 }
 
 /**

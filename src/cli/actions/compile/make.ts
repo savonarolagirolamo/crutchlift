@@ -1,16 +1,16 @@
 import path from 'path'
 import { type VendeeConfig } from '../../config/types'
-import { consoleTerminal, runCommand, Terminal } from 'everdev'
+import { consoleTerminal, runCommand, type Terminal } from 'everdev'
 import { green, grey } from 'colors'
 import { ABI_JSON, CONTENT_TS } from './artifacts'
 
 const onlyErrorConsoleTerminal: Terminal = new class implements Terminal {
-  log(..._0: unknown[]): void {}
-  write(_0: string): void {}
-  writeError(text: string): void {
+  log (..._0: unknown[]): void {}
+  write (_0: string): void {}
+  writeError (text: string): void {
     process.stderr.write(text)
   }
-}
+}()
 
 export async function make (config: VendeeConfig, contracts: string[]): Promise<void> {
   await runCommand(consoleTerminal, 'sol set', {
