@@ -26,6 +26,7 @@ const config: Config = {
       /**
        * Giver label
        * SE givers don't need keys
+       * Any user can get coins from `v2` and `v3` givers without keys. Don't use them in production
        * @type {'v2.se' | 'v3.se' | 'safeMultiSigWallet.se' | 'v2', 'v3', 'safeMultiSigWallet'}
        * @default 'v3.se'
        */
