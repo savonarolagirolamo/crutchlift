@@ -2,7 +2,6 @@ import { Argument, program } from 'commander'
 import { compile } from '../actions/compile'
 import { test } from '../actions/test'
 import { giverDeploy, giverInfo, giverSend } from '../actions/giver'
-import { tree } from '../actions/tree'
 import { clean } from '../actions/clean'
 import { seInfo, seReset, seStart, seStop, seVersion } from '../actions/se'
 import { type VendeeConfig } from '../config/types'
@@ -13,7 +12,6 @@ export const COMPILE = 'compile'
 export const TEST = 'test'
 export const GIVER = 'giver'
 export const SE = 'se'
-export const TREE = 'tree'
 export const CLEAN = 'clean'
 
 export const GIVER_ACTIONS = {
@@ -93,11 +91,6 @@ export function createCommands (config: VendeeConfig): void {
           break
       }
     })
-
-  program
-    .command(TREE)
-    .description('show contracts dependency tree')
-    .action((): void => { tree() })
 
   program
     .command(CLEAN)

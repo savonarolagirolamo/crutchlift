@@ -1,10 +1,9 @@
 import { ELLIPSIS, HELP, QUIT, Select } from './enquirer'
-import { COMPILE, GIVER, SE, TEST, TREE, CLEAN } from '../commands'
+import { COMPILE, GIVER, SE, TEST, CLEAN } from '../commands'
 import { compile } from '../actions/compile'
 import { test } from '../actions/test'
 import { showGiverMenu } from './showGiverMenu'
 import { showSEMenu } from './showSEMenu'
-import { tree } from '../actions/tree'
 import { clean } from '../actions/clean'
 import { help } from '../actions/help'
 import { type VendeeConfig } from '../config/types'
@@ -17,7 +16,6 @@ export async function showMainMenu (config: VendeeConfig): Promise<void> {
       TEST,
       GIVER + ELLIPSIS,
       SE + ELLIPSIS,
-      TREE,
       CLEAN,
       HELP,
       QUIT
@@ -38,9 +36,6 @@ export async function showMainMenu (config: VendeeConfig): Promise<void> {
     case SE + ELLIPSIS:
       process.argv.push(SE)
       await showSEMenu(config)
-      break
-    case TREE:
-      tree()
       break
     case CLEAN:
       clean(config.paths)
