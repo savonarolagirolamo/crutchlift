@@ -39,9 +39,10 @@ export interface ResultOfCall {
 
 export class Contract {
   private readonly abi: {
-    type: 'Contract',
+    type: 'Contract'
     value: AbiContract
   }
+
   private readonly initialData?: Record<string, any>
   private readonly keys?: KeyPair
   private readonly tvc?: string

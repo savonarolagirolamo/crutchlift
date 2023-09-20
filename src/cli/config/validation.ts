@@ -6,7 +6,7 @@ const defaults: VendeeConfig = {
   compile: {
     compiler: 'latest',
     linker: 'latest',
-    include: ['**'],
+    include: ['**/*.tsol', '**/*.sol'],
     exclude: []
   },
   networks: {
@@ -27,7 +27,8 @@ const defaults: VendeeConfig = {
     contracts: 'contracts',
     keys: 'keys',
     tests: 'tests'
-  }
+  },
+  timeout: 60000
 }
 
 export function validateAndSetDefaults (config: any):
@@ -74,7 +75,8 @@ export function validateAndSetDefaults (config: any):
       contracts: Joi.string().default(defaults.paths.contracts),
       keys: Joi.string().default(defaults.paths.keys),
       tests: Joi.string().default(defaults.paths.tests)
-    }).default(defaults.paths)
+    }).default(defaults.paths),
+    timeout: Joi.number().default(defaults.timeout)
   })
   return schema.validate(config)
 }

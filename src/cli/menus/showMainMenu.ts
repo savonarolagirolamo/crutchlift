@@ -24,7 +24,7 @@ export async function showMainMenu (config: VendeeConfig): Promise<void> {
 
   switch (choice) {
     case COMPILE:
-      await compile(config, true)
+      await compile(config)
       break
     case TEST + ELLIPSIS:
       process.argv.push(TEST)

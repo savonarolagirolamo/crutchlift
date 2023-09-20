@@ -5,14 +5,14 @@ export type VendeeConfig = {
   networks: Record<string, NetworkConfig>
   se: SEConfig
   paths: PathsConfig
-  timeout?: number
+  timeout: number
 }
 
 export type CompileConfig = {
-  compiler?: string | 'latest'
-  linker?: string | 'latest'
-  include?: string[]
-  exclude?: string[]
+  compiler: string | 'latest'
+  linker: string | 'latest'
+  include: string[]
+  exclude: string[]
 }
 
 export type NetworkConfig = {
@@ -47,4 +47,10 @@ export type PathsConfig = {
   tests: string
 }
 
-export type Config = Partial<VendeeConfig>
+export type Config = {
+  compile?: Partial<CompileConfig>
+  networks?: Record<string, NetworkConfig>
+  se?: Partial<SEConfig>
+  paths?: Partial<PathsConfig>
+  timeout?: number
+}

@@ -88,6 +88,6 @@ export async function namedKeys (name: string, directory?: string, client?: TonC
   if (dir === undefined)
     throw new Error('Keys directory is undefined')
 
-  const file = path.resolve(process.cwd(), `${dir}/${name}.json`)
+  const file = path.resolve(process.cwd(), dir, `${name}.json`)
   return await generateOrReadKeys(file, client)
 }

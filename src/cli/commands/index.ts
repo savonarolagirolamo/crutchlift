@@ -36,8 +36,8 @@ export function createCommands (config: VendeeConfig): void {
   program
     .command(COMPILE)
     .description('compile Solidity contracts')
-    .option('-f, --force', 'Compile all contracts')
-    .action(async (options: { force: boolean }): Promise<void> => { await compile(config, options.force) })
+    .option('-a, --all', 'Compile all contracts')
+    .action(async (options: { all: boolean }): Promise<void> => { await compile(config, options.all) })
 
   program
     .command(TEST)
