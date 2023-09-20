@@ -13,7 +13,7 @@ TVM-Solidity contract development framework
 
 ## Development
 
-### Build and run cli.js
+### Build and run cli script
 
 ```shell
 yarn cli
@@ -31,9 +31,14 @@ yarn build
 yarn clean
 ```
 
-### Lint fix
+### Lint
 
 Run before commit
+
+```shell
+yarn lint
+```
+
 ```shell
 yarn fix
 ```
