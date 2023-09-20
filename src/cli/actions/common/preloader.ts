@@ -5,7 +5,7 @@ const SYMBOLS = '⢿⣻⣽⣾⣷⣯⣟⡿'
 const DELAY = 100
 
 let text: string
-let timer: NodeJS.Timer
+let timer: NodeJS.Timeout
 
 export function startPreloader (message: string): void {
   clear()

@@ -2,9 +2,9 @@ import { showMainMenu } from './showMainMenu'
 import { showGiverActionsMenu } from './showGiverActionsMenu'
 import { help } from '../actions/help'
 import { BACK, ELLIPSIS, HELP, Select } from './enquirer'
-import { type VendeeConfig } from '../config/types'
+import { type VascooConfig } from '../config/types'
 
-export async function showGiverMenu (config: VendeeConfig): Promise<void> {
+export async function showGiverMenu (config: VascooConfig): Promise<void> {
   const choice = await (new Select({
     message: 'Select giver network',
     choices: [

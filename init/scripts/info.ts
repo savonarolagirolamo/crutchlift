@@ -1,6 +1,6 @@
 import { Counter } from '../build'
-import { Global } from 'vendee'
-import { namedKeys } from 'vendee-keys'
+import { Global } from 'vascoo'
+import { namedKeys } from 'vascoo-keys'
 
 async function main (): Promise<void> {
   const keys = await namedKeys('counter')

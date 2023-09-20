@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import path from 'path'
-import { type PathsConfig, type VendeeConfig } from '../../config/types'
+import { type PathsConfig, type VascooConfig } from '../../config/types'
 import { readCache, writeCache } from './cache'
 import { globSync } from 'glob'
 import { make } from './make'
@@ -12,7 +12,7 @@ export type Metadata = {
   imports: string[]
 }
 
-export async function compile (config: VendeeConfig, all: boolean = false): Promise<void> {
+export async function compile (config: VascooConfig, all: boolean = false): Promise<void> {
   const cache = all ? {} : readCache(config)
   const contracts = readContracts(config.paths)
   const metadata = readMetadata(config.paths, cache, contracts)
@@ -217,7 +217,7 @@ function getCandidates (importers: Record<string, string[]>, contracts: string[]
  * @return
  *   Set {'A.tsol', 'B.tsol'}
  */
-function readIncludes (config: VendeeConfig): Set<string> {
+function readIncludes (config: VascooConfig): Set<string> {
   return readFiles(config.paths, config.compile.include)
 }
 
@@ -227,7 +227,7 @@ function readIncludes (config: VendeeConfig): Set<string> {
  * @return
  *   Set {'A.tsol', 'B.tsol'}
  */
-function readExcludes (config: VendeeConfig): Set<string> {
+function readExcludes (config: VascooConfig): Set<string> {
   return readFiles(config.paths, config.compile.exclude)
 }
 

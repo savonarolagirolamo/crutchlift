@@ -1,5 +1,5 @@
 import path from 'path'
-import { type PathsConfig, type VendeeConfig } from '../../config/types'
+import { type PathsConfig, type VascooConfig } from '../../config/types'
 import { consoleTerminal, runCommand, type Terminal } from 'everdev'
 import { green, grey } from 'colors'
 import { ABI_JSON, CONTENT_TS } from './artifacts'
@@ -19,7 +19,7 @@ const onlyErrorConsoleTerminal: Terminal = new class implements Terminal {
  * @param contracts
  *   ['A.tsol', 'B.tsol', 'x/C.tsol']
  */
-export async function make (config: VendeeConfig, contracts: string[]): Promise<void> {
+export async function make (config: VascooConfig, contracts: string[]): Promise<void> {
   await runCommand(consoleTerminal, 'sol set', {
     compiler: config.compile.compiler,
     linker: config.compile.linker

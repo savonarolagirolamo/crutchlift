@@ -1,5 +1,5 @@
 import path from 'path'
-import { type VendeeConfig } from '../config/types'
+import { type VascooConfig } from '../config/types'
 import { BACK, ELLIPSIS, HELP, Select } from './enquirer'
 import { help } from '../actions/help'
 import { run } from '../actions/run'
@@ -10,7 +10,7 @@ import { blue } from 'colors'
 const ROOT_DIRECTORY = '.'
 
 export async function showRunScriptMenu (
-  config: VendeeConfig,
+  config: VascooConfig,
   network: string,
   directory: string = ROOT_DIRECTORY
 ): Promise<void> {

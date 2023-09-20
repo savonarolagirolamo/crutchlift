@@ -1,6 +1,6 @@
 import { type GiverLabels, type SEGiverLabel } from './giverLabels'
 
-export type VendeeConfig = {
+export type VascooConfig = {
   compile: CompileConfig
   networks: Record<string, NetworkConfig>
   se: SEConfig

@@ -1,5 +1,5 @@
 {
-  "name": "vendee-counter",
+  "name": "vascoo-counter",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -16,7 +16,7 @@
     "yarn.lock"
   ],
   "keywords": [
-    "Vendee",
+    "Vascoo",
     "Venom",
     "Everscale",
     "TON",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "mocha": "^10.2.0",
-    "vendee": "^1.1.0"
+    "vascoo": "^1.0.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
@@ -45,6 +45,6 @@
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
-    "vendee-keys": "^1.0.1"
+    "vascoo-keys": "^1.0.1"
   }
 }

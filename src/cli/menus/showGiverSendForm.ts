@@ -1,8 +1,8 @@
 import { giverSend } from '../actions/giver'
 import { Form } from './enquirer'
-import { type VendeeConfig } from '../config/types'
+import { type VascooConfig } from '../config/types'
 
-export async function showGiverSendForm (config: VendeeConfig, network: string): Promise<void> {
+export async function showGiverSendForm (config: VascooConfig, network: string): Promise<void> {
   const options = await new Form({
     message: 'Send coins',
     choices: [

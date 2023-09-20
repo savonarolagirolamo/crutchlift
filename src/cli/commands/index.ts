@@ -5,7 +5,7 @@ import { run } from '../actions/run'
 import { giverDeploy, giverInfo, giverSend } from '../actions/giver'
 import { clean } from '../actions/clean'
 import { seInfo, seReset, seStart, seStop, seVersion } from '../actions/se'
-import { type VendeeConfig } from '../config/types'
+import { type VascooConfig } from '../config/types'
 import { packageJson } from './package'
 import { GIVER_SEND_FLAGS, validateGiverSendOptions } from './giver'
 
@@ -30,7 +30,7 @@ export const SE_ACTIONS = {
   RESET: 'reset'
 }
 
-export function createCommands (config: VendeeConfig): void {
+export function createCommands (config: VascooConfig): void {
   program
     .name(packageJson.name)
     .version(packageJson.version)

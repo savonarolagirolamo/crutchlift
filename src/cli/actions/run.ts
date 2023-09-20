@@ -1,4 +1,4 @@
-import { type VendeeConfig } from '../config/types'
+import { type VascooConfig } from '../config/types'
 import { compile } from './compile'
 import { createGlobal } from '../global/createGlobal'
 import { SE, upSeIfNotActive } from './common/se'
@@ -7,7 +7,7 @@ import fs from 'fs-extra'
 import { red, yellow } from 'colors'
 
 export async function run (
-  config: VendeeConfig,
+  config: VascooConfig,
   script: string,
   network: string = SE,
   compilation: boolean = true

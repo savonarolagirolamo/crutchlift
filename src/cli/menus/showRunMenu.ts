@@ -1,10 +1,10 @@
-import { type VendeeConfig } from '../config/types'
+import { type VascooConfig } from '../config/types'
 import { BACK, ELLIPSIS, HELP, Select } from './enquirer'
 import { help } from '../actions/help'
 import { showMainMenu } from './showMainMenu'
 import { showRunScriptMenu } from './showRunScriptMenu'
 
-export async function showRunMenu (config: VendeeConfig): Promise<void> {
+export async function showRunMenu (config: VascooConfig): Promise<void> {
   const choice = await (new Select({
     message: 'Select network',
     choices: [

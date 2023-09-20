@@ -1,11 +1,11 @@
 import { BACK, HELP, Select } from './enquirer'
-import { type VendeeConfig } from '../config/types'
+import { type VascooConfig } from '../config/types'
 import { SE_ACTIONS } from '../commands'
 import { seInfo, seStart, seVersion, seStop, seReset } from '../actions/se'
 import { help } from '../actions/help'
 import { showMainMenu } from './showMainMenu'
 
-export async function showSEMenu (config: VendeeConfig): Promise<void> {
+export async function showSEMenu (config: VascooConfig): Promise<void> {
   const choice = await (new Select({
     message: 'Local node Simple Emulator',
     choices: [
