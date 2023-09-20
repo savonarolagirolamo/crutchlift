@@ -5,6 +5,40 @@ dotenv.config()
 
 const config: Config = {
   /**
+   * Compilation
+   * Use `npx everdev sol version` to view tools version
+   */
+  compile: {
+    /**
+     * TVM compiler version
+     * @see https://github.com/tonlabs/TON-Solidity-Compiler
+     * @default 'latest'
+     */
+    compiler: 'latest',
+
+    /**
+     * TVM linker
+     * @see https://github.com/tonlabs/TVM-linker
+     * @default 'latest'
+     */
+    linker: 'latest',
+
+    /**
+     * List of source files for compilation in contract directory in **glob** format
+     * @see https://github.com/isaacs/node-glob
+     * @default 'latest'
+     */
+    include: ['**'],
+
+    /**
+     * List of source files excluded from compilation in contracts directory in **glob** format
+     * @see https://github.com/isaacs/node-glob
+     * @default ['']
+     */
+    exclude: []
+  },
+
+  /**
    * Network and givers settings
    */
   networks: {
@@ -104,7 +138,7 @@ const config: Config = {
    * Node Simple Emulator
    * @see https://github.com/tonlabs/everdev/blob/main/docs/command-line-interface/evernode-platform-startup-edition-se.md
    */
-  "se": {
+  se: {
     /**
      * SE version
      * @default 'latest'

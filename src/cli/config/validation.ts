@@ -3,6 +3,12 @@ import { type VendeeConfig } from './types'
 import { GIVER, GIVERS, SE_GIVERS } from './types/giverLabels'
 
 const defaults: VendeeConfig = {
+  compile: {
+    compiler: 'latest',
+    linker: 'latest',
+    include: ['**'],
+    exclude: []
+  },
   networks: {
     local: {
       endpoints: ['http://localhost'],
@@ -28,6 +34,12 @@ export function validateAndSetDefaults (config: any):
 { error: undefined, value: VendeeConfig } |
 { error: ValidationError, value: undefined } {
   const schema: Joi.ObjectSchema = Joi.object({
+    compile: Joi.object({
+      compiler: Joi.string().default(defaults.compile.compiler),
+      linker: Joi.string().default(defaults.compile.linker),
+      include: Joi.array().items(Joi.string()).default(defaults.compile.include),
+      exclude: Joi.array().items(Joi.string()).default(defaults.compile.exclude),
+    }).default(defaults.compile),
     networks: Joi.object().pattern(
       Joi.string(),
       Joi.alternatives(

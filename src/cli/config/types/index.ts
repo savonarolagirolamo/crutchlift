@@ -1,10 +1,18 @@
 import { type GiverLabels, type SEGiverLabel } from './giverLabels'
 
 export type VendeeConfig = {
+  compile: CompileConfig
   networks: Record<string, NetworkConfig>
   se: SEConfig
   paths: PathsConfig
   timeout?: number
+}
+
+export type CompileConfig = {
+  compiler?: string | 'latest'
+  linker?: string | 'latest'
+  include?: string[]
+  exclude?: string[]
 }
 
 export type NetworkConfig = {
