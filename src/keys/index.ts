@@ -7,7 +7,7 @@ import { type KeyPair, type TonClient } from '@eversdk/core'
 /**
  * Wrapper for crypto.generate_random_sign_keys()
  * @example
- *   await createRandomKeyPair('/home/user/keys/GiverV2.keys.json')
+ *   await createRandomKeyPair()
  * @return
  *   {
  *     public: '61d08f0f1aa152095b6b2e19f31bf09d84a5ae6037be9247d0e54a3926d46593',
@@ -76,7 +76,7 @@ export async function generateOrReadKeys (file: string, client?: TonClient): Pro
  * @param directory Keys relative path e.g. `./keys`
  * @param client SDK client
  * @example
- *   namedKeys('/home/user/keys/GiverV2.keys.json')
+ *   namedKeys('root')
  * @return
  *   {
  *     public: '61d08f0f1aa152095b6b2e19f31bf09d84a5ae6037be9247d0e54a3926d46593',

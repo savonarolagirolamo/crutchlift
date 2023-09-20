@@ -1,7 +1,6 @@
 import { SafeMultisigWalletContent } from './SafeMultisigWalletContent'
 import { type CompiledContractConfig, Contract, type ContractOptions, type ResultOfCall } from '../../index'
 import { type KeyPair, type ResultOfProcessMessage } from '@eversdk/core'
-import { ZERO } from '../../constants'
 
 type DeployIn = {
   owners: string[] | number[] | bigint[]
@@ -108,7 +107,7 @@ export class SafeMultisigWallet extends Contract {
       super({
         abi: SafeMultisigWalletContent.abi,
         initialData: config.initialData ?? {},
-        keys: config.keys ?? ZERO.keys,
+        keys: config.keys,
         tvc: SafeMultisigWalletContent.tvc
       }, options)
     else

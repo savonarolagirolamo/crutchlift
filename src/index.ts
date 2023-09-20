@@ -7,7 +7,7 @@ import { type Config } from './cli/config/types'
 // Contract //
 //////////////
 import { AccountType, type CompiledContractConfig, type ContractOptions, type ResultOfCall, Contract } from './contract'
-import { ZERO256, ZERO } from './contract/constants'
+import { ZERO256, ZERO_ADDRESS, ZERO_UINT256 } from './contract/constants'
 import { createPayload, createTransferPayload } from './contract/payload'
 import { GiverV2 } from './contract/samples/GiverV2'
 import { GiverV2Content } from './contract/samples/GiverV2/GiverV2Content'
@@ -56,7 +56,8 @@ export {
   type ResultOfCall,
   Contract,
   ZERO256,
-  ZERO,
+  ZERO_ADDRESS,
+  ZERO_UINT256,
   createPayload,
   createTransferPayload,
   GiverV2,

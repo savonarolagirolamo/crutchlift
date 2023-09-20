@@ -28,7 +28,7 @@ ${payloadClass}
 }
 
 function getImports (name: string): string {
-  return `import { type CompiledContractConfig, Contract, type ContractOptions, type ResultOfCall, ZERO } from 'vendee'
+  return `import { type CompiledContractConfig, Contract, type ContractOptions, type ResultOfCall } from 'vendee'
 import { type KeyPair, type ResultOfProcessMessage } from '@eversdk/core'
 import ${name}Content from './${name}Content'`
 }
@@ -66,12 +66,12 @@ function getContractClass (name: string, abi: AbiContract): string {
   private readonly _call: ${name}Calls
   private readonly _run: ${name}Runs
   private readonly _payload: ${name}Payload
-  constructor (config: CompiledContractConfig, options: ContractOptions = {}) {
+  constructor (config: CompiledContractConfig = {}, options: ContractOptions = {}) {
     if (config.address === undefined)
       super({
         abi: ${name}Content.abi,
         initialData: config.initialData ?? {},
-        keys: config.keys ?? ZERO.keys,
+        keys: config.keys,
         tvc: ${name}Content.tvc
       }, options)
     else

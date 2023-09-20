@@ -8,6 +8,7 @@ import { type Giver } from '../giver'
 import { Global } from '../global'
 import { error } from './constants'
 import { createPayload } from './payload'
+import { generateRandomKeyPair } from '../keys'
 
 export enum AccountType {
   notFound = '-1',
@@ -18,13 +19,9 @@ export enum AccountType {
 }
 
 export type CompiledContractConfig = {
-  address: string
-  initialData?: Record<string, any>
-  keys?: KeyPair
-} | {
   address?: string
   initialData?: Record<string, any>
-  keys: KeyPair
+  keys?: KeyPair
 }
 
 export type ContractOptions = {
@@ -44,28 +41,28 @@ export class Contract {
   }
 
   private readonly initialData?: Record<string, any>
-  private readonly keys?: KeyPair
   private readonly tvc?: string
 
   private readonly client?: TonClient
   private readonly giver?: Giver
 
   private _address?: string
+  private _keys?: KeyPair
   private _lastTransactionLogicTime: string
 
   constructor (
     config: {
       address: string
+      keys?: KeyPair
       abi?: AbiContract
       initialData?: Record<string, any>
       tvc?: string
-      keys?: KeyPair
     } | {
       address?: string
+      keys?: KeyPair
       abi: AbiContract
       initialData: Record<string, any>
       tvc: string
-      keys: KeyPair
     },
     options: {
       client?: TonClient
@@ -73,13 +70,13 @@ export class Contract {
     } = {}
   ) {
     this._address = config.address
+    this._keys = config.keys
     this._lastTransactionLogicTime = '0'
     this.abi = {
       type: 'Contract',
       value: config.abi ?? {}
     }
     this.initialData = config.initialData ?? {}
-    this.keys = config.keys
     this.tvc = config.tvc
 
     this.client = options.client ?? Global.client
@@ -102,9 +99,6 @@ export class Contract {
     if (this.client === undefined)
       throw error.noClient
 
-    if (this.keys === undefined)
-      throw error.noKeys
-
     if (this.tvc === undefined)
       throw new Error('Contract tvc is undefined')
 
@@ -112,7 +106,7 @@ export class Contract {
       abi: this.abi,
       signer: {
         type: 'Keys',
-        keys: this.keys
+        keys: await this.keys()
       },
       deploy_set: {
         tvc: this.tvc,
@@ -120,6 +114,27 @@ export class Contract {
       }
     })).address
     return this._address
+  }
+
+  /**
+   * Generates a random key pair if no keys are given. Next time returns the already generated key pair
+   * @example
+   *   const contract = new Contract(...)
+   *   const address = await contract.keyPair()
+   * @return
+   *   '0:97b53be2604579e89bd0077a5456456857792eb2ff09849d14321fc2c167f29e'
+   */
+  public async keys (): Promise<KeyPair> {
+    if (this._keys !== undefined)
+      return this._keys
+
+    if (this.client === undefined)
+      throw error.noClient
+
+    if (this.tvc === undefined)
+      throw new Error('Contract tvc is undefined')
+
+    return this._keys = await generateRandomKeyPair(this.client)
   }
 
   /**
@@ -250,13 +265,6 @@ export class Contract {
     if (this.client === undefined)
       throw error.noClient
 
-    ////////////////
-    // Check keys //
-    ////////////////
-    const keysPair = keys ?? this.keys
-    if (keysPair === undefined)
-      throw error.noKeys
-
     ///////////////////////////////
     // Generate external message //
     ///////////////////////////////
@@ -265,7 +273,7 @@ export class Contract {
         abi: this.abi,
         signer: {
           type: 'Keys',
-          keys: keysPair
+          keys: keys ?? await this.keys()
         },
         address: await this.address(),
         call_set: {
@@ -321,9 +329,6 @@ export class Contract {
     if (this.client === undefined)
       throw error.noClient
 
-    if (this.keys === undefined)
-      throw error.noKeys
-
     if (this.tvc === undefined)
       throw error.noTvc
 
@@ -368,7 +373,7 @@ export class Contract {
         abi: this.abi,
         signer: {
           type: 'Keys',
-          keys: this.keys
+          keys: await this.keys()
         },
         deploy_set: {
           tvc: this.tvc,

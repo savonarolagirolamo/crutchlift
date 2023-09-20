@@ -17,7 +17,7 @@ export function validate (options: SendOptions): {
 
   return {
     to: options.to,
-    value: BigInt(parseFloat(options.value) * parseFloat(B.toString()))
+    value: BigInt(parseFloat(options.value) * B)
   }
 }
 
