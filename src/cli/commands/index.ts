@@ -1,4 +1,4 @@
-import { Argument, program } from 'commander'
+import { Argument, Option, program } from 'commander'
 import { compile } from '../actions/compile'
 import { test } from '../actions/test'
 import { giverDeploy, giverInfo, giverSend } from '../actions/giver'
@@ -36,12 +36,18 @@ export function createCommands (config: VendeeConfig): void {
   program
     .command(COMPILE)
     .description('compile Solidity contracts')
-    .action((): void => { compile() })
+    .option('-f, --force', 'Compile all contracts')
+    .action(async (options: { force: boolean }): Promise<void> => { await compile(config, options.force) })
 
   program
     .command(TEST)
+    .addArgument(new Argument('[patterns...]', 'part of test-file path'))
+    .addOption(new Option('-n, --network [network]', 'network').choices(Object.keys(config.networks)))
+    .option('-c, --no-compile', 'don\'t compile')
     .description('run tests')
-    .action((): void => { test() })
+    .action(async (patterns?: string[], options?: { network: string, compile: boolean }): Promise<void> => {
+      await test(config, patterns, options?.network, options?.compile)
+    })
 
   program
     .command(GIVER)

@@ -38,7 +38,7 @@ export function validateAndSetDefaults (config: any):
       compiler: Joi.string().default(defaults.compile.compiler),
       linker: Joi.string().default(defaults.compile.linker),
       include: Joi.array().items(Joi.string()).default(defaults.compile.include),
-      exclude: Joi.array().items(Joi.string()).default(defaults.compile.exclude),
+      exclude: Joi.array().items(Joi.string()).default(defaults.compile.exclude)
     }).default(defaults.compile),
     networks: Joi.object().pattern(
       Joi.string(),
@@ -59,8 +59,8 @@ export function validateAndSetDefaults (config: any):
     ),
     se: Joi.object({
       version: Joi.string().default(defaults.se.version),
-      image: Joi.string(),
-      container: Joi.string(),
+      image: Joi.string().allow(''),
+      container: Joi.string().allow(''),
       port: Joi.number().integer().default(defaults.se.port),
       dbPort: Joi.alternatives(
         Joi.number().integer(),

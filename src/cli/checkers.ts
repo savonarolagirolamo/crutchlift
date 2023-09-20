@@ -1,4 +1,4 @@
-import { GIVER, GIVER_ACTIONS, SE } from './commands'
+import { GIVER, GIVER_ACTIONS, SE, TEST } from './commands'
 import { type NetworkConfig } from './config/types'
 
 const LENGTH = process.argv.length
@@ -8,6 +8,10 @@ const SECOND_ARGUMENT = process.argv[4]
 
 export function isNoCommands (): boolean {
   return LENGTH === 2
+}
+
+export function isTestCommand (): boolean {
+  return LENGTH === 3 && COMMAND === TEST
 }
 
 export function isGiverCommand (): boolean {
