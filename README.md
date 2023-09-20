@@ -24,7 +24,7 @@ TVM-Solidity contract development framework
 
 ![requirements](docs/requirements.svg)
 
-* [Docker](https://www.docker.com) to run [node simple emulator](https://github.com/tonlabs/evernode-se)
+* [Docker](https://www.docker.com) to run [node Simple Emulator](https://github.com/tonlabs/evernode-se)
 * [Nodejs](https://nodejs.org)
 * [yarn](https://yarnpkg.com) to initialize project
 
@@ -38,8 +38,11 @@ npx vendee@latest
 [vendee.top](https://vendee.top) | [source](https://github.com/kokkekpek/vendee-docs)
 
 ## Examples
-* [vendee-example](https://github.com/kokkekpek/vendee-example) - simple example of using Vendee for contract compilation, testing and deployment published as [npm package](https://github.com/kokkekpek/vendee-example)
-* [vendee-example-web](https://github.com/kokkekpek/vendee-example-web) - simple example of using [vendee-example](https://github.com/kokkekpek/vendee-docs) in web published at [example.vendee.top](https://example.vendee.top)
+* [vendee-example](https://github.com/kokkekpek/vendee-example) - simple example of using Vendee for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vendee-example)
+* [vendee-example-web](https://github.com/kokkekpek/vendee-example-web) - simple example of using [vendee-example](https://github.com/kokkekpek/vendee-example) in web published at [example.vendee.top](https://example.vendee.top)
+
+## Tools
+* [vendee-keys](https://github.com/kokkekpek/vendee-keys) - methods of working with key pair
 
 ## Contributing
 
