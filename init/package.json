@@ -1,0 +1,12 @@
+{
+  "name": "vendee-project",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
