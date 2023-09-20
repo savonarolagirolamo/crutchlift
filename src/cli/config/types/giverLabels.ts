@@ -2,11 +2,11 @@ export const GIVER = {
   se: {
     v2: 'v2.se',
     v3: 'v3.se',
-    safeMultiSigWallet: 'SafeMultiSigWallet.se'
+    safeMultiSigWallet: 'safeMultiSigWallet.se'
   },
   v2: 'v2',
   v3: 'v3',
-  safeMultiSigWallet: 'SafeMultiSigWallet'
+  safeMultiSigWallet: 'safeMultiSigWallet'
 }
 
 const SE_GIVERS = [GIVER.se.v2, GIVER.se.v3, GIVER.se.safeMultiSigWallet] as const

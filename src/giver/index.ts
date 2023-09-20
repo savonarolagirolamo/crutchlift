@@ -1,11 +1,11 @@
-import { type Contract } from '../contract'
+import { type Contract, type ResultOfCall } from '../contract'
 
-export abstract class Giver {
-  protected constructor (private readonly _contract: Contract) {
-    this._contract = _contract
-  }
+export type SendParameters = {
+  to: string
+  value: string | number | bigint
+}
 
-  get contract (): Contract {
-    return this._contract
-  }
+export interface Giver {
+  contract: Contract
+  send: (parameters: SendParameters) => Promise<ResultOfCall>
 }

@@ -1,8 +1,13 @@
-import { type AbiContract, type KeyPair, type TonClient } from '@eversdk/core'
+import {
+  type AbiContract,
+  type DecodedMessageBody,
+  type KeyPair, type ResultOfProcessMessage,
+  type TonClient
+} from '@eversdk/core'
 import { type Abi } from '@eversdk/core/dist/modules'
 import { type Giver } from '../giver'
 import { Global } from '../global'
-import { NoClientError } from './constants'
+import { noClientError, noKeysError } from './constants'
 
 export enum AccountType {
   notFound = '-1',
@@ -27,6 +32,11 @@ export type ContractOptions = {
   giver?: Giver
 }
 
+export interface ResultOfCall {
+  out: any
+  result: ResultOfProcessMessage
+}
+
 export class Contract {
   private readonly abi: Abi
   private readonly initialData?: Record<string, any>
@@ -37,7 +47,7 @@ export class Contract {
   private readonly giver?: Giver
 
   private _address?: string
-  private readonly _lastTransactionLogicTime: string
+  private _lastTransactionLogicTime: string
 
   constructor (
     config: {
@@ -86,13 +96,13 @@ export class Contract {
       return this._address
 
     if (this.client === undefined)
-      throw NoClientError
+      throw noClientError
 
     if (this.keys === undefined)
-      throw Error('Contract key is undefined')
+      throw noKeysError
 
     if (this.tvc === undefined)
-      throw Error('Contract tvc is undefined')
+      throw new Error('Contract tvc is undefined')
 
     this._address = (await this.client.abi.encode_message({
       abi: this.abi,
@@ -118,7 +128,7 @@ export class Contract {
    */
   public async balance (): Promise<bigint> {
     if (this.client === undefined)
-      throw NoClientError
+      throw noClientError
 
     const result: any[] = (await this.client.net.query_collection({
       collection: 'accounts',
@@ -145,7 +155,7 @@ export class Contract {
    */
   public async accountType (): Promise<AccountType> {
     if (this.client === undefined)
-      throw NoClientError
+      throw noClientError
 
     const result: any[] = (await this.client.net.query_collection({
       collection: 'accounts',
@@ -163,10 +173,120 @@ export class Contract {
   }
 
   /**
+   * Run contract locally
+   * @param method Method name
+   * @param input
+   * @example
+   *   const contract = new Contract(...)
+   *   const address = await contract.runMethod('getHistory', { offset: 1 })
+   * @return { DecodedMessageBody }
+   */
+  public async runMethod (method: string, input: any = {}): Promise<DecodedMessageBody> {
+    if (this.client === undefined)
+      throw noClientError
+
+    //////////////////////
+    // Read Bag Of Cell //
+    //////////////////////
+    const bagOfCell = (await this.client.net.query_collection({
+      collection: 'accounts',
+      filter: {
+        id: {
+          eq: await this.address()
+        }
+      },
+      result: 'boc'
+    })).result[0].boc
+
+    /////////////////////////////
+    // Encode external message //
+    /////////////////////////////
+    const encodedMessage = await this.client.abi.encode_message({
+      abi: this.abi,
+      signer: {
+        type: 'None'
+      },
+      call_set: {
+        function_name: method,
+        input
+      },
+      address: this._address
+    })
+
+    /////////////////////////////////////////
+    // Execute contract on virtual machine //
+    /////////////////////////////////////////
+    const outputMessage = (await this.client.tvm.run_tvm({
+      message: encodedMessage.message,
+      account: bagOfCell
+    })).out_messages[0]
+
+    ///////////////////////////
+    // Decode output message //
+    ///////////////////////////
+    return await this.client.abi.decode_message({
+      abi: this.abi,
+      message: outputMessage
+    })
+  }
+
+  /**
+   * External call
+   * @param method Method name
+   * @param input
+   * @param [keys] Use it if you want to call contact with keys. `this.keys` used by default.
+   * @example
+   *   const contract = new Contract(...)
+   *   const address = await contract.runMethod('getHistory', { offset: 1 })
+   */
+  public async callMethod (method: string, input: any = {}, keys?: KeyPair): Promise<{
+    out: any
+    result: ResultOfProcessMessage
+  }> {
+    if (this.client === undefined)
+      throw noClientError
+
+    ////////////////
+    // Check keys //
+    ////////////////
+    const keysPair = keys ?? this.keys
+    if (keysPair === undefined)
+      throw noKeysError
+
+    ///////////////////////////////
+    // Generate external message //
+    ///////////////////////////////
+    const resultOfProcessMessage: ResultOfProcessMessage = await this.client.processing.process_message({
+      message_encode_params: {
+        abi: this.abi,
+        signer: {
+          type: 'Keys',
+          keys: keysPair
+        },
+        address: await this.address(),
+        call_set: {
+          function_name: method,
+          input
+        }
+      },
+      send_events: false
+    })
+
+    ////////////////////
+    // Decode message //
+    ////////////////////
+    this._lastTransactionLogicTime = resultOfProcessMessage.transaction.lt.toString() ?? this._lastTransactionLogicTime
+    return {
+      out: resultOfProcessMessage.decoded?.output ?? {},
+      result: resultOfProcessMessage
+    }
+  }
+
+  /**
    * Return last transaction logic time
    * @example
-   *  const contract = new Contract(...)
-   *  contract.lastTransactionLogicTime
+   *   const contract = new Contract(...)
+   *   contract.lastTransactionLogicTime
    * @return
    *   '0'
    */

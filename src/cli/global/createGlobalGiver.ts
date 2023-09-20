@@ -12,9 +12,9 @@ import { createOrReadGlobalGiverKeys } from './createOrReadGlobalGiverKeys'
 export async function createGlobalGiver (config: VendeeConfig, network: string, client: TonClient): Promise<Giver> {
   const giver = config.networks[network].giver
 
-  /// /////
+  ////////
   // SE //
-  /// /////
+  ////////
   if (giver === GIVER.se.v2)
     return new GiverV2(giverSEKeys, { client })
   if (giver === GIVER.se.v3)
@@ -22,9 +22,9 @@ export async function createGlobalGiver (config: VendeeConfig, network: string, 
   if (giver === GIVER.se.safeMultiSigWallet)
     return new SafeMultisigWalletGiver(safeMultisigWalletSEKeys, { client })
 
-  /// /////////
+  ////////////
   // Not SE //
-  /// /////////
+  ////////////
   const keys = await createOrReadGlobalGiverKeys(config, network, client)
   if (giver === GIVER.v2)
     return new GiverV2(keys, { client })
@@ -33,8 +33,8 @@ export async function createGlobalGiver (config: VendeeConfig, network: string, 
   if (giver === GIVER.se.safeMultiSigWallet)
     return new SafeMultisigWalletGiver(keys, { client })
 
-  /// //////////
+  /////////////
   // Unknown //
-  /// //////////
+  /////////////
   throw new Error(`Giver "${giver}" is unknown`)
 }

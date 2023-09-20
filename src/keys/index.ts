@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import path from 'path'
 import { Global } from '../global'
-import { NoClientError } from '../contract/constants'
+import { noClientError } from '../contract/constants'
 import { type KeyPair, type TonClient } from '@eversdk/core'
 
 /**
@@ -17,7 +17,7 @@ import { type KeyPair, type TonClient } from '@eversdk/core'
 export async function generateRandomKeyPair (client?: TonClient): Promise<KeyPair> {
   const cl = client ?? Global.client
   if (cl === undefined)
-    throw NoClientError
+    throw noClientError
 
   return await cl.crypto.generate_random_sign_keys()
 }
@@ -58,7 +58,7 @@ export function readKeys (file: string): KeyPair {
 export async function generateOrReadKeys (file: string, client?: TonClient): Promise<KeyPair> {
   const cl = client ?? Global.client
   if (cl === undefined)
-    throw NoClientError
+    throw noClientError
 
   if (fs.existsSync(file))
     return readKeys(file)

@@ -14,9 +14,6 @@ declare global {
 }
 
 export class Global {
-  /// /////////
-  // Client //
-  /// /////////
   static get client (): TonClient | undefined {
     return global.vendee?.client
   }
@@ -26,9 +23,6 @@ export class Global {
     global.vendee.client = value
   }
 
-  /// ////////
-  // Giver //
-  /// ////////
   static get giver (): Giver | undefined {
     return global.vendee?.giver
   }
@@ -38,9 +32,6 @@ export class Global {
     global.vendee.giver = value
   }
 
-  /// /////////
-  // Config //
-  /// /////////
   static get config (): VendeeConfig | undefined {
     return global.vendee?.config
   }
@@ -50,9 +41,6 @@ export class Global {
     global.vendee.config = value
   }
 
-  /// //////
-  // All //
-  /// //////
   static set vendee (value: GlobalVendee) {
     global.vendee = value
   }

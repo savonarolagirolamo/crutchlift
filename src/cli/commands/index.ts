@@ -1,13 +1,13 @@
 import { Argument, program } from 'commander'
 import { compile } from '../actions/compile'
 import { test } from '../actions/test'
-import { giverDeploy, giverInfo, giverSend, type GiverSendOptions } from '../actions/giver'
+import { giverDeploy, giverInfo, giverSend } from '../actions/giver'
 import { tree } from '../actions/tree'
 import { clean } from '../actions/clean'
 import { seInfo, seReset, seStart, seStop, seVersion } from '../actions/se'
 import { type VendeeConfig } from '../config/types'
 import { packageJson } from './package'
-import { GIVER_SEND_FLAGS, type GiverSendOptionsValidationResult, validateGiverSendOptions } from './giver'
+import { GIVER_SEND_FLAGS, validateGiverSendOptions } from './giver'
 
 export const COMPILE = 'compile'
 export const TEST = 'test'
@@ -54,16 +54,16 @@ export function createCommands (config: VendeeConfig): void {
     .option(GIVER_SEND_FLAGS.value, 'coins value e.g. 0.1')
     .description('manage giver')
     .action(async (network: string, action: string, options: { to?: string, value?: string }): Promise<void> => {
-      const validationResult: GiverSendOptionsValidationResult = validateGiverSendOptions(options)
+      const validationResult = validateGiverSendOptions(options)
       switch (action) {
         case GIVER_ACTIONS.INFO:
           await giverInfo(config, network)
           break
         case GIVER_ACTIONS.SEND:
-          if (validationResult.error !== undefined)
+          if (validationResult.value === undefined)
             console.error(validationResult.error)
           else
-            await giverSend(config, network, options as GiverSendOptions)
+            await giverSend(config, network, validationResult.value)
           break
         case GIVER_ACTIONS.DEPLOY:
           await giverDeploy(config, network)

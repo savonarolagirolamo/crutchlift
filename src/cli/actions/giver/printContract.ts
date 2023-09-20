@@ -24,18 +24,17 @@ const colorize: Record<AccountType, Color> = {
  * Read account data from GraphQL and output to the terminal
  * @param contract contract
  */
-export async function printInfo (contract: Contract): Promise<void> {
+export async function printContract (contract: Contract): Promise<void> {
   const contractName = contract.constructor.name
   const address = await contract.address()
   const balance = prettifyBalance(await contract.balance())
   const accountType = await contract.accountType()
-  const accountTypeText = types[await contract.accountType()]
+  const type = types[await contract.accountType()]
   const colorizeFunction = colorize[accountType]
   console.log(
     `${colors.gray(contractName)}\n` +
     `${colors.white(address)}\n` +
-    `${colorizeFunction(balance + ' ●')}\n` +
-    `${colorizeFunction(accountTypeText)}\n`
+    `${colorizeFunction(`${balance} ● ${type}`)}`
   )
 }
 
@@ -45,16 +44,39 @@ export async function printInfo (contract: Contract): Promise<void> {
  * @example
  *   prettifyBalance(1234567890123456789n)
  * @return
- *   '1,234,567,890.123456789'
+ *   '1,234,567,890.123,456,789'
 */
 function prettifyBalance (balance: bigint): string {
-  const integerPartOfNumber = balance / BigInt(B)
+  const integerPartOfNumber = balance / B
   const integerPartOfNumberText = integerPartOfNumber.toLocaleString()
-  const fractionalPartOfNumber = BigInt(balance) % B + B
-  const fractionalPartOfNumberFloat = BigInt(parseInt(fractionalPartOfNumber.toString())) / B
-  const fractionalPartOfNumberText = fractionalPartOfNumberFloat.toLocaleString(
+  const fractionalPartOfNumber = balance % B + B
+  const fractionalPartOfNumberText = fractionalPartOfNumber.toLocaleString(
     'en',
     { maximumFractionDigits: 10 }
-  ).substring(1)
-  return integerPartOfNumberText + fractionalPartOfNumberText
+  ).substring(2)
+  const text = `${integerPartOfNumberText}${colors.cyan('.')}${fractionalPartOfNumberText}`
+  return text.replaceAll(',', colors.gray(','))
+}
+
+/**
+ * Print message between two empty lines
+ */
+export async function printMessage (message: string): Promise<void> {
+  console.log()
+  console.log(`${message}  ...`)
+  console.log()
+}
+
+/**
+ * Print empty line
+ */
+export async function printEmptyLine (): Promise<void> {
+  console.log()
+}
+
+/**
+ * Print error
+ */
+export async function printError (e: any): Promise<void> {
+  console.error(e)
 }
