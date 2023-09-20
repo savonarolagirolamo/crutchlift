@@ -1,10 +1,10 @@
-import {BACK, HELP, QUIT, Select} from './enquirer'
-import { GIVER_ACTIONS} from '../commands'
+import { BACK, HELP, QUIT, Select } from './enquirer'
+import { GIVER_ACTIONS } from '../commands'
 import { showGiverSendForm } from './showGiverSendForm'
 import { giverDeploy, giverInfo } from '../actions/giver'
 import { showMainMenu } from './showMainMenu'
 import { type VendeeConfig } from '../config'
-import {help} from '../actions/help'
+import { help } from '../actions/help'
 
 export async function showGiverMenu (config: VendeeConfig, back: boolean = false): Promise<void> {
   const choice: string = await (new Select({
@@ -29,7 +29,7 @@ export async function showGiverMenu (config: VendeeConfig, back: boolean = false
       giverDeploy()
       break
     case HELP:
-      await help()
+      help()
       break
     case BACK:
       --process.argv.length

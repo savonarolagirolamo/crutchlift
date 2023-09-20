@@ -1,9 +1,9 @@
-import {BACK, HELP, QUIT, Select} from './enquirer'
-import { VendeeConfig } from '../config'
+import { BACK, HELP, QUIT, Select } from './enquirer'
+import { type VendeeConfig } from '../config'
 import { SE_ACTIONS } from '../commands'
 import { seInfo, seStart, seVersion, seStop, seReset } from '../actions/se'
 import { help } from '../actions/help'
-import {showMainMenu} from './showMainMenu'
+import { showMainMenu } from './showMainMenu'
 
 export async function showSEMenu (config: VendeeConfig, back: boolean = false): Promise<void> {
   const choice: string = await (new Select({
