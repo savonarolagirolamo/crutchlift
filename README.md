@@ -1,4 +1,4 @@
-# Vascoo
+# Vasku
 
 ![cover](docs/cover.svg)
 
