@@ -8,7 +8,7 @@ const config: Config = {
    * Network and givers settings
    */
   networks: {
-    se: {
+    'se': {
       /**
        * Query server GraphQL endpoints
        * URL without `/graphql` at end
@@ -31,8 +31,7 @@ const config: Config = {
        */
       giver: 'v3.se'
     },
-
-    venomTestnet: {
+    'venom testnet': {
       /**
        * Query server GraphQL endpoints
        * URL without `/graphql` at end
@@ -82,8 +81,7 @@ const config: Config = {
         file: process.env.VENOM_TESTNET_KEYS_FILE,
       }
     },
-
-    venom: {
+    'venom': {
       endpoints: process.env.VENOM_ENDPOINTS ? process.env.VENOM_ENDPOINTS.split(',') : [''],
       giver: process.env.VENOM_GIVER ?? 'v3',
       keys: {
@@ -91,8 +89,7 @@ const config: Config = {
         file: process.env.VENOM_KEYS_FILE
       }
     },
-
-    everFld: {
+    'ever fld': {
       endpoints: process.env.EVER_FLD_ENDPOINTS ? process.env.EVER_FLD_ENDPOINTS.split(',') : [''],
       giver: process.env.EVER_FLD_GIVER ?? 'v3',
       keys: {
@@ -106,7 +103,7 @@ const config: Config = {
    * Node Simple Emulator
    * @see https://github.com/tonlabs/everdev/blob/main/docs/command-line-interface/evernode-platform-startup-edition-se.md
    */
-  se: {
+  "se": {
     /**
      * SE version
      * @default 'latest'
