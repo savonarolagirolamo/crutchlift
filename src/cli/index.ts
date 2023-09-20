@@ -12,6 +12,7 @@ import {
   FIRST_ARGUMENT
 } from './checkers'
 import { init } from './init'
+import { enableExecuteTypeScript } from './enableExecuteTypeScript'
 import { showMainMenu } from './menus/showMainMenu'
 import { showGiverMenu } from './menus/showGiverMenu'
 import { showGiverActionsMenu } from './menus/showGiverActionsMenu'
@@ -28,9 +29,7 @@ async function main (): Promise<void> {
     return
   }
 
-  // Require ts-mocha to read TypeScript files and run tests
-  require('ts-mocha') // eslint-disable-line
-
+  enableExecuteTypeScript()
   const config = readConfig()
   createCommands(config)
 
