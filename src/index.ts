@@ -27,7 +27,7 @@ import { SafeMultisigWalletGiver as SafeMultisigWalletGiverGiver } from './giver
 ////////////
 // Global //
 ////////////
-import { type GlobalVascoo, Global } from './global'
+import { type GlobalVasku, Global } from './global'
 
 ///////////
 // Utils //
@@ -72,7 +72,7 @@ export { type GiverSendParameters, type Giver, V2Giver, V3Giver, SafeMultisigWal
 ////////////
 // Global //
 ////////////
-export { type GlobalVascoo, Global }
+export { type GlobalVasku, Global }
 
 ///////////
 // Utils //

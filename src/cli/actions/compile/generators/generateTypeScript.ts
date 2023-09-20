@@ -36,7 +36,7 @@ ${payloadClass}
 }
 
 function getImports (name: string): string {
-  return `import { type CompiledContractConfig, Contract, type ContractOptions, type ResultOfCall } from 'vascoo'
+  return `import { type CompiledContractConfig, Contract, type ContractOptions, type ResultOfCall } from 'vasku'
 import { type KeyPair, type ResultOfProcessMessage } from '@eversdk/core'
 import ${name}Content from './${name}Content'`
 }

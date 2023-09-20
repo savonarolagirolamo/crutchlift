@@ -4225,9 +4225,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vascoo@workspace:.":
+"vasku@workspace:.":
   version: 0.0.0-use.local
-  resolution: "vascoo@workspace:."
+  resolution: "vasku@workspace:."
   dependencies:
     "@eversdk/core": ^1.43.1
     "@eversdk/lib-node": ^1.43.1
@@ -4254,7 +4254,7 @@ __metadata:
     ts-mocha: ^10.0.0
     typescript: ^5.0.4
   bin:
-    vascoo: build/cli/index.js
+    vasku: build/cli/index.js
   languageName: unknown
   linkType: soft
 

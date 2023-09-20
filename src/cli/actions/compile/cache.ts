@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs-extra'
-import { type VascooConfig } from '../../config/types'
+import { type VaskuConfig } from '../../config/types'
 import { type Metadata } from './index'
 
 const FILE = 'contracts.json'
@@ -26,7 +26,7 @@ export type Cache = {
  *     }
  *   }
  */
-export function readCache (config: VascooConfig): Record<string, Metadata> {
+export function readCache (config: VaskuConfig): Record<string, Metadata> {
   const file = path.resolve(process.cwd(), config.paths.cache, FILE)
   if (!fs.existsSync(file))
     return {}
@@ -53,7 +53,7 @@ export function readCache (config: VascooConfig): Record<string, Metadata> {
  *     }
  *   }
  */
-export function writeCache (config: VascooConfig, metadata: Record<string, Metadata>): void {
+export function writeCache (config: VaskuConfig, metadata: Record<string, Metadata>): void {
   const file = path.resolve(process.cwd(), config.paths.cache, FILE)
   const directory = path.dirname(file)
   const cache: Cache = {

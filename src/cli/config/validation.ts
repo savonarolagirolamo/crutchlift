@@ -1,8 +1,8 @@
 import Joi, { type ValidationError } from 'joi'
-import { type VascooConfig } from './types'
+import { type VaskuConfig } from './types'
 import { GIVER, GIVERS, SE_GIVERS } from './types/giverLabels'
 
-const defaults: VascooConfig = {
+const defaults: VaskuConfig = {
   compile: {
     compiler: 'latest',
     linker: 'latest',
@@ -33,7 +33,7 @@ const defaults: VascooConfig = {
 }
 
 export function validateAndSetDefaults (config: any):
-{ error: undefined, value: VascooConfig } |
+{ error: undefined, value: VaskuConfig } |
 { error: ValidationError, value: undefined } {
   const schema: Joi.ObjectSchema = Joi.object({
     compile: Joi.object({

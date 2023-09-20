@@ -1,4 +1,4 @@
-import { type VascooConfig } from '../config/types'
+import { type VaskuConfig } from '../config/types'
 import { type TonClient } from '@eversdk/core'
 import { type Giver } from '../../giver'
 import { GIVER } from '../config/types/giverLabels'
@@ -9,7 +9,7 @@ import { SafeMultisigWalletGiver } from '../../giver/samples/SafeMultisigWalletG
 import safeMultisigWalletSEKeys from './keys/safeMultisigWallet.se.keys.json'
 import { createOrReadGlobalGiverKeys } from './createOrReadGlobalGiverKeys'
 
-export async function createGlobalGiver (config: VascooConfig, network: string, client: TonClient): Promise<Giver> {
+export async function createGlobalGiver (config: VaskuConfig, network: string, client: TonClient): Promise<Giver> {
   const giver = config.networks[network].giver
 
   ////////

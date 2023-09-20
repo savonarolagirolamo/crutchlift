@@ -4,13 +4,13 @@
 
 TVM-Solidity contract development framework
 
-[![npm](https://img.shields.io/npm/v/vascoo?label=npm)](https://www.npmjs.com/package/vascoo)
-[![downloads](https://img.shields.io/npm/dt/vascoo?label=downloads)](https://www.npmjs.com/package/vascoo)
+[![npm](https://img.shields.io/npm/v/vasku?label=npm)](https://www.npmjs.com/package/vasku)
+[![downloads](https://img.shields.io/npm/dt/vasku?label=downloads)](https://www.npmjs.com/package/vasku)
 
 ## Initialize project
 
 ```shell
-npx vascoo@latest
+npx vasku@latest
 ```
 
 ## Features 
@@ -35,19 +35,19 @@ npx vascoo@latest
 
 ## Documentation
 
-[source](https://github.com/savonarolagirolamo/vascoo-docs)
+[source](https://github.com/savonarolagirolamo/vasku-docs)
 
 ## Examples
 
-* [vascoo-example](https://github.com/savonarolagirolamo/vascoo-example) - simple example of using Vascoo for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vascoo-example)
-* [vascoo-example-web](https://github.com/savonarolagirolamo/vascoo-example-web) - simple example of using [vascoo-example](https://github.com/savonarolagirolamo/vascoo-example) in web
+* [vasku-example](https://github.com/savonarolagirolamo/vasku-example) - simple example of using Vascoo for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vasku-example)
+* [vasku-example-web](https://github.com/savonarolagirolamo/vasku-example-web) - simple example of using [vasku-example](https://github.com/savonarolagirolamo/vasku-example) in web
 
 ## Tools
 
-* [vascoo-keys](https://github.com/savonarolagirolamo/vascoo-keys) - methods of working with key pair
+* [vasku-keys](https://github.com/savonarolagirolamo/vasku-keys) - methods of working with key pair
 
 ## Contributing
 
 * [Read CONTRIBUTING.md](./CONTRIBUTING.md) to view development commands
-* [Open an issue](https://github.com/savonarolagirolamo/vascoo/issues/new) if you want report a bug or make a suggestion
+* [Open an issue](https://github.com/savonarolagirolamo/vasku/issues/new) if you want report a bug or make a suggestion
 * **Make a pull request** if you want to add something

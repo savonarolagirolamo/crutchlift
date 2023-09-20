@@ -1,47 +1,47 @@
 import { type TonClient } from '@eversdk/core'
 import { type Giver } from '../giver'
-import { type VascooConfig } from '../cli/config/types'
+import { type VaskuConfig } from '../cli/config/types'
 
-export type GlobalVascoo = {
+export type GlobalVasku = {
   client: TonClient
   giver: Giver
-  config: VascooConfig
+  config: VaskuConfig
 }
 
 declare global {
   /* eslint-disable */
-  var vascoo: Partial<GlobalVascoo> | undefined
+  var vasku: Partial<GlobalVasku> | undefined
 }
 
 export class Global {
   static get client (): TonClient | undefined {
-    return global.vascoo?.client
+    return global.vasku?.client
   }
 
   static set client (value: TonClient | undefined) {
-    global.vascoo = global.vascoo ?? {}
-    global.vascoo.client = value
+    global.vasku = global.vasku ?? {}
+    global.vasku.client = value
   }
 
   static get giver (): Giver | undefined {
-    return global.vascoo?.giver
+    return global.vasku?.giver
   }
 
   static set giver (value: Giver | undefined) {
-    global.vascoo = global.vascoo ?? {}
-    global.vascoo.giver = value
+    global.vasku = global.vasku ?? {}
+    global.vasku.giver = value
   }
 
-  static get config (): VascooConfig | undefined {
-    return global.vascoo?.config
+  static get config (): VaskuConfig | undefined {
+    return global.vasku?.config
   }
 
-  static set config (value: VascooConfig | undefined) {
-    global.vascoo = global.vascoo ?? {}
-    global.vascoo.config = value
+  static set config (value: VaskuConfig | undefined) {
+    global.vasku = global.vasku ?? {}
+    global.vasku.config = value
   }
 
-  static set vascoo (value: GlobalVascoo) {
-    global.vascoo = value
+  static set vasku (value: GlobalVasku) {
+    global.vasku = value
   }
 }

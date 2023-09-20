@@ -1,4 +1,4 @@
-import { type VascooConfig } from '../../config/types'
+import { type VaskuConfig } from '../../config/types'
 import { createGlobal } from '../../global/createGlobal'
 import { printContract, printEmptyLine, printError, printMessage } from './printContract'
 import { AccountType, Contract } from '../../../contract'
@@ -7,7 +7,7 @@ import { B } from '../../../utils/suffixes'
 
 const DEPLOY_VALUE = 0.1
 
-export async function giverInfo (config: VascooConfig, network: string): Promise<void> {
+export async function giverInfo (config: VaskuConfig, network: string): Promise<void> {
   const global = await createGlobal(config, network)
   try {
     await printContract(global.giver.contract)
@@ -17,7 +17,7 @@ export async function giverInfo (config: VascooConfig, network: string): Promise
   global.client.close()
 }
 
-export async function giverSend (config: VascooConfig, network: string, options: SendOptions): Promise<void> {
+export async function giverSend (config: VaskuConfig, network: string, options: SendOptions): Promise<void> {
   const sendParameters = validate(options)
   const global = await createGlobal(config, network)
   const giver = global.giver
@@ -66,7 +66,7 @@ export async function giverSend (config: VascooConfig, network: string, options:
   global.client.close()
 }
 
-export async function giverDeploy (config: VascooConfig, network: string): Promise<void> {
+export async function giverDeploy (config: VaskuConfig, network: string): Promise<void> {
   const global = await createGlobal(config, network)
   const giver = global.giver
 

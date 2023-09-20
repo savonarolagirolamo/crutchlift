@@ -7,9 +7,9 @@ import { showGiverMenu } from './showGiverMenu'
 import { showSEMenu } from './showSEMenu'
 import { clean } from '../actions/clean'
 import { help } from '../actions/help'
-import { type VascooConfig } from '../config/types'
+import { type VaskuConfig } from '../config/types'
 
-export async function showMainMenu (config: VascooConfig): Promise<void> {
+export async function showMainMenu (config: VaskuConfig): Promise<void> {
   const choice = await (new Select({
     message: 'Vascoo',
     choices: [

@@ -1,5 +1,5 @@
 {
-  "name": "vascoo",
+  "name": "vasku",
   "version": "0.0.1",
   "description": "TVM-Solidity contract development framework",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "main": "build/index.js",
   "bin": "build/cli/index.js",
-  "repository": "https://github.com/savonarolagirolamo/vascoo",
+  "repository": "https://github.com/savonarolagirolamo/vasku",
   "author": "@savonarolagirolamo",
   "license": "GPL-3.0",
   "engines": {

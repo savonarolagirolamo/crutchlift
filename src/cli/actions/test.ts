@@ -1,12 +1,12 @@
 import Mocha from 'mocha'
-import { type VascooConfig } from '../config/types'
+import { type VaskuConfig } from '../config/types'
 import { SE, upSeIfNotActive } from './common/se'
 import { compile } from './compile'
 import { globSync } from 'glob'
 import { createGlobal } from '../global/createGlobal'
 
 export async function test (
-  config: VascooConfig,
+  config: VaskuConfig,
   patterns: string[] = [''],
   network: string = SE,
   compilation: boolean = true
