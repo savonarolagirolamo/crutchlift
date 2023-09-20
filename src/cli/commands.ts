@@ -98,7 +98,7 @@ export function createCommands (config: VendeeConfig): void {
   program
     .command(CLEAN)
     .description('clean build and cache directories')
-    .action((): void => { clean() })
+    .action((): void => { clean(config.paths) })
 
   program
     .command(PUBLISH)

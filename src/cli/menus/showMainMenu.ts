@@ -47,7 +47,7 @@ export async function showMainMenu (config: VendeeConfig): Promise<void> {
       tree()
       break
     case CLEAN:
-      clean()
+      clean(config.paths)
       break
     case PUBLISH:
       publish()
