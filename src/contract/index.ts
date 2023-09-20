@@ -8,7 +8,7 @@ import { type Giver } from '../giver'
 import { Global } from '../global'
 import { error } from './constants'
 import { createPayload } from './payload'
-import { generateRandomKeyPair } from '../keys'
+import { generateRandomKeyPair } from '../utils/generateRandomKeyPair'
 
 export enum AccountType {
   notFound = '-1',

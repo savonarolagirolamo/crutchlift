@@ -14,6 +14,11 @@ export async function test (
   if (patterns.length === 0)
     patterns = ['']
 
+  ///////////////////
+  // Create global //
+  ///////////////////
+  await createGlobal(config, network)
+
   ///////////
   // Up SE //
   ///////////
@@ -24,11 +29,6 @@ export async function test (
   /////////////
   if (compilation)
     await compile(config)
-
-  ///////////////////
-  // Create global //
-  ///////////////////
-  await createGlobal(config, network)
 
   ////////////////////
   // Read tests set //

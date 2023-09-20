@@ -29,15 +29,11 @@ import { SafeMultisigWalletGiver as SafeMultisigWalletGiverGiver } from './giver
 ////////////
 import { type GlobalVendee, Global } from './global'
 
-//////////
-// Keys //
-//////////
-import { generateRandomKeyPair, readKeys, generateOrReadKeys, namedKeys } from './keys'
-
 ///////////
 // Utils //
 ///////////
 import { delay } from './utils/delay'
+import { generateRandomKeyPair } from './utils/generateRandomKeyPair'
 import { x0, abiToHex, stringToHex, stringsToHex, numberToHex } from './utils/hex'
 import { Q, T, B, M, K } from './utils/suffixes'
 
@@ -78,12 +74,7 @@ export { type GiverSendParameters, type Giver, V2Giver, V3Giver, SafeMultisigWal
 ////////////
 export { type GlobalVendee, Global }
 
-//////////
-// Keys //
-//////////
-export { generateRandomKeyPair, readKeys, generateOrReadKeys, namedKeys }
-
 ///////////
 // Utils //
 ///////////
-export { delay, x0, abiToHex, stringToHex, stringsToHex, numberToHex, Q, T, B, M, K }
+export { delay, generateRandomKeyPair, x0, abiToHex, stringToHex, stringsToHex, numberToHex, Q, T, B, M, K }
