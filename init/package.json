@@ -33,8 +33,7 @@
   },
   "dependencies": {
     "mocha": "^10.2.0",
-    "vendee": "^1.1.0",
-    "vendee-keys": "^1.0.1"
+    "vendee": "^1.1.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
@@ -45,6 +44,7 @@
     "dotenv": "^16.0.3",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vendee-keys": "^1.0.1"
   }
 }
