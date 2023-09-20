@@ -28,7 +28,7 @@ const config: Config = {
      * @see https://github.com/isaacs/node-glob
      * @default 'latest'
      */
-    include: ['**'],
+    include: ['**/*.tsol', '**/*.sol'],
 
     /**
      * List of source files excluded from compilation in contracts directory in **glob** format
@@ -118,7 +118,7 @@ const config: Config = {
     },
     'venom': {
       endpoints: process.env.VENOM_ENDPOINTS ? process.env.VENOM_ENDPOINTS.split(',') : [''],
-      giver: process.env.VENOM_GIVER ?? 'v3',
+      giver: process.env.VENOM_GIVER ?? 'safeMultiSigWallet',
       keys: {
         name: process.env.VENOM_KEYS_NAME,
         file: process.env.VENOM_KEYS_FILE
@@ -126,7 +126,7 @@ const config: Config = {
     },
     'ever fld': {
       endpoints: process.env.EVER_FLD_ENDPOINTS ? process.env.EVER_FLD_ENDPOINTS.split(',') : [''],
-      giver: process.env.EVER_FLD_GIVER ?? 'v3',
+      giver: process.env.EVER_FLD_GIVER ?? 'safeMultiSigWallet',
       keys: {
         name: process.env.EVER_FLD_KEYS_NAME,
         file: process.env.EVER_FLD_KEYS_FILE
