@@ -1,6 +1,6 @@
 {
   "name": "vendee",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "TVM-Solidity contract development framework",
   "scripts": {
     "build": "tsc --build .",
@@ -52,7 +52,8 @@
     "glob": "^10.2.6",
     "joi": "^17.9.2",
     "mocha": "^10.2.0",
-    "ts-mocha": "^10.0.0"
+    "ts-mocha": "^10.0.0",
+    "typescript": "~5.0.4"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
@@ -66,7 +67,6 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-promise": "^6.1.1",
-    "rimraf": "^5.0.0",
-    "typescript": "~5.0.4"
+    "rimraf": "^5.0.0"
   }
 }
