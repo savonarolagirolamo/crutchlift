@@ -26,16 +26,16 @@ const config: Config = {
     /**
      * List of source files for compilation in contract directory in **glob** format
      * @see https://github.com/isaacs/node-glob
-     * @default 'latest'
+     * @default ['**\/*.tsol', '**\/*.sol']
      */
     include: ['**/*.tsol', '**/*.sol'],
 
     /**
      * List of source files excluded from compilation in contracts directory in **glob** format
      * @see https://github.com/isaacs/node-glob
-     * @default ['']
+     * @default ['**\/interface/*', '**\/interfaces/*']
      */
-    exclude: ['interface/*']
+    exclude: ['**/interface/*', '**/interfaces/*']
   },
 
   /**

@@ -7,7 +7,7 @@ const defaults: VendeeConfig = {
     compiler: 'latest',
     linker: 'latest',
     include: ['**/*.tsol', '**/*.sol'],
-    exclude: []
+    exclude: ['**/interface/*', '**/interfaces/*']
   },
   networks: {
     local: {
