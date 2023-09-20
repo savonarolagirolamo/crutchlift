@@ -1,4 +1,4 @@
-export interface GiverSendOptions {
+export type GiverSendOptions = {
   to?: string
   value?: string
   bounce?: string

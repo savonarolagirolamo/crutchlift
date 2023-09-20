@@ -12,6 +12,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "curly": "off"
+    "curly": "off",
+    "@typescript-eslint/consistent-type-definitions": "off"
   }
 }

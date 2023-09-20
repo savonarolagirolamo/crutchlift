@@ -1,17 +1,17 @@
 import { type Giver } from './giver'
 
-export interface VendeeConfig {
+export type VendeeConfig = {
   networks: Record<string, NetworkConfig>
   se: SEConfig
   paths: PathsConfig
 }
 
-export interface NetworkConfig {
+export type NetworkConfig = {
   endpoints?: string[]
   giver?: Giver
 }
 
-export interface SEConfig {
+export type SEConfig = {
   version: string | 'latest'
   image?: string
   container?: string
@@ -20,7 +20,7 @@ export interface SEConfig {
   instance: string | 'default' | '*'
 }
 
-export interface PathsConfig {
+export type PathsConfig = {
   build: string
   cache: string
   contracts: string
@@ -28,4 +28,4 @@ export interface PathsConfig {
   tests: string
 }
 
-export interface Config extends Partial<VendeeConfig> {}
+export type Config = Partial<VendeeConfig>
