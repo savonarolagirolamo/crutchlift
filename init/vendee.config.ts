@@ -85,7 +85,7 @@ const config: Config = {
        * Giver label
        * Not SE giver need keys
        */
-      giver: process.env.VENOM_TESTNET_GIVER ?? 'v3',
+      giver: process.env.VENOM_TESTNET_GIVER ?? 'safeMultiSigWallet',
 
       /**
        * Giver keys
@@ -116,12 +116,12 @@ const config: Config = {
         file: process.env.VENOM_TESTNET_KEYS_FILE,
       }
     },
-    'venom': {
-      endpoints: process.env.VENOM_ENDPOINTS ? process.env.VENOM_ENDPOINTS.split(',') : [''],
-      giver: process.env.VENOM_GIVER ?? 'safeMultiSigWallet',
+    'venom devnet': {
+      endpoints: process.env.VENOM_DEVNET_ENDPOINTS ? process.env.VENOM_DEVNET_ENDPOINTS.split(',') : [''],
+      giver: process.env.VENOM_DEVNET_GIVER ?? 'safeMultiSigWallet',
       keys: {
-        name: process.env.VENOM_KEYS_NAME,
-        file: process.env.VENOM_KEYS_FILE
+        name: process.env.VENOM_DEVNET_KEYS_NAME,
+        file: process.env.VENOM_DEVNET_KEYS_FILE
       }
     },
     'ever fld': {
