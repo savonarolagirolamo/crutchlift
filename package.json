@@ -1,6 +1,6 @@
 {
   "name": "vascoo",
-  "version": "1.1.5",
+  "version": "0.0.1",
   "description": "TVM-Solidity contract development framework",
   "scripts": {
     "build": "tsc --build .",
