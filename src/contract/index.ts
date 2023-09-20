@@ -169,7 +169,7 @@ export class Contract {
       },
       result: 'acc_type'
     })).result
-    return (result !== undefined && result.length > 0) ? result[0].acc_type : AccountType.notFound
+    return (result !== undefined && result.length > 0) ? result[0].acc_type.toString() : AccountType.nonExist
   }
 
   /**
@@ -412,7 +412,6 @@ export class Contract {
         timeout
       })
       const result = queryCollectionResult.result
-      console.log(queryCollectionResult.result)
       this._lastTransactionLogicTime = result.last_trans_lt ?? '0'
       return true
     } catch (e: any) {}

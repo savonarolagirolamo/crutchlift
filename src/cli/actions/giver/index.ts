@@ -28,7 +28,7 @@ export async function giverSend (config: VendeeConfig, network: string, options:
   ////////////////////////
   // Check giver active //
   ////////////////////////
-  const giverAccountType = (await giver.contract.accountType()).toString()
+  const giverAccountType = await giver.contract.accountType()
   if (giverAccountType !== AccountType.active) {
     global.client.close()
     await printError('Giver is not active')
@@ -73,7 +73,7 @@ export async function giverDeploy (config: VendeeConfig, network: string): Promi
   ////////////////////////
   // Check giver active //
   ////////////////////////
-  const giverAccountType = (await giver.contract.accountType()).toString()
+  const giverAccountType = await giver.contract.accountType()
   if (giverAccountType === AccountType.active) {
     global.client.close()
     await printError('Giver is already deployed')
