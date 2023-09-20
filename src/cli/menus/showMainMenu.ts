@@ -1,12 +1,11 @@
 import { ELLIPSIS, HELP, QUIT, Select } from './enquirer'
-import { COMPILE, GIVER, SE, TEST, TREE, CLEAN, PUBLISH } from '../commands'
+import { COMPILE, GIVER, SE, TEST, TREE, CLEAN } from '../commands'
 import { compile } from '../actions/compile'
 import { test } from '../actions/test'
 import { showGiverMenu } from './showGiverMenu'
 import { showSEMenu } from './showSEMenu'
 import { tree } from '../actions/tree'
 import { clean } from '../actions/clean'
-import { publish } from '../actions/publish'
 import { help } from '../actions/help'
 import { type VendeeConfig } from '../config/types'
 
@@ -20,7 +19,6 @@ export async function showMainMenu (config: VendeeConfig): Promise<void> {
       SE + ELLIPSIS,
       TREE,
       CLEAN,
-      PUBLISH,
       HELP,
       QUIT
     ]
@@ -46,9 +44,6 @@ export async function showMainMenu (config: VendeeConfig): Promise<void> {
       break
     case CLEAN:
       clean(config.paths)
-      break
-    case PUBLISH:
-      publish()
       break
     case HELP:
       help()

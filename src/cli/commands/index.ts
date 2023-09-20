@@ -15,7 +15,6 @@ export const GIVER = 'giver'
 export const SE = 'se'
 export const TREE = 'tree'
 export const CLEAN = 'clean'
-export const PUBLISH = 'publish'
 
 export const GIVER_ACTIONS = {
   INFO: 'info',
@@ -104,9 +103,4 @@ export function createCommands (config: VendeeConfig): void {
     .command(CLEAN)
     .description('clean build and cache directories')
     .action((): void => { clean(config.paths) })
-
-  program
-    .command(PUBLISH)
-    .description('publish Node.js package with contracts')
-    .action((): void => { tree() })
 }
