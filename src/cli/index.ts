@@ -20,7 +20,6 @@ import { showGiverSendForm } from './menus/showGiverSendForm'
 import { createCommands } from './commands'
 import { program } from 'commander'
 import { showTestMenu } from './menus/showTestMenu'
-import './importTsMocha'
 import { showRunMenu } from './menus/showRunMenu'
 
 async function main (): Promise<void> {
@@ -28,6 +27,9 @@ async function main (): Promise<void> {
     await init()
     return
   }
+
+  // Require ts-mocha to read TypeScript files and run tests
+  require('ts-mocha') // eslint-disable-line
 
   const config = readConfig()
   createCommands(config)
