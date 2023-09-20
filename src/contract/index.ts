@@ -4,10 +4,10 @@ import {
   type KeyPair, type ResultOfProcessMessage,
   type TonClient
 } from '@eversdk/core'
-import { type Abi } from '@eversdk/core/dist/modules'
 import { type Giver } from '../giver'
 import { Global } from '../global'
 import { error } from './constants'
+import { createPayload } from './payload'
 
 export enum AccountType {
   notFound = '-1',
@@ -38,7 +38,10 @@ export interface ResultOfCall {
 }
 
 export class Contract {
-  private readonly abi: Abi
+  private readonly abi: {
+    type: 'Contract',
+    value: AbiContract
+  }
   private readonly initialData?: Record<string, any>
   private readonly keys?: KeyPair
   private readonly tvc?: string
@@ -416,5 +419,20 @@ export class Contract {
       return true
     } catch (e: any) {}
     return false
+  }
+
+  /**
+   * Create payload
+   * @example
+   *  const contract = new Contract(...)
+   *  const payload = await contract.createPayload('bet', { luckyNumber: 5})
+   * @param method Method name
+   * @param input
+   */
+  public async createPayload (method: string, input: any = {}): Promise<string> {
+    if (this.client === undefined)
+      throw error.noClient
+
+    return await createPayload(this.abi.value, method, input, this.client)
   }
 }

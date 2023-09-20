@@ -101,6 +101,7 @@ type GetCustodiansOut = {
 export class SafeMultisigWallet extends Contract {
   private readonly _call: SafeMultisigWalletCalls
   private readonly _run: SafeMultisigWalletRuns
+  private readonly _payload: SafeMultisigWalletPayload
 
   constructor (config: CompiledContractConfig, options: ContractOptions = {}) {
     if (config.address === undefined)
@@ -117,6 +118,7 @@ export class SafeMultisigWallet extends Contract {
       }, options)
     this._call = new SafeMultisigWalletCalls(this)
     this._run = new SafeMultisigWalletRuns(this)
+    this._payload = new SafeMultisigWalletPayload(this)
   }
 
   async deploy (
@@ -134,6 +136,10 @@ export class SafeMultisigWallet extends Contract {
 
   get run (): SafeMultisigWalletRuns {
     return this._run
+  }
+
+  get payload (): SafeMultisigWalletPayload {
+    return this._payload
   }
 }
 
@@ -173,7 +179,7 @@ class SafeMultisigWalletCalls {
   }
 
   public async getTransactionIds (keys?: KeyPair): Promise<ResultOfCall & { out: GetTransactionIdsOut }> {
-    return await this.contract.callMethod('getTransactions', {}, keys)
+    return await this.contract.callMethod('getTransactionIds', {}, keys)
   }
 
   public async getCustodians (keys?: KeyPair): Promise<ResultOfCall & { out: GetCustodiansOut }> {
@@ -205,10 +211,54 @@ class SafeMultisigWalletRuns {
   }
 
   public async getTransactionIds (): Promise<GetTransactionIdsOut> {
-    return (await this.contract.runMethod('getTransactions')).value
+    return (await this.contract.runMethod('getTransactionIds')).value
   }
 
   public async getCustodians (): Promise<GetCustodiansOut> {
     return (await this.contract.runMethod('getCustodians')).value
+  }
+}
+
+class SafeMultisigWalletPayload {
+  constructor (private readonly contract: Contract) {}
+
+  public async acceptTransfer (input: AcceptTransferIn): Promise<string> {
+    return await this.contract.createPayload('acceptTransfer', input)
+  }
+
+  public async sendTransaction (input: SendTransactionIn): Promise<string> {
+    return await this.contract.createPayload('sendTransaction', input)
+  }
+
+  public async submitTransaction (input: SubmitTransactionIn): Promise<string> {
+    return await this.contract.createPayload('submitTransaction', input)
+  }
+
+  public async confirmTransaction (input: ConfirmTransactionIn): Promise<string> {
+    return await this.contract.createPayload('confirmTransaction', input)
+  }
+
+  public async isConfirmed (input: IsConfirmedIn): Promise<string> {
+    return await this.contract.createPayload('isConfirmed', input)
+  }
+
+  public async getParameters (): Promise<string> {
+    return await this.contract.createPayload('getParameters')
+  }
+
+  public async getTransaction (input: GetTransactionIn): Promise<string> {
+    return await this.contract.createPayload('getTransaction', input)
+  }
+
+  public async getTransactions (): Promise<string> {
+    return await this.contract.createPayload('getTransactions')
+  }
+
+  public async getTransactionIds (): Promise<string> {
+    return await this.contract.createPayload('getTransactionIds')
+  }
+
+  public async getCustodians (): Promise<string> {
+    return await this.contract.createPayload('getCustodians')
   }
 }

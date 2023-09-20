@@ -23,6 +23,7 @@ type GetMessagesOut = {
 export class GiverV3 extends Contract {
   private readonly _call: GiverV3Calls
   private readonly _run: GiverV3Runs
+  private readonly _payload: GiverV3Payload
 
   constructor (config: CompiledContractConfig, options: ContractOptions = {}) {
     if (config.address === undefined)
@@ -39,6 +40,7 @@ export class GiverV3 extends Contract {
       }, options)
     this._call = new GiverV3Calls(this)
     this._run = new GiverV3Runs(this)
+    this._payload = new GiverV3Payload(this)
   }
 
   get call (): GiverV3Calls {
@@ -47,6 +49,10 @@ export class GiverV3 extends Contract {
 
   get run (): GiverV3Runs {
     return this._run
+  }
+
+  get payload (): GiverV3Payload {
+    return this._payload
   }
 }
 
@@ -71,5 +77,21 @@ class GiverV3Runs {
 
   async getMessages (): Promise<GetMessagesOut> {
     return (await this.contract.runMethod('getMessages')).value
+  }
+}
+
+class GiverV3Payload {
+  constructor (private readonly contract: Contract) {}
+
+  async sendTransaction (input: SendTransactionIn): Promise<string> {
+    return await this.contract.createPayload('sendTransaction', input)
+  }
+
+  async upgrade (input: UpgradeIn): Promise<string> {
+    return await this.contract.createPayload('upgrade', input)
+  }
+
+  async getMessages (): Promise<string> {
+    return await this.contract.createPayload('getMessages')
   }
 }
