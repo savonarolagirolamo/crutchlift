@@ -12,6 +12,11 @@ export async function run (
   network: string = SE,
   compilation: boolean = true
 ): Promise<void> {
+  ///////////////////
+  // Create global //
+  ///////////////////
+  await createGlobal(config, network)
+
   ///////////
   // Up SE //
   ///////////
@@ -22,11 +27,6 @@ export async function run (
   /////////////
   if (compilation)
     await compile(config)
-
-  ///////////////////
-  // Create global //
-  ///////////////////
-  await createGlobal(config, network)
 
   ////////////////
   // Check file //
