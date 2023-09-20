@@ -24,7 +24,7 @@ export class GiverV3 extends Contract {
   private readonly _run: GiverV3Runs
   private readonly _payload: GiverV3Payload
 
-  constructor (config: CompiledContractConfig, options: ContractOptions = {}) {
+  constructor (config: CompiledContractConfig = {}, options: ContractOptions = {}) {
     if (config.address === undefined)
       super({
         abi: GiverV3Content.abi,

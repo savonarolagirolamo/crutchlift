@@ -102,7 +102,7 @@ export class SafeMultisigWallet extends Contract {
   private readonly _run: SafeMultisigWalletRuns
   private readonly _payload: SafeMultisigWalletPayload
 
-  constructor (config: CompiledContractConfig, options: ContractOptions = {}) {
+  constructor (config: CompiledContractConfig = {}, options: ContractOptions = {}) {
     if (config.address === undefined)
       super({
         abi: SafeMultisigWalletContent.abi,
