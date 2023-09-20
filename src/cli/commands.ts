@@ -4,9 +4,9 @@ import { test } from './actions/test'
 import { giverDeploy, giverInfo, giverSend } from './actions/giver'
 import { tree } from './actions/tree'
 import { clean } from './actions/clean'
-import data from '../../package.json'
 import { seInfo, seReset, seStart, seStop, seVersion } from './actions/se'
 import { type VendeeConfig } from './config'
+import { packageJson } from './package'
 
 export const COMPILE: string = 'compile'
 export const TEST: string = 'test'
@@ -32,8 +32,8 @@ export const SE_ACTIONS = {
 
 export function createCommands (config: VendeeConfig): void {
   program
-    .name(data.name)
-    .version(data.version)
+    .name(packageJson.name)
+    .version(packageJson.version)
 
   program
     .command(COMPILE)

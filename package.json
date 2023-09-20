@@ -1,6 +1,6 @@
 {
   "name": "vendee",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "TVM-Solidity contract development framework",
   "scripts": {
     "build": "tsc --build .",
@@ -10,10 +10,8 @@
     "cli": "tsc --build . && node build/src/cli/index.js",
     "prepublishOnly": "yarn build"
   },
-  "main": "build/src/index.js",
-  "bin": {
-    "vendee": "build/src/cli/index.js"
-  },
+  "main": "build/index.js",
+  "bin": "build/cli/index.js",
   "repository": "https://github.com/kokkekpek/vendee",
   "author": "@kokkekpek",
   "license": "MIT",
