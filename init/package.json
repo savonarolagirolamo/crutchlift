@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "mocha": "^10.2.0",
-    "vasku": "^1.0.0"
+    "vasku": "^0.0.1"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
