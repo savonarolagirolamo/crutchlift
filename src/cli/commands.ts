@@ -97,11 +97,11 @@ export function createCommands (config: VendeeConfig): void {
 
   program
     .command(CLEAN)
-    .description('clean build and artifacts directories')
+    .description('clean build and cache directories')
     .action((): void => { clean() })
 
   program
     .command(PUBLISH)
-    .description('publish npm package with contracts')
+    .description('publish Node.js package with contracts')
     .action((): void => { tree() })
 }
