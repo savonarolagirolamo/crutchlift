@@ -1,6 +1,6 @@
 {
   "name": "vendee",
-  "version": "0.0.1",
+  "version": "1.0.5",
   "description": "TVM-Solidity contract development framework",
   "scripts": {
     "build": "tsc --build .",
