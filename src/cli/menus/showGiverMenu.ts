@@ -1,33 +1,21 @@
-import { BACK, HELP, QUIT, Select } from './enquirer'
-import { GIVER_ACTIONS } from '../commands'
-import { showGiverSendForm } from './showGiverSendForm'
-import { giverDeploy, giverInfo } from '../actions/giver'
 import { showMainMenu } from './showMainMenu'
-import { type VendeeConfig } from '../config/types'
+import { showGiverActionsMenu } from './showGiverActionsMenu'
 import { help } from '../actions/help'
+import { BACK, ELLIPSIS, HELP, Select } from './enquirer'
+import { type VendeeConfig } from '../config/types'
 
-export async function showGiverMenu (config: VendeeConfig, back: boolean = false): Promise<void> {
+export async function showGiverMenu (config: VendeeConfig): Promise<void> {
   const choice: string = await (new Select({
-    message: 'Giver',
+    message: 'Select giver network',
     choices: [
-      GIVER_ACTIONS.INFO,
-      GIVER_ACTIONS.SEND,
-      GIVER_ACTIONS.DEPLOY,
+      ...Object.keys(config.networks).map((value: string) => value + ELLIPSIS),
       HELP,
-      back ? BACK : QUIT
+      BACK
     ]
   })).run()
 
+  const network: string = choice.substring(0, choice.length - ELLIPSIS.length)
   switch (choice) {
-    case GIVER_ACTIONS.INFO:
-      giverInfo()
-      break
-    case GIVER_ACTIONS.SEND:
-      await showGiverSendForm()
-      break
-    case GIVER_ACTIONS.DEPLOY:
-      giverDeploy()
-      break
     case HELP:
       help()
       break
@@ -35,5 +23,8 @@ export async function showGiverMenu (config: VendeeConfig, back: boolean = false
       --process.argv.length
       await showMainMenu(config)
       break
+    default:
+      process.argv.push(network)
+      await showGiverActionsMenu(config, network)
   }
 }

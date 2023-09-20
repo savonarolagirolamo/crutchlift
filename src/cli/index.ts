@@ -2,14 +2,23 @@
 
 import { isConfigExist, readConfig } from './config'
 import { type VendeeConfig } from './config/types'
-import { isNoCommands, isGiverCommand, isGiverSendCommand, isSECommand } from './checkers'
+import {
+  isNoCommands,
+  isGiverCommand,
+  isGiverNetworkCommand,
+  isGiverNetworkSendCommand,
+  isSECommand,
+  FIRST_ARGUMENT
+} from './checkers'
 import { init } from './init'
 import { showMainMenu } from './menus/showMainMenu'
 import { showGiverMenu } from './menus/showGiverMenu'
+import { showGiverActionsMenu } from './menus/showGiverActionsMenu'
 import { showSEMenu } from './menus/showSEMenu'
 import { showGiverSendForm } from './menus/showGiverSendForm'
 import { createCommands } from './commands'
 import { program } from 'commander'
+import './register'
 
 async function main (): Promise<void> {
   if (!isConfigExist()) {
@@ -20,22 +29,27 @@ async function main (): Promise<void> {
   const config: VendeeConfig = readConfig()
   createCommands(config)
 
-  if (isNoCommands) {
+  if (isNoCommands()) {
     await showMainMenu(config)
     return
   }
 
-  if (isGiverCommand) {
+  if (isGiverCommand()) {
     await showGiverMenu(config)
     return
   }
 
-  if (isGiverSendCommand) {
-    await showGiverSendForm()
+  if (isGiverNetworkCommand(config.networks)) {
+    await showGiverActionsMenu(config, FIRST_ARGUMENT)
     return
   }
 
-  if (isSECommand) {
+  if (isGiverNetworkSendCommand(config.networks)) {
+    await showGiverSendForm(config, FIRST_ARGUMENT)
+    return
+  }
+
+  if (isSECommand()) {
     await showSEMenu(config)
     return
   }

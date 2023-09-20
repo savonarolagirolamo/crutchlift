@@ -1,6 +1,8 @@
 export const GIVER = {
   se: 'se',
-  v3: 'GiverV3'
+  v2: 'GiverV2',
+  v3: 'GiverV3',
+  safeMultiSig: 'SafeMultiSig'
 }
 
 const GIVERS = [GIVER.se, GIVER.v3] as const

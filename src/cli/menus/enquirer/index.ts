@@ -7,3 +7,4 @@ export { Form }
 export const HELP: string = gray('?')
 export const BACK: string = red('←')
 export const QUIT: string = red('✖')
+export const ELLIPSIS: string = ` ${gray('…')}`

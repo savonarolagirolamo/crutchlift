@@ -1,4 +1,4 @@
-import { HELP, QUIT, Select } from './enquirer'
+import { ELLIPSIS, HELP, QUIT, Select } from './enquirer'
 import { COMPILE, GIVER, SE, TEST, TREE, CLEAN, PUBLISH } from '../commands'
 import { compile } from '../actions/compile'
 import { test } from '../actions/test'
@@ -7,19 +7,17 @@ import { showSEMenu } from './showSEMenu'
 import { tree } from '../actions/tree'
 import { clean } from '../actions/clean'
 import { publish } from '../actions/publish'
-import { type VendeeConfig } from '../config/types'
 import { help } from '../actions/help'
+import { type VendeeConfig } from '../config/types'
 
 export async function showMainMenu (config: VendeeConfig): Promise<void> {
-  const GIVER_ELLIPSIS: string = GIVER + ' …'
-  const SE_ELLIPSIS: string = SE + ' …'
   const choice: string = await (new Select({
     message: 'Vendee',
     choices: [
       COMPILE,
       TEST,
-      GIVER_ELLIPSIS,
-      SE_ELLIPSIS,
+      GIVER + ELLIPSIS,
+      SE + ELLIPSIS,
       TREE,
       CLEAN,
       PUBLISH,
@@ -35,13 +33,13 @@ export async function showMainMenu (config: VendeeConfig): Promise<void> {
     case TEST:
       test()
       break
-    case GIVER_ELLIPSIS:
+    case GIVER + ELLIPSIS:
       process.argv.push(GIVER)
-      await showGiverMenu(config, true)
+      await showGiverMenu(config)
       break
-    case SE_ELLIPSIS:
+    case SE + ELLIPSIS:
       process.argv.push(SE)
-      await showSEMenu(config, true)
+      await showSEMenu(config)
       break
     case TREE:
       tree()

@@ -1,11 +1,11 @@
-import { BACK, HELP, QUIT, Select } from './enquirer'
+import { BACK, HELP, Select } from './enquirer'
 import { type VendeeConfig } from '../config/types'
 import { SE_ACTIONS } from '../commands'
 import { seInfo, seStart, seVersion, seStop, seReset } from '../actions/se'
 import { help } from '../actions/help'
 import { showMainMenu } from './showMainMenu'
 
-export async function showSEMenu (config: VendeeConfig, back: boolean = false): Promise<void> {
+export async function showSEMenu (config: VendeeConfig): Promise<void> {
   const choice: string = await (new Select({
     message: 'Local node Simple Emulator',
     choices: [
@@ -15,7 +15,7 @@ export async function showSEMenu (config: VendeeConfig, back: boolean = false): 
       SE_ACTIONS.STOP,
       SE_ACTIONS.RESET,
       HELP,
-      back ? BACK : QUIT
+      BACK
     ]
   })).run()
 

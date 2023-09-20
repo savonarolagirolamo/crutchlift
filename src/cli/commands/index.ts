@@ -1,12 +1,13 @@
 import { Argument, program } from 'commander'
-import { compile } from './actions/compile'
-import { test } from './actions/test'
-import { giverDeploy, giverInfo, giverSend } from './actions/giver'
-import { tree } from './actions/tree'
-import { clean } from './actions/clean'
-import { seInfo, seReset, seStart, seStop, seVersion } from './actions/se'
-import { type VendeeConfig } from './config/types'
-import { packageJson } from './package'
+import { compile } from '../actions/compile'
+import { test } from '../actions/test'
+import { giverDeploy, giverInfo, giverSend, type GiverSendOptions } from '../actions/giver'
+import { tree } from '../actions/tree'
+import { clean } from '../actions/clean'
+import { seInfo, seReset, seStart, seStop, seVersion } from '../actions/se'
+import { type VendeeConfig } from '../config/types'
+import { packageJson } from '../package'
+import { GIVER_SEND_FLAGS, type GiverSendOptionsValidationResult, validateGiverSendOptions } from './giver'
 
 export const COMPILE: string = 'compile'
 export const TEST: string = 'test'
@@ -47,21 +48,25 @@ export function createCommands (config: VendeeConfig): void {
 
   program
     .command(GIVER)
-    .addArgument(new Argument('[action]', 'action').choices(Object.values(GIVER_ACTIONS)))
-    .option('-t, --to <to>', 'address to send coins')
-    .option('-v, --value <value>', 'coins value e.g. 0.1')
-    .option('-b, --bounce  <bounce>', 'bounce true | false')
+    .addArgument(new Argument('<network>', 'network').choices(Object.keys(config.networks)))
+    .addArgument(new Argument('<action>', 'action').choices(Object.values(GIVER_ACTIONS)))
+    .option(GIVER_SEND_FLAGS.to, 'address to send coins')
+    .option(GIVER_SEND_FLAGS.value, 'coins value e.g. 0.1')
     .description('manage giver')
-    .action((action: string, options: { to?: string, value?: string, bounce?: string }): void => {
+    .action(async (network: string, action: string, options: { to?: string, value?: string, bounce?: string }): Promise<void> => {
+      const validationResult: GiverSendOptionsValidationResult = validateGiverSendOptions(options)
       switch (action) {
         case GIVER_ACTIONS.INFO:
-          giverInfo()
+          await giverInfo(config, network)
           break
         case GIVER_ACTIONS.SEND:
-          giverSend(options)
+          if (validationResult.error !== undefined)
+            console.error(validationResult.error)
+          else
+            await giverSend(config, network, options as GiverSendOptions)
           break
         case GIVER_ACTIONS.DEPLOY:
-          giverDeploy()
+          await giverDeploy(config, network)
           break
       }
     })

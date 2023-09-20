@@ -1,21 +1,15 @@
+import { giverSend, type GiverSendOptions } from '../actions/giver'
 import { Form } from './enquirer'
-import { giverInfo, giverSend } from '../actions/giver'
+import { type VendeeConfig } from '../config/types'
 
-export async function showGiverSendForm (): Promise<void> {
-  giverInfo()
-
-  const options: {
-    to: string
-    value: string
-    bounce: string
-  } = await new Form({
+export async function showGiverSendForm (config: VendeeConfig, network: string): Promise<void> {
+  const options: GiverSendOptions = await new Form({
     message: 'Send coins',
     choices: [
       { name: 'to', message: 'To', initial: '0:0000000000000000000000000000000000000000000000000000000000000000' },
-      { name: 'value', message: 'Value', initial: '0.001' },
-      { name: 'bounce', message: 'Bounce', initial: 'false' }
+      { name: 'value', message: 'Value', initial: '0.001' }
     ]
   }).run()
 
-  giverSend(options)
+  await giverSend(config, network, options)
 }

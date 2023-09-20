@@ -1,6 +1,5 @@
 import * as fs from 'fs'
 import path from 'path'
-import './register'
 import { type VendeeConfig } from './types'
 import { validateAndSetDefaults, type Validation } from './validation'
 import { error } from './error'
