@@ -1,4 +1,6 @@
 import { type VendeeConfig } from '../../config/types'
+import { createGlobal } from '../../global/createGlobal'
+import { printInfo } from './printInfo'
 
 export type GiverSendOptions = {
   to: string
@@ -6,9 +8,9 @@ export type GiverSendOptions = {
 }
 
 export async function giverInfo (config: VendeeConfig, network: string): Promise<void> {
-  console.log('TODO giver send')
-  console.log(config)
-  console.log(network)
+  const globalVendee = await createGlobal(config, network)
+  await printInfo(globalVendee.giver.contract)
+  globalVendee.client.close()
 }
 
 export async function giverSend (config: VendeeConfig, network: string, options: GiverSendOptions): Promise<void> {

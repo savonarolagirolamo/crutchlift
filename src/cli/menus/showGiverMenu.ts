@@ -5,7 +5,7 @@ import { BACK, ELLIPSIS, HELP, Select } from './enquirer'
 import { type VendeeConfig } from '../config/types'
 
 export async function showGiverMenu (config: VendeeConfig): Promise<void> {
-  const choice: string = await (new Select({
+  const choice = await (new Select({
     message: 'Select giver network',
     choices: [
       ...Object.keys(config.networks).map((value: string) => value + ELLIPSIS),
@@ -14,7 +14,7 @@ export async function showGiverMenu (config: VendeeConfig): Promise<void> {
     ]
   })).run()
 
-  const network: string = choice.substring(0, choice.length - ELLIPSIS.length)
+  const network = choice.substring(0, choice.length - ELLIPSIS.length)
   switch (choice) {
     case HELP:
       help()

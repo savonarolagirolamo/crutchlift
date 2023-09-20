@@ -1,12 +1,12 @@
 import Joi, { type ValidationError } from 'joi'
 import { type VendeeConfig } from './types'
-import { GIVERS } from './types/giver'
+import { GIVER, GIVERS, SE_GIVERS } from './types/giverLabels'
 
 const defaults: VendeeConfig = {
   networks: {
     local: {
       endpoints: ['http://localhost'],
-      giver: 'se'
+      giver: GIVER.se.v3
     }
   },
   se: {
@@ -32,10 +32,20 @@ export function validateAndSetDefaults (config: any): Validation {
   const schema: Joi.ObjectSchema = Joi.object({
     networks: Joi.object().pattern(
       Joi.string(),
-      Joi.object({
-        endpoints: Joi.array().items(Joi.string()).default(defaults.networks.local.endpoints),
-        giver: Joi.string().valid(...GIVERS).default(defaults.networks.local.giver)
-      })
+      Joi.alternatives(
+        Joi.object({
+          endpoints: Joi.array().items(Joi.string()).default(defaults.networks.local.endpoints),
+          giver: Joi.string().valid(...SE_GIVERS).default(defaults.networks.local.giver)
+        }),
+        Joi.object({
+          endpoints: Joi.array().items(Joi.string()).required(),
+          giver: Joi.string().valid(...GIVERS).required(),
+          keys: Joi.object({
+            name: Joi.string(),
+            file: Joi.string()
+          })
+        })
+      ).default(defaults.networks.local)
     ),
     se: Joi.object({
       version: Joi.string().default(defaults.se.version),

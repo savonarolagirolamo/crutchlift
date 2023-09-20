@@ -6,7 +6,7 @@ import { help } from '../actions/help'
 import { showMainMenu } from './showMainMenu'
 
 export async function showSEMenu (config: VendeeConfig): Promise<void> {
-  const choice: string = await (new Select({
+  const choice = await (new Select({
     message: 'Local node Simple Emulator',
     choices: [
       SE_ACTIONS.INFO,

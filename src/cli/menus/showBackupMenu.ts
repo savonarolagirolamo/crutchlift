@@ -3,11 +3,11 @@ import { backup } from '../actions/init/backup'
 import { init } from '../actions/init/init'
 import { green } from 'colors'
 
-const DIRECTORY: string = 'backup'
+const DIRECTORY = 'backup'
 
 export async function showBackupMenu (): Promise<void> {
-  const BACKUP: string = `move files to ${green(DIRECTORY)} directory and initialize project`
-  const choice: string = await (new Select({
+  const BACKUP = `move files to ${green(DIRECTORY)} directory and initialize project`
+  const choice = await (new Select({
     message: 'Tried to initiate a project, but the directory is not empty',
     choices: [
       BACKUP,

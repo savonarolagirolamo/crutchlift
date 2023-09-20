@@ -1,14 +1,25 @@
-import { type Giver } from './giver'
+import { type GiverLabels, type SEGiverLabel } from './giverLabels'
 
 export type VendeeConfig = {
   networks: Record<string, NetworkConfig>
   se: SEConfig
   paths: PathsConfig
+  timeout?: number
 }
 
 export type NetworkConfig = {
-  endpoints?: string[]
-  giver?: Giver
+  endpoints: string[]
+} & ({
+  giver: SEGiverLabel
+  keys: undefined
+} | {
+  giver: GiverLabels
+  keys?: KeysConfig
+})
+
+export type KeysConfig = {
+  name?: string
+  file?: string
 }
 
 export type SEConfig = {

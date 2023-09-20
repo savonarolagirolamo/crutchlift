@@ -1,4 +1,3 @@
-// @ts-ignore
 import { Config } from 'vendee'
 import * as dotenv from 'dotenv'
 
@@ -6,8 +5,7 @@ dotenv.config()
 
 const config: Config = {
   /**
-   * Query server and giver
-   * @see https://github.com/tonlabs/ton-q-server
+   * Network and givers settings
    */
   networks: {
     se: {
@@ -23,21 +21,111 @@ const config: Config = {
        * @see https://github.com/treeton-org/application-server
        * @default ['http://localhost']
        */
-      endpoints: ['http://localhost'],
+      endpoints: [process.env.SE_ENDPOINT ?? ''],
 
       /**
-       * Giver
-       * @default 'se'
+       * Giver label
+       * SE givers don't need keys
+       * @type {'v2.se' | 'v3.se' | 'SafeMultiSigWallet.se' | 'v2', 'v3', 'SafeMultiSigWallet'}
+       * @default 'v3.se'
        */
-      giver: 'se'
+      giver: 'v3.se'
     },
-    fld: {
-      endpoints: [process.env.FLD_ENDPOINT ?? ''],
-      giver: 'GiverV3'
+
+    venomTestnet: {
+      /**
+       * Query server GraphQL endpoints
+       * URL without `/graphql` at end
+       *
+       * You can use public endpoints
+       * @see https://evercloud.dev
+       *
+       * You can up own endpoint
+       * @see https://github.com/tonlabs/evernode-ds
+       * @see https://github.com/treeton-org/application-server
+       * @default ['http://localhost']
+       */
+      endpoints: process.env.VENOM_TESTNET_ENDPOINTS ? process.env.VENOM_TESTNET_ENDPOINTS.split(',') : [''],
+
+      /**
+       * Giver label
+       * Not SE giver need keys
+       */
+      giver: process.env.VENOM_TESTNET_GIVER ?? 'v3',
+
+      /**
+       * Giver keys
+       *
+       * Options:
+       * 1. Set `name` if you want to generate and read keys from `<keys directory>/<name>.json`
+       * 2. Set `file` if you want to read keys by absolute path
+       * 3. Make `name` and `file` empty if you want to generate and read keys from
+       *   `<keys directory>/<network name>.giver.json`
+       */
+      keys: {
+        /**
+         * Setup it if you want to use one key pair for different networks
+         *
+         * Actions:
+         * 1. Generate `<keys directory>/<name>.json` if file doesn't exist
+         * 2. Read keys from file
+         * @example
+         *   'giver'
+         */
+        name: process.env.VENOM_TESTNET_KEYS_NAME,
+
+        /**
+         * Read keys by absolute path
+         * @example
+         *   '/home/user/keys/giver.keys.json'
+         */
+        file: process.env.VENOM_TESTNET_GIVER_KEYS_FILE,
+      }
     },
-    main: {
-      endpoints: [process.env.MAIN_ENDPOINT ?? ''],
-      giver: 'GiverV3'
+
+    venom: {
+      endpoints: process.env.VENOM_ENDPOINTS ? process.env.VENOM_ENDPOINTS.split(',') : [''],
+      giver: process.env.VENOM_GIVER ?? 'v3',
+      keys: {
+        name: process.env.VENOM_KEYS_NAME,
+        file: process.env.VENOM_KEYS_FILE
+      }
+    },
+
+    everFld: {
+      endpoints: process.env.EVER_FLD_ENDPOINTS ? process.env.EVER_FLD_ENDPOINTS.split(',') : [''],
+      giver: process.env.EVER_FLD_GIVER ?? 'v3',
+      keys: {
+        name: process.env.EVER_FLD_KEYS_NAME,
+        file: process.env.EVER_FLD_KEYS_FILE
+      }
+    },
+
+    everDev: {
+      endpoints: process.env.EVER_DEV_ENDPOINTS ? process.env.EVER_DEV_ENDPOINTS.split(',') : [''],
+      giver: process.env.EVER_DEV_GIVER ?? 'v3',
+      keys: {
+        name: process.env.EVER_DEV_KEYS_NAME,
+        file: process.env.EVER_DEV_KEYS_FILE
+      }
+    },
+
+    everMain: {
+      endpoints: process.env.EVER_MAIN_ENDPOINTS ? process.env.EVER_MAIN_ENDPOINTS.split(',') : [''],
+      giver: process.env.EVER_MAIN_GIVER ?? 'v3',
+      keys: {
+        name: process.env.EVER_MAIN_KEYS_NAME,
+        file: process.env.EVER_MAIN_KEYS_FILE
+      }
+    },
+
+    ton: {
+      endpoints: process.env.TON_ENDPOINTS ? process.env.TON_ENDPOINTS.split(',') : [''],
+      giver: process.env.TON_GIVER ?? 'v3',
+      keys: {
+        name: process.env.TON_KEYS_NAME,
+        file: process.env.TON_KEYS_FILE
+      }
     }
   },
 

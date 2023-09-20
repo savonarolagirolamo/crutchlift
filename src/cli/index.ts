@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { isConfigExist, readConfig } from './config'
-import { type VendeeConfig } from './config/types'
 import {
   isNoCommands,
   isGiverCommand,
@@ -26,7 +25,7 @@ async function main (): Promise<void> {
     return
   }
 
-  const config: VendeeConfig = readConfig()
+  const config = readConfig()
   createCommands(config)
 
   if (isNoCommands()) {

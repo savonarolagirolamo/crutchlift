@@ -9,7 +9,7 @@ export function clean (paths: PathsConfig, root: string = process.cwd()): void {
 }
 
 function remove (root: string, relativePath: string): void {
-  const absolutePath: string = path.resolve(root, relativePath)
+  const absolutePath = path.resolve(root, relativePath)
   fse.removeSync(absolutePath)
   console.log(`${green('✔')} ${blue(relativePath)} removed`)
 }

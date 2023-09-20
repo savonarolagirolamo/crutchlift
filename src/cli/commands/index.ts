@@ -6,16 +6,16 @@ import { tree } from '../actions/tree'
 import { clean } from '../actions/clean'
 import { seInfo, seReset, seStart, seStop, seVersion } from '../actions/se'
 import { type VendeeConfig } from '../config/types'
-import { packageJson } from '../package'
+import { packageJson } from './package'
 import { GIVER_SEND_FLAGS, type GiverSendOptionsValidationResult, validateGiverSendOptions } from './giver'
 
-export const COMPILE: string = 'compile'
-export const TEST: string = 'test'
-export const GIVER: string = 'giver'
-export const SE: string = 'se'
-export const TREE: string = 'tree'
-export const CLEAN: string = 'clean'
-export const PUBLISH: string = 'publish'
+export const COMPILE = 'compile'
+export const TEST = 'test'
+export const GIVER = 'giver'
+export const SE = 'se'
+export const TREE = 'tree'
+export const CLEAN = 'clean'
+export const PUBLISH = 'publish'
 
 export const GIVER_ACTIONS = {
   INFO: 'info',
@@ -53,7 +53,7 @@ export function createCommands (config: VendeeConfig): void {
     .option(GIVER_SEND_FLAGS.to, 'address to send coins')
     .option(GIVER_SEND_FLAGS.value, 'coins value e.g. 0.1')
     .description('manage giver')
-    .action(async (network: string, action: string, options: { to?: string, value?: string, bounce?: string }): Promise<void> => {
+    .action(async (network: string, action: string, options: { to?: string, value?: string }): Promise<void> => {
       const validationResult: GiverSendOptionsValidationResult = validateGiverSendOptions(options)
       switch (action) {
         case GIVER_ACTIONS.INFO:

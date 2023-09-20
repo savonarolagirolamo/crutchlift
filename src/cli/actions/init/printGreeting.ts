@@ -1,6 +1,6 @@
 export function printGreeting (): void {
-  const green: string = '\x1b[32m'
-  const greeting: string = green + `
+  const green = '\x1b[32m'
+  const greeting = green + `
 ██╗   ██╗███████╗███╗   ██╗██████╗ ███████╗███████╗
 ██║   ██║██╔════╝████╗  ██║██╔══██╗██╔════╝██╔════╝
 ██║   ██║█████╗  ██╔██╗ ██║██║  ██║█████╗  █████╗  

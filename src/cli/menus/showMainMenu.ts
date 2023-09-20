@@ -11,7 +11,7 @@ import { help } from '../actions/help'
 import { type VendeeConfig } from '../config/types'
 
 export async function showMainMenu (config: VendeeConfig): Promise<void> {
-  const choice: string = await (new Select({
+  const choice = await (new Select({
     message: 'Vendee',
     choices: [
       COMPILE,

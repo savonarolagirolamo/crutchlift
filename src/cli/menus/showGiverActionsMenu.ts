@@ -7,7 +7,7 @@ import { GIVER_ACTIONS } from '../commands'
 import { type VendeeConfig } from '../config/types'
 
 export async function showGiverActionsMenu (config: VendeeConfig, network: string): Promise<void> {
-  const choice: string = await (new Select({
+  const choice = await (new Select({
     message: 'Giver',
     choices: [
       GIVER_ACTIONS.INFO,
