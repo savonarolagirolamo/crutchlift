@@ -7,7 +7,7 @@ import { showSEMenu } from './showSEMenu'
 import { tree } from '../actions/tree'
 import { clean } from '../actions/clean'
 import { publish } from '../actions/publish'
-import { type VendeeConfig } from '../config'
+import { type VendeeConfig } from '../config/types'
 import { help } from '../actions/help'
 
 export async function showMainMenu (config: VendeeConfig): Promise<void> {

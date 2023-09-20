@@ -1,3 +1,3 @@
-import { type VendeeConfig } from './cli/config'
+import { type Config } from './cli/config/types'
 
-export type { VendeeConfig }
+export type { Config }

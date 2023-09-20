@@ -1,5 +1,5 @@
 import { consoleTerminal, runCommand } from 'everdev'
-import { type SEConfig } from '../config'
+import { type SEConfig } from '../config/types'
 
 async function run (command: string, args: any = {}): Promise<void> {
   await runCommand(consoleTerminal, `se ${command}`, args)

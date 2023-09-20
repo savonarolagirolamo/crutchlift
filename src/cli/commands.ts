@@ -5,7 +5,7 @@ import { giverDeploy, giverInfo, giverSend } from './actions/giver'
 import { tree } from './actions/tree'
 import { clean } from './actions/clean'
 import { seInfo, seReset, seStart, seStop, seVersion } from './actions/se'
-import { type VendeeConfig } from './config'
+import { type VendeeConfig } from './config/types'
 import { packageJson } from './package'
 
 export const COMPILE: string = 'compile'

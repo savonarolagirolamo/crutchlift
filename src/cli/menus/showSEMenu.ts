@@ -1,5 +1,5 @@
 import { BACK, HELP, QUIT, Select } from './enquirer'
-import { type VendeeConfig } from '../config'
+import { type VendeeConfig } from '../config/types'
 import { SE_ACTIONS } from '../commands'
 import { seInfo, seStart, seVersion, seStop, seReset } from '../actions/se'
 import { help } from '../actions/help'

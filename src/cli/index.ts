@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import { type VendeeConfig, isConfigExist, readConfig } from './config'
+import { isConfigExist, readConfig } from './config'
+import { type VendeeConfig } from './config/types'
 import { isNoCommands, isGiverCommand, isGiverSendCommand, isSECommand } from './checkers'
 import { init } from './init'
 import { showMainMenu } from './menus/showMainMenu'
@@ -11,7 +12,7 @@ import { createCommands } from './commands'
 import { program } from 'commander'
 
 async function main (): Promise<void> {
-  if (!isConfigExist) {
+  if (!isConfigExist()) {
     await init()
     return
   }

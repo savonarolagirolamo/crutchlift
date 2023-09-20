@@ -3,7 +3,7 @@ import { GIVER_ACTIONS } from '../commands'
 import { showGiverSendForm } from './showGiverSendForm'
 import { giverDeploy, giverInfo } from '../actions/giver'
 import { showMainMenu } from './showMainMenu'
-import { type VendeeConfig } from '../config'
+import { type VendeeConfig } from '../config/types'
 import { help } from '../actions/help'
 
 export async function showGiverMenu (config: VendeeConfig, back: boolean = false): Promise<void> {
