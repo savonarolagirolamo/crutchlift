@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs-extra'
 import { execSync } from 'child_process'
 
-const PATH: string = '../../../../../init'
+const PATH: string = '../../../../init'
 const COMMAND: string = 'yarn install'
 
 export function init (target: string = process.cwd()): void {
