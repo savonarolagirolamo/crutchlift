@@ -18,7 +18,7 @@ const defaults: VendeeConfig = {
   se: {
     version: 'latest',
     instance: 'default',
-    port: 80,
+    port: 8080,
     dbPort: 'none'
   },
   paths: {

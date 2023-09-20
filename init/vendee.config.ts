@@ -147,9 +147,9 @@ const config: Config = {
 
     /**
      * Port on localhost used to expose GraphQL API
-     * @default 80
+     * @default 8080
      */
-    port: 80,
+    port: 8080,
 
     /**
      * Port on localhost used to expose ArangoDB API

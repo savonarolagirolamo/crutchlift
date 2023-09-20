@@ -7,7 +7,7 @@ import { delay } from '../../../utils/delay'
 export const SE = 'se'
 const TIMEOUT = 2000
 const URL = 'http://localhost'
-const DEFAULT_PORT = 80
+const DEFAULT_PORT = 8080
 const DELAY = 200
 
 export async function upSeIfNotActive (network: string, config: SEConfig): Promise<void> {
