@@ -1,7 +1,7 @@
 import { GiverV3Content } from './GiverV3Content'
 import { type CompiledContractConfig, Contract, type ContractOptions, type ResultOfCall } from '../../index'
-import { ZERO_KEY_PAIR } from '../../constants'
 import { type KeyPair } from '@eversdk/core'
+import { ZERO } from '../../constants'
 
 type SendTransactionIn = {
   dest: string
@@ -13,12 +13,11 @@ type UpgradeIn = {
   code: string
 }
 
-
 type GetMessagesOut = {
-  messages: {
+  messages: Array<{
     hash: string
     expireAt: string
-  }[]
+  }>
 }
 
 export class GiverV3 extends Contract {
@@ -30,7 +29,7 @@ export class GiverV3 extends Contract {
       super({
         abi: GiverV3Content.abi,
         initialData: config.initialData ?? {},
-        keys: config.keys ?? ZERO_KEY_PAIR,
+        keys: config.keys ?? ZERO.keys,
         tvc: GiverV3Content.tvc
       }, options)
     else

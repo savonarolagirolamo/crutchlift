@@ -1,7 +1,7 @@
 import { SafeMultisigWalletContent } from './SafeMultisigWalletContent'
-import { type CompiledContractConfig, Contract, type ContractOptions, ResultOfCall } from '../../index'
-import { ZERO_KEY_PAIR } from '../../constants'
-import { KeyPair } from '@eversdk/core'
+import { type CompiledContractConfig, Contract, type ContractOptions, type ResultOfCall } from '../../index'
+import { type KeyPair } from '@eversdk/core'
+import { ZERO } from '../../constants'
 
 type SendTransactionIn = {
   dest: string
@@ -69,7 +69,7 @@ type GetTransactionOut = {
 }
 
 type GetTransactionsOut = {
-  trans: {
+  trans: Array<{
     id: string
     confirmationsMask: string
     signsRequired: string
@@ -81,7 +81,7 @@ type GetTransactionsOut = {
     sendFlags: string
     payload: string
     bounce: boolean
-  }[]
+  }>
 }
 
 type GetTransactionIdsOut = {
@@ -102,7 +102,7 @@ export class SafeMultisigWallet extends Contract {
       super({
         abi: SafeMultisigWalletContent.abi,
         initialData: config.initialData ?? {},
-        keys: config.keys ?? ZERO_KEY_PAIR,
+        keys: config.keys ?? ZERO.keys,
         tvc: SafeMultisigWalletContent.tvc
       }, options)
     else
@@ -126,43 +126,43 @@ export class SafeMultisigWallet extends Contract {
 class SafeMultisigWalletCalls {
   constructor (private readonly contract: Contract) {}
 
-  public async acceptTransfer(input: AcceptTransferIn, keys?: KeyPair): Promise<ResultOfCall> {
+  public async acceptTransfer (input: AcceptTransferIn, keys?: KeyPair): Promise<ResultOfCall> {
     return await this.contract.callMethod('acceptTransfer', input, keys)
   }
 
-  public async sendTransaction(input: SendTransactionIn, keys?: KeyPair): Promise<ResultOfCall> {
+  public async sendTransaction (input: SendTransactionIn, keys?: KeyPair): Promise<ResultOfCall> {
     return await this.contract.callMethod('sendTransaction', input, keys)
   }
 
-  public async submitTransaction(input: SubmitTransactionIn, keys?: KeyPair): Promise<ResultOfCall & { out: SubmitTransactionOut }> {
+  public async submitTransaction (input: SubmitTransactionIn, keys?: KeyPair): Promise<ResultOfCall & { out: SubmitTransactionOut }> {
     return await this.contract.callMethod('submitTransaction', input, keys)
   }
 
-  public async confirmTransaction(input: ConfirmTransactionIn, keys?: KeyPair): Promise<ResultOfCall> {
+  public async confirmTransaction (input: ConfirmTransactionIn, keys?: KeyPair): Promise<ResultOfCall> {
     return await this.contract.callMethod('confirmTransaction', input, keys)
   }
 
-  public async isConfirmed(input: IsConfirmedIn, keys?: KeyPair): Promise<ResultOfCall & { out: IsConfirmedOut }> {
+  public async isConfirmed (input: IsConfirmedIn, keys?: KeyPair): Promise<ResultOfCall & { out: IsConfirmedOut }> {
     return await this.contract.callMethod('isConfirmed', input, keys)
   }
 
-  public async getParameters(keys?: KeyPair): Promise<ResultOfCall & { out: GetParametersOut }> {
+  public async getParameters (keys?: KeyPair): Promise<ResultOfCall & { out: GetParametersOut }> {
     return await this.contract.callMethod('getParameters', {}, keys)
   }
 
-  public async getTransaction(input: GetTransactionIn, keys?: KeyPair): Promise<ResultOfCall & { out: GetTransactionOut }> {
+  public async getTransaction (input: GetTransactionIn, keys?: KeyPair): Promise<ResultOfCall & { out: GetTransactionOut }> {
     return await this.contract.callMethod('getTransaction', input, keys)
   }
 
-  public async getTransactions(keys?: KeyPair): Promise<ResultOfCall & { out: GetTransactionsOut }> {
+  public async getTransactions (keys?: KeyPair): Promise<ResultOfCall & { out: GetTransactionsOut }> {
     return await this.contract.callMethod('getTransactions', {}, keys)
   }
 
-  public async getTransactionIds(keys?: KeyPair): Promise<ResultOfCall & { out: GetTransactionIdsOut }> {
+  public async getTransactionIds (keys?: KeyPair): Promise<ResultOfCall & { out: GetTransactionIdsOut }> {
     return await this.contract.callMethod('getTransactions', {}, keys)
   }
 
-  public async getCustodians(keys?: KeyPair): Promise<ResultOfCall & { out: GetCustodiansOut }> {
+  public async getCustodians (keys?: KeyPair): Promise<ResultOfCall & { out: GetCustodiansOut }> {
     return await this.contract.callMethod('getCustodians', {}, keys)
   }
 }
@@ -170,31 +170,31 @@ class SafeMultisigWalletCalls {
 class SafeMultisigWalletRuns {
   constructor (private readonly contract: Contract) {}
 
-  public async submitTransaction(input: SubmitTransactionIn): Promise<SubmitTransactionOut> {
+  public async submitTransaction (input: SubmitTransactionIn): Promise<SubmitTransactionOut> {
     return (await this.contract.runMethod('submitTransaction', input)).value
   }
 
-  public async isConfirmed(input: IsConfirmedIn): Promise<IsConfirmedOut> {
+  public async isConfirmed (input: IsConfirmedIn): Promise<IsConfirmedOut> {
     return (await this.contract.runMethod('isConfirmed', input)).value
   }
 
-  public async getParameters(): Promise<GetParametersOut> {
+  public async getParameters (): Promise<GetParametersOut> {
     return (await this.contract.runMethod('getParameters')).value
   }
 
-  public async getTransaction(input: GetTransactionIn): Promise<GetTransactionOut> {
+  public async getTransaction (input: GetTransactionIn): Promise<GetTransactionOut> {
     return (await this.contract.runMethod('getTransaction', input)).value
   }
 
-  public async getTransactions(): Promise<GetTransactionsOut> {
+  public async getTransactions (): Promise<GetTransactionsOut> {
     return (await this.contract.runMethod('getTransactions')).value
   }
 
-  public async getTransactionIds(): Promise<GetTransactionIdsOut> {
+  public async getTransactionIds (): Promise<GetTransactionIdsOut> {
     return (await this.contract.runMethod('getTransactions')).value
   }
 
-  public async getCustodians(): Promise<GetCustodiansOut> {
+  public async getCustodians (): Promise<GetCustodiansOut> {
     return (await this.contract.runMethod('getCustodians')).value
   }
 }

@@ -1,4 +1,4 @@
-import { AbiContract } from '@eversdk/core'
+import { type AbiContract } from '@eversdk/core'
 
 /**
  * Add `0x` to string or number
@@ -9,7 +9,7 @@ import { AbiContract } from '@eversdk/core'
  *   '0x123'
  */
 export function x0 (number: string | number | bigint): string {
-    return `0x${number.toString()}`
+  return `0x${number.toString()}`
 }
 
 /**
@@ -21,7 +21,7 @@ export function x0 (number: string | number | bigint): string {
  *   '7b0a0922...'
  */
 export function abiToHex (abi: AbiContract): string {
-    return stringToHex(JSON.stringify(abi))
+  return stringToHex(JSON.stringify(abi))
 }
 
 /**
@@ -32,8 +32,8 @@ export function abiToHex (abi: AbiContract): string {
  * @return
  *   '58595a313233'
  */
-export function stringToHex(string: string): string {
-    return string.split('').map((x: string) => x.charCodeAt(0).toString(16)).join('')
+export function stringToHex (string: string): string {
+  return string.split('').map((x: string) => x.charCodeAt(0).toString(16)).join('')
 }
 
 /**
@@ -45,7 +45,7 @@ export function stringToHex(string: string): string {
  *   ['58595a313233', '414243343536']
  */
 export function stringsToHex (strings: string[]): string[] {
-    return strings.map((x: string) => stringToHex(x))
+  return strings.map((x: string) => stringToHex(x))
 }
 
 /**
@@ -56,6 +56,6 @@ export function stringsToHex (strings: string[]): string[] {
  * @return
  *   '0x3b9aca00'
  */
-export function numberToHex(number: number): string {
-    return x0(number.toString(16))
+export function numberToHex (number: number): string {
+  return x0(number.toString(16))
 }

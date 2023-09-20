@@ -25,9 +25,8 @@ const defaults: VendeeConfig = {
 }
 
 export function validateAndSetDefaults (config: any):
-  { error: undefined, value: VendeeConfig } |
-  { error: ValidationError, value: undefined }
-{
+{ error: undefined, value: VendeeConfig } |
+{ error: ValidationError, value: undefined } {
   const schema: Joi.ObjectSchema = Joi.object({
     networks: Joi.object().pattern(
       Joi.string(),
