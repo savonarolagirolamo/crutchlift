@@ -1,15 +1,38 @@
 {
-  "name": "your-vendee-project",
+  "name": "vendee-counter",
   "version": "0.0.1",
   "description": "",
   "author": "",
   "license": "MIT",
+  "main": "dist/index.js",
+  "files": [
+    "build/",
+    "dist/",
+    "contracts/",
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "tsconfig.json",
+    "yarn.lock"
+  ],
+  "keywords": [
+    "Vendee",
+    "Venom",
+    "Everscale",
+    "TON",
+    "Blockchain",
+    "Smart-contracts",
+    "Contracts",
+    "TypeScript",
+    "Solidity"
+  ],
   "scripts": {
+    "build": "tsc --build .",
     "env": "cpy .env.example . --rename .env"
   },
   "dependencies": {
     "mocha": "^10.2.0",
-    "vendee": "^1.0.14"
+    "vendee": "^1.0.19"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",

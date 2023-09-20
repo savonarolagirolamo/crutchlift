@@ -16,13 +16,13 @@ export type Cache = {
  * @param config
  * @return Example:
  *   {
- *     '/home/user/contracts/TokenRoot.tsol': {
+ *     'TokenRoot.tsol': {
  *       modificationTime: 1685314482,
- *       imports: ['./contracts/ITokenRoot.tsol']
+ *       imports: ['ITokenRoot.tsol']
  *     },
- *     '/home/user/contracts/TokenWallet.tsol': {
+ *     'TokenWallet.tsol': {
  *       modificationTime: 1685314482,
- *       imports: ['./contracts/ITokenWallet.tsol']
+ *       imports: ['ITokenWallet.tsol']
  *     }
  *   }
  */
@@ -43,13 +43,13 @@ export function readCache (config: VendeeConfig): Record<string, Metadata> {
  * @param config
  * @param metadata Example:
  *   {
- *     '/home/user/contracts/TokenRoot.tsol': {
+ *     'TokenRoot.tsol': {
  *       modificationTime: 1685314482,
- *       imports: ['./contracts/ITokenRoot.tsol']
+ *       imports: ['ITokenRoot.tsol']
  *     },
- *     '/home/user/contracts/TokenWallet.tsol': {
+ *     'TokenWallet.tsol': {
  *       modificationTime: 1685314482,
- *       imports: ['./contracts/ITokenWallet.tsol']
+ *       imports: ['ITokenWallet.tsol']
  *     }
  *   }
  */

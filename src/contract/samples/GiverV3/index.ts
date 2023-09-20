@@ -28,7 +28,7 @@ export class GiverV3 extends Contract {
     if (config.address === undefined)
       super({
         abi: GiverV3Content.abi,
-        initialData: config.initialData ?? {},
+        initial: config.initial ?? {},
         keys: config.keys,
         tvc: GiverV3Content.tvc
       }, options)

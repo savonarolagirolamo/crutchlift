@@ -20,7 +20,7 @@ export enum AccountType {
 
 export type CompiledContractConfig = {
   address?: string
-  initialData?: Record<string, any>
+  initial?: Record<string, any>
   keys?: KeyPair
 }
 
@@ -40,7 +40,7 @@ export class Contract {
     value: AbiContract
   }
 
-  private readonly initialData?: Record<string, any>
+  private readonly initial?: Record<string, any>
   private readonly tvc?: string
 
   private readonly client?: TonClient
@@ -55,13 +55,13 @@ export class Contract {
       address: string
       keys?: KeyPair
       abi?: AbiContract
-      initialData?: Record<string, any>
+      initial?: Record<string, any>
       tvc?: string
     } | {
       address?: string
       keys?: KeyPair
       abi: AbiContract
-      initialData: Record<string, any>
+      initial: Record<string, any>
       tvc: string
     },
     options: {
@@ -76,7 +76,7 @@ export class Contract {
       type: 'Contract',
       value: config.abi ?? {}
     }
-    this.initialData = config.initialData ?? {}
+    this.initial = config.initial ?? {}
     this.tvc = config.tvc
 
     this.client = options.client ?? Global.client
@@ -110,7 +110,7 @@ export class Contract {
       },
       deploy_set: {
         tvc: this.tvc,
-        initial_data: this.initialData
+        initial_data: this.initial
       }
     })).address
     return this._address
@@ -378,7 +378,7 @@ export class Contract {
         },
         deploy_set: {
           tvc: this.tvc,
-          initial_data: this.initialData
+          initial_data: this.initial
         },
         call_set: {
           function_name: 'constructor',

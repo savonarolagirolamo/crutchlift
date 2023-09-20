@@ -106,7 +106,7 @@ export class SafeMultisigWallet extends Contract {
     if (config.address === undefined)
       super({
         abi: SafeMultisigWalletContent.abi,
-        initialData: config.initialData ?? {},
+        initial: config.initial ?? {},
         keys: config.keys,
         tvc: SafeMultisigWalletContent.tvc
       }, options)

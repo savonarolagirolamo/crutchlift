@@ -1,6 +1,6 @@
 {
   "name": "vendee",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "TVM-Solidity contract development framework",
   "scripts": {
     "build": "tsc --build .",
@@ -30,6 +30,7 @@
     "yarn.lock"
   ],
   "keywords": [
+    "Vendee",
     "Venom",
     "Everscale",
     "TON",

@@ -4,7 +4,8 @@ import { type PathsConfig, type VendeeConfig } from '../../config/types'
 import { readCache, writeCache } from './cache'
 import { globSync } from 'glob'
 import { make } from './make'
-import { buildsArtifactsExists, removeOldBuildArtifacts } from './artifacts'
+import { buildsArtifactsExists, removeOldArtifacts } from './artifacts'
+import { generateIndex } from './generators/generateIndex'
 
 export type Metadata = {
   modificationTime: number
@@ -14,16 +15,21 @@ export type Metadata = {
 export async function compile (config: VendeeConfig, all: boolean = false): Promise<void> {
   const cache = all ? {} : readCache(config)
   const contracts = readContracts(config.paths)
-  const metadata = readMetadata(cache, contracts)
+  const metadata = readMetadata(config.paths, cache, contracts)
   const newOrChangedContracts = getNewOrChangedContracts(cache, metadata)
   const importers = reverseImports(metadata)
   const candidates = getCandidates(importers, newOrChangedContracts)
   const includes = readIncludes(config)
   const excludes = readExcludes(config)
   const sources = readSources(includes, excludes)
-  const contractsToCompile = getContractToCompile(config, sources, candidates)
+  const contractsToCompile = getContractToCompile(config.paths, sources, candidates)
+
+  if (contractsToCompile.length === 0)
+    return
+
   await make(config, contractsToCompile)
-  removeOldBuildArtifacts(config, sources)
+  generateIndex(config.paths, sources)
+  removeOldArtifacts(config.paths, sources)
   writeCache(config, metadata)
 }
 
@@ -31,44 +37,48 @@ export async function compile (config: VendeeConfig, all: boolean = false): Prom
  * Read all files from contracts directory
  * @param config
  * @return
- *   ['/home/user/A.tsol', '/home/user/B.tsol']
+ *   ['A.tsol', 'B.tsol', 'x/C.tsol']
  */
 export function readContracts (config: PathsConfig): string[] {
-  return globSync(`${process.cwd()}/${config.contracts}/**`, { nodir: true })
+  const directory = path.resolve(process.cwd(), config.contracts)
+  return globSync(path.resolve(directory, '**'), { nodir: true })
+    .map(value => path.relative(directory, value))
 }
 
 /**
  * If the contract has not changed, read the metadata from the cache. If changed, read from file
+ * @param config
  * @param cache
  *   {
- *     '/home/user/A.tsol': {
+ *     'A.tsol': {
  *       modificationTime: 1666666666,
- *       imports: ['/home/user/IA.tsol']
+ *       imports: ['IA.tsol']
  *     }
  *   }
  * @param contracts
- *   ['/home/user/A.tsol', '/home/user/B.tsol']
+ *   ['A.tsol', 'B.tsol']
  * @return
  *   {
- *     '/home/user/A.tsol': {
+ *     'A.tsol': {
  *       modificationTime: 1666666666,
- *       imports: ['/home/user/IA.tsol']
+ *       imports: ['IA.tsol']
  *     },
- *     '/home/user/B.tsol': {
+ *     'B.tsol': {
  *       modificationTime: 1666666666,
- *       imports: ['/home/user/IB.tsol']
+ *       imports: ['IB.tsol']
  *     }
  *   }
  */
-export function readMetadata (cache: Record<string, Metadata>, contracts: string[]): Record<string, Metadata> {
+export function readMetadata (config: PathsConfig, cache: Record<string, Metadata>, contracts: string[]): Record<string, Metadata> {
   return contracts.reduce((meta: Record<string, Metadata>, contract): Record<string, Metadata> => {
-    const modificationTime = fs.statSync(contract).mtime.getTime()
+    const file = path.resolve(process.cwd(), config.contracts, contract)
+    const modificationTime = fs.statSync(file).mtime.getTime()
     const cacheContract = cache[contract]
     meta[contract] = (cacheContract !== undefined && cacheContract.modificationTime === modificationTime)
       ? cacheContract
       : {
           modificationTime,
-          imports: readImports(contract)
+          imports: readImports(config, file)
         }
     return meta
   }, {})
@@ -76,19 +86,20 @@ export function readMetadata (cache: Record<string, Metadata>, contracts: string
 
 /**
  * Read imports from contract file
- * @param contract
- *   '/home/user/A.tsol'
+ * @param config
+ * @param file
+ *   'A.tsol'
  * @return
- *   ['/home/user/B.tsol', '/home/user/libraries/IA.tsol']
+ *   ['B.tsol', 'IA.tsol']
  */
-function readImports (contract: string): string[] {
+function readImports (config: PathsConfig, file: string): string[] {
   const result: string[] = []
-  const directory = path.dirname(contract)
-  const content = fs.readFileSync(contract, { encoding: 'utf8' })
+  const relativeDirectory = path.relative(path.resolve(process.cwd(), config.contracts), path.dirname(file))
+  const content = fs.readFileSync(file, { encoding: 'utf8' })
   const regexp = /(?<=import ").+(?=";)|(?<=import ').+(?=';)/g
   const maths = content.matchAll(regexp)
   for (const [importRelative] of maths)
-    result.push(path.resolve(directory, importRelative))
+    result.push(path.relative(relativeDirectory, importRelative))
   return result
 }
 
@@ -96,28 +107,28 @@ function readImports (contract: string): string[] {
  * Returns contracts that are not in the cache, or are in the cache and the modification time has been changed
  * @param cache
  *   {
- *     '/home/user/A.tsol': {
+ *     'A.tsol': {
  *       modificationTime: 1666666666,
- *       imports: ['/home/user/IA.tsol']
+ *       imports: ['IA.tsol']
  *     },
- *     '/home/user/B.tsol': {
+ *     'B.tsol': {
  *       modificationTime: 1666666666,
- *       imports: ['/home/user/IA.tsol']
+ *       imports: ['IA.tsol']
  *     }
  *   }
  * @param metadata
  *   {
- *     '/home/user/A.tsol': {
+ *     'A.tsol': {
  *       modificationTime: 1666666666,
- *       imports: ['/home/user/IA.tsol']
+ *       imports: ['IA.tsol']
  *     },
- *     '/home/user/B.tsol': {
+ *     'B.tsol': {
  *       modificationTime: 1666666666,
- *       imports: ['/home/user/IB.tsol']
+ *       imports: ['IB.tsol']
  *     }
  *   }
  * @return
- *   ['/home/user/B.tsol']
+ *   ['B.tsol']
  */
 function getNewOrChangedContracts (cache: Record<string, Metadata>, metadata: Record<string, Metadata>): string[] {
   const result: string[] = []
@@ -134,28 +145,28 @@ function getNewOrChangedContracts (cache: Record<string, Metadata>, metadata: Re
  * Return map (contract) => (contracts that depend on it)
  * @param metadata
  *   {
- *     '/home/user/A.tsol': {
+ *     'A.tsol': {
  *       modificationTime: 1666666666,
- *       imports: ['/home/user/B.tsol', '/home/user/C.tsol']
+ *       imports: ['B.tsol', 'C.tsol']
  *     },
- *      '/home/user/B.tsol': {
+ *      'B.tsol': {
  *       modificationTime: 1666666666,
  *       imports: []
  *     },
- *      '/home/user/C.tsol': {
+ *      'C.tsol': {
  *       modificationTime: 1666666666,
- *       imports: ['/home/user/D.tsol']
+ *       imports: ['D.tsol']
  *     },
- *      '/home/user/D.tsol': {
+ *      'D.tsol': {
  *       modificationTime: 1666666666,
  *       imports: []
  *     }
  *   }
  * @return
  *   {
- *     '/home/user/B.tsol': ['/home/user/A.tsol'],
- *     '/home/user/C.tsol': ['/home/user/A.tsol'],
- *     '/home/user/D.tsol': ['/home/user/C.tsol']
+ *     'B.tsol': ['A.tsol'],
+ *     'C.tsol': ['A.tsol'],
+ *     'D.tsol': ['C.tsol']
  *   }
  */
 function reverseImports (metadata: Record<string, Metadata>): Record<string, string[]> {
@@ -175,14 +186,14 @@ function reverseImports (metadata: Record<string, Metadata>): Record<string, str
  * Return a set of candidate contracts to compilation
  * @param importers
  *   {
- *     '/home/user/B.tsol': ['/home/user/A.tsol'],
- *     '/home/user/C.tsol': ['/home/user/A.tsol'],
- *     '/home/user/D.tsol': ['/home/user/C.tsol']
+ *     'B.tsol': ['A.tsol'],
+ *     'C.tsol': ['A.tsol'],
+ *     'D.tsol': ['C.tsol']
  *   }
  * @param contracts
- *   ['/home/user/B.tsol']
+ *   ['B.tsol']
  * @return
- *   Set {'/home/user/A.tsol', '/home/user/B.tsol'}
+ *   Set {'A.tsol', 'B.tsol'}
  */
 function getCandidates (importers: Record<string, string[]>, contracts: string[]): Set<string> {
   const set = new Set<string>()
@@ -204,20 +215,20 @@ function getCandidates (importers: Record<string, string[]>, contracts: string[]
  * Return a set of contracts that included to compilation
  * @param config
  * @return
- *   Set {'/home/user/A.tsol', '/home/user/B.tsol'}
+ *   Set {'A.tsol', 'B.tsol'}
  */
 function readIncludes (config: VendeeConfig): Set<string> {
-  return readFiles(config, config.compile.include)
+  return readFiles(config.paths, config.compile.include)
 }
 
 /**
  * Return a set of contracts that excluded from compilation
  * @param config
  * @return
- *   Set {'/home/user/A.tsol', '/home/user/B.tsol'}
+ *   Set {'A.tsol', 'B.tsol'}
  */
 function readExcludes (config: VendeeConfig): Set<string> {
-  return readFiles(config, config.compile.exclude)
+  return readFiles(config.paths, config.compile.exclude)
 }
 
 /**
@@ -226,11 +237,13 @@ function readExcludes (config: VendeeConfig): Set<string> {
  * @param globs
  *   ['*.tsol', '*.sol']
  * @return
- *   Set {'/home/user/A.tsol', '/home/user/B.tsol'}
+ *   Set {'A.tsol', 'B.tsol'}
  */
-function readFiles (config: VendeeConfig, globs: string[]): Set<string> {
+function readFiles (config: PathsConfig, globs: string[]): Set<string> {
+  const directory = path.resolve(process.cwd(), config.contracts)
   return globs.reduce((set, value): Set<string> =>
-    globSync(`${process.cwd()}/${config.paths.contracts}/${value}`, { nodir: true })
+    globSync(path.resolve(directory, value), { nodir: true })
+      .map(value => path.relative(directory, value))
       .reduce((set, value) => set.add(value), set)
   , new Set<string>())
 }
@@ -238,11 +251,11 @@ function readFiles (config: VendeeConfig, globs: string[]): Set<string> {
 /**
  * Exclude contracts from include
  * @param includes
- *   Set {'/home/user/A.tsol', '/home/user/B.tsol'}
+ *   Set {'A.tsol', 'B.tsol'}
  * @param excludes
- *   Set {'/home/user/A.tsol'}
+ *   Set {'A.tsol'}
  * @return
- *   Set {'/home/user/B.tsol'}
+ *   Set {'B.tsol'}
  */
 function readSources (includes: Set<string>, excludes: Set<string>): Set<string> {
   return [...includes].reduce((set, value): Set<string> =>
@@ -252,8 +265,20 @@ function readSources (includes: Set<string>, excludes: Set<string>): Set<string>
 
 /**
  * Return contract array to compilation
+ * @param config
+ * @param sources
+ *   Set(3) {'Counter.tsol', 'd/B.tsol', 'd/A.tsol'}
+ * @param candidates
+ *   Set(4) {
+ *     'Counter.tsol',
+ *     'interface/ICounter.tsol',
+ *     'd/B.tsol',
+ *     'd/A.tsol'
+ *   }
+ * @return
+ *   ['Counter.tsol', 'd/B.tsol', 'd/A.tsol']
  */
-function getContractToCompile (config: VendeeConfig, sources: Set<string>, candidates: Set<string>): string[] {
+function getContractToCompile (config: PathsConfig, sources: Set<string>, candidates: Set<string>): string[] {
   return [...sources].reduce((result: string[], value): string[] => {
     if (candidates.has(value) || !buildsArtifactsExists(config, value))
       result.push(value)

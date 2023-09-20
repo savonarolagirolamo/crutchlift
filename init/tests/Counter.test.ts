@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import { Counter } from '../build/Counter'
+import { Counter } from '../build'
 import { B, generateRandomKeyPair, SafeMultisigWallet, x0 } from 'vendee'
 
 const INITIAL_VALUE = 10

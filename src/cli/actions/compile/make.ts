@@ -1,9 +1,9 @@
 import path from 'path'
-import { type VendeeConfig } from '../../config/types'
+import { type PathsConfig, type VendeeConfig } from '../../config/types'
 import { consoleTerminal, runCommand, type Terminal } from 'everdev'
 import { green, grey } from 'colors'
 import { ABI_JSON, CONTENT_TS } from './artifacts'
-import { generateTypeScript } from './generator/generateTypeScript'
+import { generateTypeScript } from './generators/generateTypeScript'
 
 const onlyErrorConsoleTerminal: Terminal = new class implements Terminal {
   log (..._0: unknown[]): void {}
@@ -13,6 +13,12 @@ const onlyErrorConsoleTerminal: Terminal = new class implements Terminal {
   }
 }()
 
+/**
+ * Compile all contracts
+ * @param config
+ * @param contracts
+ *   ['A.tsol', 'B.tsol', 'x/C.tsol']
+ */
 export async function make (config: VendeeConfig, contracts: string[]): Promise<void> {
   await runCommand(consoleTerminal, 'sol set', {
     compiler: config.compile.compiler,
@@ -21,30 +27,45 @@ export async function make (config: VendeeConfig, contracts: string[]): Promise<
 
   for (let i = 0; i < contracts.length; i++) {
     const contract = contracts[i]
-    const relative = path.relative(path.resolve(process.cwd(), config.paths.contracts), contract)
-    const directory = path.dirname(relative)
-    const name = path.basename(relative)
+    const directory = path.dirname(contract)
+    const name = path.basename(contract)
     const directoryText = directory === '.' ? '' : directory + '/'
     console.log(`${green('•')} ${grey(directoryText)}${name}`)
 
-    await compile(config, directory, contract)
-    await wrap(config, directory, contract)
-    generateTypeScript(config, directory, contract)
+    await compile(config.paths, directory, name)
+    await wrap(config.paths, directory, name)
+    generateTypeScript(config.paths, directory, name)
   }
 }
 
-async function compile (config: VendeeConfig, directory: string, contract: string): Promise<void> {
+/**
+ * Compile contract
+ * @param config
+ * @param directory
+ *   'x'
+ * @param name
+ *   'C.tsol'
+ */
+async function compile (config: PathsConfig, directory: string, name: string): Promise<void> {
   await runCommand(consoleTerminal, 'sol compile', {
-    file: contract,
-    outputDir: path.resolve(process.cwd(), config.paths.build, directory)
+    file: path.resolve(process.cwd(), config.contracts, directory, name),
+    outputDir: path.resolve(process.cwd(), config.build, directory)
   })
 }
 
-async function wrap (config: VendeeConfig, directory: string, contract: string): Promise<void> {
-  const name = path.parse(path.basename(contract)).name
+/**
+ * Wrap contract data in *.ts constant
+ * @param config
+ * @param directory
+ *   'x'
+ * @param name
+ *   'C.tsol'
+ */
+async function wrap (config: PathsConfig, directory: string, name: string): Promise<void> {
+  const nameWithoutExtension = path.parse(name).name
   await runCommand(onlyErrorConsoleTerminal, 'js wrap', {
-    file: path.resolve(process.cwd(), config.paths.build, directory, `${name}${ABI_JSON}`),
+    file: path.resolve(process.cwd(), config.build, directory, `${nameWithoutExtension}${ABI_JSON}`),
     export: 'es6-default',
-    output: path.resolve(process.cwd(), config.paths.build, directory, `${name}${CONTENT_TS}`)
+    output: path.resolve(process.cwd(), config.build, directory, `${nameWithoutExtension}${CONTENT_TS}`)
   })
 }

@@ -1,37 +1,54 @@
 import path from 'path'
 import fs from 'fs-extra'
-import { type VendeeConfig } from '../../config/types'
+import { type PathsConfig } from '../../config/types'
 import { globSync } from 'glob'
 
 export const ABI_JSON: string = '.abi.json'
 export const CONTENT_TS: string = 'Content.ts'
 export const TS: string = '.ts'
-const extensions = ['.tvc', ABI_JSON, CONTENT_TS, TS]
+
+const extensions = [ABI_JSON, TS, '.tvc', CONTENT_TS]
 
 /**
  * Return a set of contract assembly artifacts
  * @param config
  * @param contract
- *   '/home/user/contracts/A.tsol'
+ *   'A.tsol'
+ *   'x/C.tsol'
  * @return
- *   ['/home/user/build/A.tvc', '/home/user/build/A.abi.json', '/home/user/build/AContent.ts']
+ *   [
+ *     'AContent.ts'
+ *     'A.tvc'
+ *     'A.ts',
+ *     'A.abi.json',
+ *     'x/CContent.ts'
+ *     'x/C.tvc'
+ *     'x/C.ts',
+ *     'x/C.abi.json',
+ *   ]
  */
-function getBuildArtifacts (config: VendeeConfig, contract: string): string[] {
-  const relative = path.relative(path.resolve(process.cwd(), config.paths.contracts), contract)
-  const directory = path.dirname(relative)
-  const name = path.parse(path.basename(relative)).name
-  const pathWithoutExtension: string = path.resolve(config.paths.build, directory, name)
-  return extensions.map(value => pathWithoutExtension + value)
+function getBuildArtifacts (contract: string): string[] {
+  ////////////////
+  // Extensions //
+  ////////////////
+  const directory = path.dirname(contract)
+  const nameWithoutExtension = path.parse(path.basename(contract)).name
+  return extensions
+    .map(extension => path.relative('.', `${directory}/${nameWithoutExtension}${extension}`))
 }
 
 /**
  * Return true if artifact files (e.g. `*.abi.json`) exists in build directory
  * @param config
  * @param contract
+ *   'A.tsol'
+ * @return
+ *   true
  */
-export function buildsArtifactsExists (config: VendeeConfig, contract: string): boolean {
-  return getBuildArtifacts(config, contract).reduce((result, value) =>
-    result && fs.existsSync(value)
+export function buildsArtifactsExists (config: PathsConfig, contract: string): boolean {
+  return getBuildArtifacts(contract).reduce((result, value) => {
+    return result && fs.existsSync(path.resolve(process.cwd(), config.build, value))
+  }
   , true)
 }
 
@@ -39,54 +56,57 @@ export function buildsArtifactsExists (config: VendeeConfig, contract: string): 
  * Return true if artifact files (e.g. `*.abi.json`) exists in build directory
  * @param config
  * @param sources
- *   Set {'/home/user/A.tsol', '/home/user/B.tsol'}
+ *   Set {'A.tsol', 'B.tsol'}
  */
-export function removeOldBuildArtifacts (config: VendeeConfig, sources: Set<string>): void {
-  const artifacts = getSourceArtifactsWithDirectories(config, sources)
-  const oldArtifacts = globSync(`${process.cwd()}/${config.paths.build}/**/*`)
-  oldArtifacts.forEach(value => {
-    if (!artifacts.has(value))
-      fs.removeSync(value)
+export function removeOldArtifacts (config: PathsConfig, sources: Set<string>): void {
+  const directory = path.resolve(process.cwd(), config.build)
+  const current = globSync(`${path.resolve(process.cwd(), config.build)}/**/*`)
+    .map(value => path.relative(directory, value))
+  const required = getSourceArtifactsWithDirectories(sources)
+  required.add('index.ts')
+  current.forEach(value => {
+    if (!required.has(value))
+      fs.removeSync(path.resolve(process.cwd(), config.build, value))
   })
 }
 
 /**
  * Return artifact for source files
- * @param config
- *     Set {'/home/user/contract/A.tsol', '/home/user/b/B.tsol'}
  * @param sources
+ *     Set {'A.tsol', 'b/B.tsol'}
+ * @return
  *   [
- *     '/home/user/build/AContent.ts'
- *     '/home/user/build/A.tvc'
- *     '/home/user/build/A.abi.json'
- *     '/home/user/build/b'
- *     '/home/user/build/b/BContent.ts'
- *     '/home/user/build/b/B.tvc'
- *     '/home/user/build/b/B.abi.json'
+ *     'AContent.ts'
+ *     'A.tvc'
+ *     'A.ts',
+ *     'A.abi.json'
+ *     'b'
+ *     'b/BContent.ts'
+ *     'b/B.tvc'
+ *     'b/B.ts',
+ *     'b/B.abi.json'
  *   ]
  */
-function getSourceArtifactsWithDirectories (config: VendeeConfig, sources: Set<string>): Set<string> {
+function getSourceArtifactsWithDirectories (sources: Set<string>): Set<string> {
   return [...sources].reduce((set, value): Set<string> => {
-    const contractArtifacts = getBuildArtifacts(config, value)
-    const firstArtifactDirectory = path.parse(contractArtifacts[0]).dir
-    contractArtifacts.forEach(artifact => set.add(artifact))
-    return getArtifactParentDirectories(config, firstArtifactDirectory).reduce((set, artifactDirectory) =>
+    const artifacts = getBuildArtifacts(value)
+    const firstArtifactDirectory = path.parse(artifacts[0]).dir
+    artifacts.forEach(artifact => set.add(artifact))
+    return getArtifactParentDirectories(firstArtifactDirectory).reduce((set, artifactDirectory) =>
       set.add(artifactDirectory), set)
   }, new Set<string>())
 }
 
 /**
  * Return parent directories in build directory
- * @param config
  * @param directory
- *   '/home/user/build/a/b'
+ *   'a/b'
  * @return
- *   ['/home/user/build/a/b', '/home/user/build/a']
+ *   ['a/b', 'a']
  */
-export function getArtifactParentDirectories (config: VendeeConfig, directory: string): string[] {
+export function getArtifactParentDirectories (directory: string): string[] {
   const result: string[] = []
-  const buildDirectory = path.resolve(process.cwd(), config.paths.build)
-  while (directory !== buildDirectory) {
+  while (directory !== '') {
     result.push(directory)
     directory = path.parse(directory).dir
   }

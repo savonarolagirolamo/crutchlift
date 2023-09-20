@@ -1,15 +1,23 @@
 import path from 'path'
 import fs from 'fs-extra'
-import { type VendeeConfig } from '../../../config/types'
+import { type PathsConfig } from '../../../config/types'
 import { ABI_JSON, TS } from '../artifacts'
 import { type AbiContract } from '@eversdk/core'
 import { generateType } from './generateType'
 
-export function generateTypeScript (config: VendeeConfig, relativeDirectory: string, contract: string): void {
-  const name = path.parse(path.basename(contract)).name
-  const directory = path.resolve(process.cwd(), config.paths.build, relativeDirectory)
-  const abiFile = path.resolve(directory, `${name}${ABI_JSON}`)
-  const file = path.resolve(directory, `${name}${TS}`)
+/**
+ * Generate TypeScript contract class
+ * @param config
+ * @param directory
+ *   'x'
+ * @param nameWithExtension
+ *   'C.tsol'
+ */
+export function generateTypeScript (config: PathsConfig, directory: string, nameWithExtension: string): void {
+  const name = path.parse(nameWithExtension).name
+  const absoluteDirectory = path.resolve(process.cwd(), config.build, directory)
+  const abiFile = path.resolve(absoluteDirectory, `${name}${ABI_JSON}`)
+  const file = path.resolve(absoluteDirectory, `${name}${TS}`)
   const abi: AbiContract = JSON.parse(fs.readFileSync(abiFile, { encoding: 'utf8' }))
   const imports = getImports(name)
   const types = getTypes(abi)
@@ -70,7 +78,7 @@ function getContractClass (name: string, abi: AbiContract): string {
     if (config.address === undefined)
       super({
         abi: ${name}Content.abi,
-        initialData: config.initialData ?? {},
+        initial: config.initial ?? {},
         keys: config.keys,
         tvc: ${name}Content.tvc
       }, options)

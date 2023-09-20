@@ -6,6 +6,12 @@ keys
 # Last build information
 cache
 
+# Builded contracts
+build
+
+# Compiled TypeScript files from build directory
+dist
+
 # URL to endpoins and other private settings
 .env
 

@@ -1,4 +1,4 @@
-import { Counter } from '../build/Counter'
+import { Counter } from '../build'
 import { B, Global, namedKeys } from 'vendee'
 
 async function main (): Promise<void> {
