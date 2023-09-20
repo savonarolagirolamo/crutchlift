@@ -1,4 +1,4 @@
-// @ts-expect-error Cannot find module or its corresponding type declarations
+// @ts-ignore
 import { Config } from 'vendee'
 
 const config: Config = {
@@ -17,13 +17,13 @@ const config: Config = {
      * Custom SE docker image name
      * @default ''
      */
-    image: '',
+    image: undefined,
 
     /**
      * Custom SE docker container name
      * @default ''
      */
-    container: '',
+    container: undefined,
 
     /**
      * Port on localhost used to expose GraphQL API
