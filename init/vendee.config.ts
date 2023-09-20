@@ -26,7 +26,7 @@ const config: Config = {
       /**
        * Giver label
        * SE givers don't need keys
-       * @type {'v2.se' | 'v3.se' | 'SafeMultiSigWallet.se' | 'v2', 'v3', 'SafeMultiSigWallet'}
+       * @type {'v2.se' | 'v3.se' | 'safeMultiSigWallet.se' | 'v2', 'v3', 'safeMultiSigWallet'}
        * @default 'v3.se'
        */
       giver: 'v3.se'
@@ -79,7 +79,7 @@ const config: Config = {
          * @example
          *   '/home/user/keys/giver.keys.json'
          */
-        file: process.env.VENOM_TESTNET_GIVER_KEYS_FILE,
+        file: process.env.VENOM_TESTNET_KEYS_FILE,
       }
     },
 
@@ -98,33 +98,6 @@ const config: Config = {
       keys: {
         name: process.env.EVER_FLD_KEYS_NAME,
         file: process.env.EVER_FLD_KEYS_FILE
-      }
-    },
-
-    everDev: {
-      endpoints: process.env.EVER_DEV_ENDPOINTS ? process.env.EVER_DEV_ENDPOINTS.split(',') : [''],
-      giver: process.env.EVER_DEV_GIVER ?? 'v3',
-      keys: {
-        name: process.env.EVER_DEV_KEYS_NAME,
-        file: process.env.EVER_DEV_KEYS_FILE
-      }
-    },
-
-    everMain: {
-      endpoints: process.env.EVER_MAIN_ENDPOINTS ? process.env.EVER_MAIN_ENDPOINTS.split(',') : [''],
-      giver: process.env.EVER_MAIN_GIVER ?? 'v3',
-      keys: {
-        name: process.env.EVER_MAIN_KEYS_NAME,
-        file: process.env.EVER_MAIN_KEYS_FILE
-      }
-    },
-
-    ton: {
-      endpoints: process.env.TON_ENDPOINTS ? process.env.TON_ENDPOINTS.split(',') : [''],
-      giver: process.env.TON_GIVER ?? 'v3',
-      keys: {
-        name: process.env.TON_KEYS_NAME,
-        file: process.env.TON_KEYS_FILE
       }
     }
   },

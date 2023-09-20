@@ -3,7 +3,8 @@ import fs from 'fs-extra'
 import { execSync } from 'child_process'
 
 const PATH = '../../../../init'
-const COMMAND = 'yarn install'
+const INSTALL_COMMAND = 'yarn install'
+const ENV_COMMAND = 'yarn env'
 
 export function init (target: string = process.cwd()): void {
   copyInitFiles(target)
@@ -19,7 +20,8 @@ function copyInitFiles (target: string): void {
 
 function installPackages (): void {
   try {
-    execSync(COMMAND, { stdio: 'inherit' })
+    execSync(INSTALL_COMMAND, { stdio: 'inherit' })
+    execSync(ENV_COMMAND, { stdio: 'inherit' })
   } catch (error: any) {
     console.error(error)
   }

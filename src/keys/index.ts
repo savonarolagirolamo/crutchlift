@@ -38,7 +38,7 @@ export function readKeys (file: string): KeyPair {
     return JSON.parse(fs.readFileSync(file, { encoding: 'utf8' }))
   } catch (e: any & { toString: any }) {
     const exceptionMessage = e.toString() as string
-    throw new Error(`Can't read key pair from ${file}\n${exceptionMessage}`)
+    throw new Error(`Can't read key pair from "${file}"\n${exceptionMessage}`)
   }
 }
 

@@ -39,8 +39,8 @@ export function validateAndSetDefaults (config: any):
           endpoints: Joi.array().items(Joi.string()).required(),
           giver: Joi.string().valid(...GIVERS).required(),
           keys: Joi.object({
-            name: Joi.string(),
-            file: Joi.string()
+            name: Joi.any(),
+            file: Joi.any()
           })
         })
       ).default(defaults.networks.local)

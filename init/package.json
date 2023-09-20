@@ -4,13 +4,17 @@
   "description": "",
   "author": "",
   "license": "MIT",
+  "scripts": {
+    "env": "cpy .env.example . --rename .env"
+  },
   "dependencies": {
-    "vendee": "^1.0.11"
+    "vendee": "^1.0.14"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
     "@types/node": "^20.1.1",
+    "cpy-cli": "^4.2.0",
     "chai": "^4.3.7",
     "dotenv": "^16.0.3",
     "ts-mocha": "^10.0.0",
