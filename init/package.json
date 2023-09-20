@@ -8,7 +8,12 @@
     "vendee": "^1.0.11"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^20.1.1",
+    "chai": "^4.3.7",
+    "dotenv": "^16.0.3",
+    "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }

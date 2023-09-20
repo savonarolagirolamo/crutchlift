@@ -1,7 +1,14 @@
-import Joi, { type ValidationError, type ValidationResult } from 'joi'
+import Joi, { type ValidationError } from 'joi'
 import { type VendeeConfig } from './types'
+import { GIVERS } from './types/giver'
 
 const defaults: VendeeConfig = {
+  networks: {
+    local: {
+      endpoints: ['http://localhost'],
+      giver: 'se'
+    }
+  },
   se: {
     version: 'latest',
     instance: 'default',
@@ -9,9 +16,9 @@ const defaults: VendeeConfig = {
     dbPort: 'none'
   },
   paths: {
-    contracts: 'contracts',
-    cache: 'cache',
     build: 'build',
+    cache: 'cache',
+    contracts: 'contracts',
     tests: 'tests'
   }
 }
@@ -22,12 +29,22 @@ export type Validation =
 
 export function validateAndSetDefaults (config: any): Validation {
   const schema: Joi.ObjectSchema = Joi.object({
+    networks: Joi.object().pattern(
+      Joi.string(),
+      Joi.object({
+        endpoints: Joi.array().items(Joi.string()).default(defaults.networks.local.endpoints),
+        giver: Joi.string().valid(...GIVERS).default(defaults.networks.local.giver)
+      })
+    ),
     se: Joi.object({
       version: Joi.string().default(defaults.se.version),
       image: Joi.string(),
       container: Joi.string(),
       port: Joi.number().integer().default(defaults.se.port),
-      dbPort: Joi.alternatives(Joi.number().integer(), Joi.string()).default(defaults.se.dbPort),
+      dbPort: Joi.alternatives(
+        Joi.number().integer(),
+        Joi.string()
+      ).default(defaults.se.dbPort),
       instance: Joi.string().default(defaults.se.instance)
     }).default(defaults.se),
     paths: Joi.object({
@@ -37,6 +54,5 @@ export function validateAndSetDefaults (config: any): Validation {
       tests: Joi.string().default(defaults.paths.tests)
     }).default(defaults.paths)
   })
-  const validationResult: ValidationResult<VendeeConfig> = schema.validate(config)
-  return validationResult
+  return schema.validate(config)
 }

@@ -1,7 +1,46 @@
 // @ts-ignore
 import { Config } from 'vendee'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 const config: Config = {
+  /**
+   * Query server and giver
+   * @see https://github.com/tonlabs/ton-q-server
+   */
+  networks: {
+    se: {
+      /**
+       * Query server GraphQL endpoints
+       * URL without `/graphql` at end
+       *
+       * You can use public endpoints
+       * @see https://evercloud.dev
+       *
+       * You can up own endpoint
+       * @see https://github.com/tonlabs/evernode-ds
+       * @see https://github.com/treeton-org/application-server
+       * @default ['http://localhost']
+       */
+      endpoints: ['http://localhost'],
+
+      /**
+       * Giver
+       * @default 'se'
+       */
+      giver: 'se'
+    },
+    fld: {
+      endpoints: ['https://n01.fld.dapp.tonlabs.io'],
+      giver: 'GiverV3'
+    },
+    main: {
+      endpoints: [process.env.MAIN_ENDPOINT ?? ''],
+      giver: 'GiverV3'
+    }
+  },
+
   /**
    * Node Simple Emulator
    * @see https://github.com/tonlabs/everdev/blob/main/docs/command-line-interface/evernode-platform-startup-edition-se.md
@@ -49,10 +88,10 @@ const config: Config = {
    */
   paths: {
     /**
-     * Path to compiled contracts directory
-     * @default 'build'
+     * Path to contracts directory
+     * @default 'contracts'
      */
-    build: 'build',
+    contracts: 'contracts',
 
     /**
      * Path to compilation cache directory
@@ -61,10 +100,10 @@ const config: Config = {
     cache: 'cache',
 
     /**
-     * Path to contracts directory
-     * @default 'contracts'
+     * Path to compiled contracts directory
+     * @default 'build'
      */
-    contracts: 'contracts',
+    build: 'build',
 
     /**
      * Path to tests directory

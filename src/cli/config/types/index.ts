@@ -1,6 +1,14 @@
+import { type Giver } from './giver'
+
 export interface VendeeConfig {
+  networks: Record<string, NetworkConfig>
   se: SEConfig
   paths: PathsConfig
+}
+
+export interface NetworkConfig {
+  endpoints?: string[]
+  giver?: Giver
 }
 
 export interface SEConfig {
