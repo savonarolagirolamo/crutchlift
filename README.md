@@ -4,8 +4,8 @@
 
 TVM-Solidity contract development framework
 
-![npm version](https://img.shields.io/npm/v/vendee?label=npm%20version)
-![npm downloads](https://img.shields.io/npm/dt/vendee?label=npm%20downloads)
+![npm version](https://img.shields.io/npm/v/vendee?label=npm%20version&link=https://www.npmjs.com/package/vendee)
+![npm downloads](https://img.shields.io/npm/dt/vendee?label=npm%20downloads&link=https://www.npmjs.com/package/vendee)
 
 ## Requirements
 
