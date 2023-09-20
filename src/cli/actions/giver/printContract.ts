@@ -46,7 +46,7 @@ export async function printContract (contract: Contract): Promise<void> {
  * @return
  *   '1,234,567,890.123,456,789'
 */
-function prettifyBalance (balance: bigint): string {
+export function prettifyBalance (balance: bigint): string {
   const integerPartOfNumber = balance / B
   const integerPartOfNumberText = integerPartOfNumber.toLocaleString()
   const fractionalPartOfNumber = balance % B + B

@@ -1,7 +1,7 @@
 import { type VendeeConfig } from '../../config/types'
 import { createGlobal } from '../../global/createGlobal'
-import { printEmptyLine, printContract, printMessage, printError } from './printContract'
-import { Contract } from '../../../contract'
+import { printContract, printEmptyLine, printError, printMessage } from './printContract'
+import { AccountType, Contract } from '../../../contract'
 import { type SendOptions, validate } from './validate'
 
 export async function giverInfo (config: VendeeConfig, network: string): Promise<void> {
@@ -16,13 +16,37 @@ export async function giverInfo (config: VendeeConfig, network: string): Promise
 
 export async function giverSend (config: VendeeConfig, network: string, options: SendOptions): Promise<void> {
   const sendParameters = validate(options)
-
   const global = await createGlobal(config, network)
   const giver = global.giver
   const target = new Contract({ address: options.to }, {
     client: global.client
   })
 
+  ////////////////////////
+  // Check giver active //
+  ////////////////////////
+  const giverAccountType = (await giver.contract.accountType()).toString()
+  if (giverAccountType !== AccountType.active) {
+    global.client.close()
+    await printError('Giver is not active')
+    await printContract(giver.contract)
+    return
+  }
+
+  /////////////////////////
+  // Check giver balance //
+  /////////////////////////
+  const balance = await giver.contract.balance()
+  if (balance <= sendParameters.value) {
+    global.client.close()
+    await printError('Not enough balance on giver')
+    await printContract(giver.contract)
+    return
+  }
+
+  /////////////
+  // Execute //
+  /////////////
   try {
     await printContract(giver.contract)
     await printEmptyLine()
