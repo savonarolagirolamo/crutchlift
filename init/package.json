@@ -33,7 +33,8 @@
   },
   "dependencies": {
     "mocha": "^10.2.0",
-    "vendee": "^1.0.19"
+    "vendee": "^1.1.0",
+    "vendee-keys": "^1.0.1"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",

@@ -1,8 +1,10 @@
 import { Counter } from '../build'
-import { B, Global, namedKeys } from 'vendee'
+import { Global } from 'vendee'
+import { namedKeys } from 'vendee-keys'
 
 async function main (): Promise<void> {
-  const counter = new Counter( { keys: await namedKeys('counter')})
+  const keys = await namedKeys('counter')
+  const counter = new Counter( { keys })
   console.log(await counter.address())
   console.log(await counter.balance())
   Global.client?.close()
