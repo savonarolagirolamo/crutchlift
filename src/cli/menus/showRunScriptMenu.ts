@@ -72,6 +72,7 @@ export async function showRunScriptMenu (
     default:
       if (directories.has(choice))
         await showRunScriptMenu(config, network, `${directory}/${directories.get(choice) ?? ''}`)
-      await run(config, `${directory}/${files.get(choice) ?? ''}`, network, true)
+      else
+        await run(config, `${directory}/${files.get(choice) ?? ''}`, network, true)
   }
 }
