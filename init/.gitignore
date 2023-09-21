@@ -1,13 +1,16 @@
-node_modules
+# Package manager files
+node_modules/
+.yarn/
+.pnp.*
 
 # Contract keys
-keys
+keys/
 
 # Last build information
-cache
+cache/
 
 # Compiled TypeScript files from build directory
-dist
+dist/
 
 # URL to endpoins and other private settings
 .env
