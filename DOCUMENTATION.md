@@ -17,7 +17,7 @@
 * [Network](#network)
   * [Where to get endpoints](#where-to-get-endpoints)
   * [Configuration](#configuration)
-    * [vendee.config.ts](#vendeeconfigts)
+    * [vasku.config.ts](#vaskuconfigts)
     * [env](#env)
     * [se-network](#se-network)
 * [Giver](#giver)
@@ -25,7 +25,7 @@
   * [Send](#send)
   * [Deploy](#deploy)
   * [Configuration](#configuration-2)
-    * [vendee.config.ts](#vendeeconfigts-2)
+    * [vasku.config.ts](#vaskuconfigts-2)
     * [SE givers](#se-givers)
     * [keys](#keys)
 * [Tests](#tests)
@@ -44,13 +44,13 @@
 ## Initialization
 
 ```shell
-npx vendee
+npx vasku
 ```
 
 ## Compilation
 
 ```shell
-npx vendee compile [options...]
+npx vasku compile [options...]
 ```
 
 * `-a, --all` - compile all contracts
@@ -58,7 +58,7 @@ npx vendee compile [options...]
 
 ### Compilation configuration
 
-You can set up compilation in `vendee.config.ts`
+You can set up compilation in `vasku.config.ts`
 
 **Example**
 
@@ -89,7 +89,7 @@ const config = {
   and [tonos-cli](https://github.com/tonlabs/tonos-cli)
 * `*Contract.ts` - contract abi and code in one TypeScript constant. You can use it
   with [Ever SDK](https://github.com/tonlabs/ever-sdk-js)
-* `*.ts` - Vendee TypeScript contract class. You can use it with [Vendee](https://github.com/kokkekpek/vendee) on server
+* `*.ts` - Contract class. You can use it with [Vasku](https://github.com/savonarolagirolamo/vasku) on server
   side or web side
 
 Compilation create `index.ts` in build directory. This file using to publish npm package
@@ -101,7 +101,7 @@ Recompile only changed files. If you change one file, then only that file, or th
 ## Clean
 
 ```shell
-npx vendee clean
+npx vasku clean
 ```
 
 Remove compilation artifacts and cache directory
@@ -113,37 +113,37 @@ Wrapper for [Simple Emulator](https://github.com/tonlabs/everdev/blob/main/docs/
 ### SE info
 
 ```shell
-npx vendee se info
+npx vasku se info
 ```
 
 ### SE version
 
 ```shell
-npx vendee se version
+npx vasku se version
 ```
 
 ### SE start
 
 ```shell
-npx vendee se start
+npx vasku se start
 ```
 
 ### SE stop
 
 ```shell
-npx vendee se stop
+npx vasku se stop
 ```
 
 ### SE reset
 
 ```shell
-npx vendee se reset
+npx vasku se reset
 ```
 
 
 ## Network
 
-[Vendee](https://github.com/kokkekpek/vendee) using [DApp GraphQL](https://github.com/tonlabs/evernode-ds) endpoints
+[Vasku](https://github.com/savonarolagirolamo/vasku) using [DApp GraphQL](https://github.com/tonlabs/evernode-ds) endpoints
 
 ### Where to get endpoints
 
@@ -155,7 +155,7 @@ npx vendee se reset
 
 ### Configuration
 
-#### vendee.config.ts
+#### vasku.config.ts
 
 ```typescript
 const config = {
@@ -181,7 +181,7 @@ VENOM_TESTNET_ENDPOINTS="https://gql-testnet.venom.foundation"
 
 #### SE network
 
-In `vendee.config.ts` you can find `se` network.
+In `vasku.config.ts` you can find `se` network.
 This network is used for local testing.
 [SE](https://github.com/tonlabs/evernode-se) run and used automatically if you don't set up a network in tests and scripts
 
@@ -190,32 +190,32 @@ This network is used for local testing.
 ### View
 
 ```shell
-npx vendee giver <network> info
+npx vasku giver <network> info
 ```
 
-* `network` - network from `vendee.config.ts` e.g `venom testnet`
+* `network` - network from `vasku.config.ts` e.g `venom testnet`
 
 ### Send
 
 ```shell
-vendee giver -t <to> -v <value> <network> send
+vasku giver -t <to> -v <value> <network> send
 ```
 
-* `network` - network from `vendee.config.ts` e.g `venom testnet`
+* `network` - network from `vasku.config.ts` e.g `venom testnet`
 * `-t, --to <to>` - address to send coins e.g. `0:0000000000000000000000000000000000000000000000000000000000000000`
 * `-v, --value <value>` - coins value e.g. `0.1`
 
 ### Deploy
 
 ```shell
-vendee giver <network> deploy
+vasku giver <network> deploy
 ```
 
-* `network` - network from `vendee.config.ts` e.g `venom testnet`
+* `network` - network from `vasku.config.ts` e.g `venom testnet`
 
 ### Configuration
 
-#### vendee.config.ts
+#### vasku.config.ts
 
 ```typescript
 const config = {
@@ -255,12 +255,12 @@ used [hardcoded keys](https://github.com/tonlabs/evernode-se/tree/master/contrac
 ## Tests
 
 ```shell
-npx vendee test -n <network> [-c] [patterns...]
+npx vasku test -n <network> [-c] [patterns...]
 ```
 
 * `patterns` - Optional. Relative paths from tests directory in [glob](https://github.com/isaacs/node-glob) format
   e.g. `**/*deploy.test.ts`
-* `-n, --network [network]` - Optional. Network from `vendee.config.ts` e.g `venom testnet`
+* `-n, --network [network]` - Optional. Network from `vasku.config.ts` e.g `venom testnet`
 * `-c, --no-compile` - Optional. Don't compile
 
 ### Out of the box
@@ -272,31 +272,31 @@ npx vendee test -n <network> [-c] [patterns...]
 ## Scripts
 
 ```shell
-npx vendee run -n <network> [-c] <script>
+npx vasku run -n <network> [-c] <script>
 ```
 
 * `script` - Optional. Relative paths from scripts directory e.g. `deploy/wallet.ts`
-* `-n, --network [network]` - Optional. Network from `vendee.config.ts` e.g `venom testnet`
+* `-n, --network [network]` - Optional. Network from `vasku.config.ts` e.g `venom testnet`
 * `-c, --no-compile` - Optional. Don't compile
 
 ### Out of the box
 
-* You can run `npx vendee run deploy` instead `npx vendee run ./deploy.ts`
+* You can run `npx vasku run deploy` instead `npx vasku run ./deploy.ts`
 * Use `se` if no network is specified
 * Starts [SE](https://github.com/tonlabs/evernode-se) if network `se` is used
 * Compile all contracts if `-c` or `--no-compile` is not set
 
 ## Configuration
 
-After project initializing in the directory you can find the file `vendee.config.ts`.
-`type Сonfig` in `vendee.config.ts` describes the structure of the config and does not allow to break it.
+After project initializing in the directory you can find the file `vasku.config.ts`.
+`type Сonfig` in `vasku.config.ts` describes the structure of the config and does not allow to break it.
 Most of the parameters in the config are optional and have a default value.
 Therefore, there is a minimum and full version of the config
 
 ### Minimum
 
 ```typescript
-import { Config } from 'vendee'
+import { Config } from 'vasku'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
@@ -318,7 +318,7 @@ export default config
 ### Full
 
 ```typescript
-import { Config } from 'vendee'
+import { Config } from 'vasku'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
@@ -524,7 +524,7 @@ export default config
 
 ## Examples
 
-* [vendee-example](https://github.com/kokkekpek/vendee-example) - simple example of using Vendee for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vendee-example)
+* [vasku-example](https://github.com/savonarolagirolamo/vasku-example) - simple example of using Vasku for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vasku-example)
 
 ### Deploy
 
