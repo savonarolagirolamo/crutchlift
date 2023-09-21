@@ -12,7 +12,7 @@ export async function createGlobal (config: VaskuConfig, network: string): Promi
   TonClient.useBinaryLibrary(libNode)
   const client = new TonClient({ network: networkConfig })
   const giver = await createGlobalGiver(config, network, client)
-  const globalVascoo = { client, giver, config }
-  Global.vasku = globalVascoo
-  return globalVascoo
+  const globalVasku = { client, giver, config }
+  Global.vasku = globalVasku
+  return globalVasku
 }

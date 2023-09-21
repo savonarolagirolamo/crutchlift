@@ -11,7 +11,7 @@ import { type VaskuConfig } from '../config/types'
 
 export async function showMainMenu (config: VaskuConfig): Promise<void> {
   const choice = await (new Select({
-    message: 'Vascoo',
+    message: 'Vasku',
     choices: [
       COMPILE,
       TEST + ELLIPSIS,

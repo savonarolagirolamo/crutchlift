@@ -39,7 +39,7 @@ npx vasku@latest
 
 ## Example
 
-* [vasku-example](https://github.com/savonarolagirolamo/vasku-example) - simple example of using Vascoo for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vasku-example)
+* [vasku-example](https://github.com/savonarolagirolamo/vasku-example) - simple example of using Vasku for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vasku-example)
 
 ## Contributing
 
