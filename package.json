@@ -1,6 +1,6 @@
 {
   "name": "vasku",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "TVM-Solidity contract development framework",
   "scripts": {
     "build": "tsc --build .",
