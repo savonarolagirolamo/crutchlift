@@ -35,19 +35,14 @@ npx vasku@latest
 
 ## Documentation
 
-[source](https://github.com/savonarolagirolamo/vasku-docs)
+[DOCUMENTATION.md](DOCUMENTATION.md)
 
-## Examples
+## Example
 
 * [vasku-example](https://github.com/savonarolagirolamo/vasku-example) - simple example of using Vascoo for contract compilation, testing and deployment published as [npm package](https://www.npmjs.com/package/vasku-example)
-* [vasku-example-web](https://github.com/savonarolagirolamo/vasku-example-web) - simple example of using [vasku-example](https://github.com/savonarolagirolamo/vasku-example) in web
-
-## Tools
-
-* [vasku-keys](https://github.com/savonarolagirolamo/vasku-keys) - methods of working with key pair
 
 ## Contributing
 
-* [Read CONTRIBUTING.md](./CONTRIBUTING.md) to view development commands
+* Read [CONTRIBUTING.md](./CONTRIBUTING.md) to view development commands
 * [Open an issue](https://github.com/savonarolagirolamo/vasku/issues/new) if you want report a bug or make a suggestion
 * **Make a pull request** if you want to add something
