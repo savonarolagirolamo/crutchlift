@@ -5,6 +5,7 @@ import { execSync } from 'child_process'
 const PATH = '../../../../init'
 const INSTALL_COMMAND = 'yarn install'
 const ENV_COMMAND = 'yarn env'
+const COPY_COMMAND = 'yarn copy'
 
 export function init (target: string = process.cwd()): void {
   copyInitFiles(target)
@@ -22,6 +23,7 @@ function installPackages (): void {
   try {
     execSync(INSTALL_COMMAND, { stdio: 'inherit' })
     execSync(ENV_COMMAND, { stdio: 'inherit' })
+    execSync(COPY_COMMAND, { stdio: 'inherit' })
   } catch (error: any) {
     console.error(error)
   }

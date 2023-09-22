@@ -29,11 +29,12 @@
   "scripts": {
     "build": "tsc --build .",
     "env": "cpy .env.example . --rename .env",
+    "copy": "cpy ignore/yarnrc.yml . --rename .yarnrc.yml && cpy ignore/gitignore . --rename .gitignore && rimraf ignore",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "mocha": "^10.2.0",
-    "vasku": "^0.0.5"
+    "vasku": "^0.0.11"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
