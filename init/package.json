@@ -29,7 +29,7 @@
   "scripts": {
     "build": "tsc --build .",
     "env": "cpy .env.example . --rename .env",
-    "copy": "cpy ignore/yarnrc.yml . --rename .yarnrc.yml && cpy ignore/gitignore . --rename .gitignore && rimraf ignore",
+    "copy": "cpy yarnrc.yml . --rename .yarnrc.yml && cpy gitignore . --rename .gitignore && rimraf yarnrc.yml gitignore",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
