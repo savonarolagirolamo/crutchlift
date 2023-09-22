@@ -1,6 +1,6 @@
 {
   "name": "vasku",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "TVM-Solidity contract development framework",
   "scripts": {
     "build": "tsc --build .",
@@ -22,7 +22,6 @@
     "build/",
     "docs/",
     "init/",
-    "init/.yarnrc.yml",
     "src/",
     "LICENSE",
     "package.json",
