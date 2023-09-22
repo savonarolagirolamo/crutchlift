@@ -3,7 +3,7 @@ import { init } from '../actions/init/init'
 import { green } from 'colors'
 
 export async function showInitMenu (): Promise<void> {
-  const YES = green('yes')
+  const YES = green('✔')
   const choice = await (new Select({
     message: 'Init project',
     choices: [
