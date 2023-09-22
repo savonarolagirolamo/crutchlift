@@ -24,6 +24,7 @@ function installPackages (): void {
     execSync(INSTALL_COMMAND, { stdio: 'inherit' })
     execSync(ENV_COMMAND, { stdio: 'inherit' })
     execSync(COPY_COMMAND, { stdio: 'inherit' })
+    execSync(INSTALL_COMMAND, { stdio: 'inherit' }) // Reinstall with node_modules
   } catch (error: any) {
     console.error(error)
   }
