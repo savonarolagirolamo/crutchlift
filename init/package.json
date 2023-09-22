@@ -13,9 +13,7 @@
     "package.json",
     "README.md",
     "tsconfig.json",
-    "yarn.lock",
-    ".yarnrc.yml",
-    ".gitignore"
+    "yarn.lock"
   ],
   "keywords": [
     "Vasku",
